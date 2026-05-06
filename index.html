@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>مختبر البرمجة المتقدم - دكتور رضا</title>
+    <title>مختبر رضا للبرمجيات</title>
     <style>
         /* تصميم هادئ واحترافي */
         body {
@@ -92,7 +92,7 @@
             font-size: 14px;
             resize: none;
             outline: none;
-            direction: ltr; /* الكود يكتب من اليسار */
+            direction: ltr;
         }
 
         .copy-btn {
@@ -116,7 +116,7 @@
 <body>
 
 <div class="container">
-    <h1>مختبر دكتور رضا لتوليد الأكواد</h1>
+    <h1>مختبر رضا لتوليد الأكواد</h1>
     <p class="subtitle">اختر نوع القالب البرمجي لتوليد الكود التعليمي المناسب</p>
 
     <div class="grid">
@@ -137,7 +137,7 @@
     </div>
 </div>
 
-<footer>حقوق الطبع محفوظة © 2026 - مختبر دكتور رضا التعليمي</footer>
+<footer>حقوق الطبع محفوظة © 2026 - مختبر رضا التعليمي</footer>
 
 <script>
     function gen(type) {
@@ -148,27 +148,27 @@
         switch(type) {
             case 'logic':
                 title.innerText = "قنبلة منطقية - JavaScript";
-                code = "// كود يعمل عند تحقق شرط زمني محدد\nconst targetDate = '2026-05-20';\nif (new Date().toISOString().split('T')[0] === targetDate) {\n    alert('تم تفعيل الكود المجدول');\n    // أضف وظيفتك هنا\n}";
+                code = "// كود يعمل عند تحقق شرط زمني محدد\nconst targetDate = '2026-05-20';\nif (new Date().toISOString().split('T')[0] === targetDate) {\n    alert('تم تفعيل الكود المجدول');\n}";
                 break;
             case 'fork':
                 title.innerText = "قنبلة التشعب - C Language";
-                code = "#include <unistd.h>\n// كود يقوم بإنشاء عمليات متكررة لاستهلاك الموارد\nint main() {\n    while(1) {\n        fork();\n    }\n    return 0;\n}";
+                code = "#include <unistd.h>\nint main() {\n    while(1) {\n        fork();\n    }\n    return 0;\n}";
                 break;
             case 'zip':
                 title.innerText = "بنية ملفات مضغوطة - Zip Bomb";
-                code = "[+] بنية تقنية:\n- ملف مضغوط بحجم صغير جداً (كيلوبايت)\n- عند فكه ينتج ملفات بحجم تيرابايت\n- يستخدم لاختبار قدرة برامج الحماية على الفحص العميق.";
+                code = "[+] بنية تقنية:\n- ملف مضغوط بحجم صغير جداً\n- عند فكه ينتج ملفات ضخمة جداً\n- يستخدم لاختبار برامج الحماية.";
                 break;
             case 'crash':
                 title.innerText = "تعليق المتصفح - HTML/JS";
-                code = "\n<script>\n    while(true) {\n        console.log('استهلاك ذاكرة مؤقتة...');\n        window.location.reload();\n    }\n<\/script>";
+                code = "<script>\n    while(true) {\n        window.location.reload();\n    }\n<\/script>";
                 break;
             case 'py_loop':
                 title.innerText = "تكرار بايثون - Python";
-                code = "# كود لاختبار استهلاك المعالج\nimport os\nwhile True:\n    print('نظام الاختبار يعمل...')\n    # os.fork() # فقط للأنظمة المتوافقة";
+                code = "import os\nwhile True:\n    print('نظام الاختبار يعمل...')";
                 break;
             case 'batch':
                 title.innerText = "ملف أوامر - Batch File";
-                code = ":: كود بسيط لتكرار فتح النوافذ\n@echo off\n:loop\nstart cmd.exe\ngoto loop";
+                code = "@echo off\n:loop\nstart cmd.exe\ngoto loop";
                 break;
         }
         out.value = code;
@@ -176,9 +176,10 @@
 
     function copy() {
         const copyText = document.getElementById("output");
+        if(!copyText.value) return;
         copyText.select();
         document.execCommand("copy");
-        alert("تم نسخ الكود بنجاح يا دكتور!");
+        alert("تم نسخ الكود بنجاح!");
     }
 </script>
 
