@@ -2,184 +2,177 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>مختبر رضا للبرمجيات</title>
+    <title>مختبر رضا التعليمي | Reda Cyber Lab</title>
     <style>
-        /* تصميم هادئ واحترافي */
+        :root {
+            --bg: #121212;
+            --container-bg: #1e1e1e;
+            --primary: #81d4fa;
+            --accent: #ff9800;
+            --success: #4caf50;
+            --error: #ff5252;
+        }
+
         body {
-            background-color: #121212;
+            background-color: var(--bg);
             color: #e0e0e0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
             margin: 0;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            padding: 40px 20px;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
         .container {
-            width: 100%;
-            max-width: 1000px;
-            background: #1e1e1e;
+            width: 90%;
+            max-width: 900px;
+            background: var(--container-bg);
             padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-            border: 1px solid #333;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 1;
         }
 
-        h1 {
-            color: #81d4fa;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        p.subtitle {
-            text-align: center;
-            color: #aaa;
-            margin-bottom: 30px;
-        }
-
-        /* شبكة الأزرار */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .btn {
-            background: #2c2c2c;
-            color: #81d4fa;
-            border: 1px solid #444;
+        /* زر تعلم الجانبي */
+        .learn-toggle {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--accent);
+            color: #000;
+            border: none;
             padding: 15px;
-            border-radius: 8px;
+            border-radius: 50px;
             cursor: pointer;
             font-weight: bold;
-            transition: all 0.3s;
-            text-align: center;
+            box-shadow: 0 0 15px rgba(255,152,0,0.4);
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            z-index: 100;
         }
 
-        .btn:hover {
-            background: #81d4fa;
-            color: #121212;
-            border-color: #81d4fa;
-        }
-
-        /* منطقة الأكواد */
-        .code-area {
-            position: relative;
-            background: #000;
-            border-radius: 8px;
+        /* القائمة الجانبية للشرح */
+        .sidebar {
+            position: fixed;
+            left: -400px;
+            top: 0;
+            width: 350px;
+            height: 100%;
+            background: #161616;
+            border-right: 2px solid var(--accent);
+            transition: 0.4s;
+            z-index: 1000;
             padding: 20px;
-            border: 1px solid #333;
+            overflow-y: auto;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.7);
         }
 
-        .code-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #222;
-            padding-bottom: 10px;
+        .sidebar.active { left: 0; }
+
+        h1, h2 { color: var(--primary); text-align: center; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 20px; }
+        
+        .btn {
+            background: #2c2c2c;
+            color: var(--primary);
+            border: 1px solid #444;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.3s;
         }
+        .btn:hover { background: var(--primary); color: #000; }
 
         textarea {
             width: 100%;
-            height: 350px;
-            background: transparent;
-            color: #cfd8dc;
-            border: none;
-            font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 14px;
-            resize: none;
-            outline: none;
+            height: 150px;
+            background: #000;
+            color: var(--success);
+            border: 1px solid #333;
+            padding: 15px;
+            font-family: monospace;
             direction: ltr;
         }
 
-        .copy-btn {
-            background: #4caf50;
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 4px;
-            cursor: pointer;
+        .info-card {
+            background: #252525;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-right: 4px solid var(--accent);
         }
 
-        .copy-btn:hover { background: #45a049; }
-
-        footer {
-            margin-top: 30px;
-            color: #666;
-            font-size: 13px;
+        .info-card h3 { color: var(--accent); margin-top: 0; }
+        .protection-code {
+            background: #000;
+            color: var(--primary);
+            padding: 10px;
+            font-size: 0.8rem;
+            border-radius: 5px;
+            display: block;
+            margin-top: 10px;
+            white-space: pre-wrap;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>مختبر رضا لتوليد الأكواد</h1>
-    <p class="subtitle">اختر نوع القالب البرمجي لتوليد الكود التعليمي المناسب</p>
+<button class="learn-toggle" onclick="toggleSidebar()">📖 تـعلـم الآن</button>
 
-    <div class="grid">
-        <div class="btn" onclick="gen('logic')">قنبلة منطقية (JS)</div>
-        <div class="btn" onclick="gen('fork')">قنبلة التشعب (C)</div>
-        <div class="btn" onclick="gen('zip')">قنبلة الملفات (Structure)</div>
-        <div class="btn" onclick="gen('crash')">قفل المتصفح (HTML)</div>
-        <div class="btn" onclick="gen('py_loop')">تكرار لانهائي (Python)</div>
-        <div class="btn" onclick="gen('batch')">قنبلة الأوامر (Windows)</div>
+<div class="sidebar" id="sidebar">
+    <button onclick="toggleSidebar()" style="background:var(--error); color:#white; border:none; border-radius:5px; cursor:pointer;">إغلاق X</button>
+    <h2>دليل الحماية والتشغيل</h2>
+    
+    <div class="info-card">
+        <h3>1. القنبلة المنطقية</h3>
+        <p><b>الوصف:</b> كود ينتظر تاريخاً معيناً ليعمل.</p>
+        <p><b>كيفية الإيقاف:</b> فحص الأكواد المجدولة ومنع تنفيذ العمليات بناءً على تاريخ النظام الخارجي.</p>
+        <span class="protection-code">// كود حماية (فحص الصلاحية):\nif(typeof scriptAction !== 'undefined') validate(scriptAction);</span>
     </div>
 
-    <div class="code-area">
-        <div class="code-header">
-            <span id="code-title">بانتظار اختيارك...</span>
-            <button class="copy-btn" onclick="copy()">نسخ الكود</button>
-        </div>
-        <textarea id="output" readonly></textarea>
+    <div class="info-card">
+        <h3>2. قنبلة التشعب (Fork)</h3>
+        <p><b>الوصف:</b> تكرار العمليات حتى ينهار المعالج.</p>
+        <p><b>كيفية الإيقاف:</b> تحديد عدد العمليات المسموح بها للمستخدم (Process Limit).</p>
+        <span class="protection-code"># حماية لينكس (Limits.conf):\n* hard nproc 100</span>
+    </div>
+
+    <div class="info-card">
+        <h3>3. ملف الأوامر (Batch)</h3>
+        <p><b>الوصف:</b> فتح نوافذ CMD بلا نهاية.</p>
+        <p><b>كيفية الإيقاف:</b> منع تنفيذ ملفات .bat من مصادر غير معروفة وتعطيل الـ Scripting في الصلاحيات.</p>
     </div>
 </div>
 
-<footer>حقوق الطبع محفوظة © 2026 - مختبر رضا التعليمي</footer>
+<div class="container">
+    <h1>مختبر رضا للبرمجيات</h1>
+    <div class="grid">
+        <div class="btn" onclick="gen('logic')">قنبلة منطقية</div>
+        <div class="btn" onclick="gen('fork')">قنبلة التشعب</div>
+        <div class="btn" onclick="gen('batch')">ملف أوامر</div>
+    </div>
+    <textarea id="output" readonly placeholder="اختر نوعاً لرؤية الكود..."></textarea>
+    <p style="text-align:center; font-size:12px; color:#666;">اضغط على "تعلم الآن" في الجانب لفهم كيفية عمل هذه الأكواد وحماية جهازك.</p>
+</div>
 
 <script>
-    function gen(type) {
-        const out = document.getElementById('output');
-        const title = document.getElementById('code-title');
-        let code = "";
-
-        switch(type) {
-            case 'logic':
-                title.innerText = "قنبلة منطقية - JavaScript";
-                code = "// كود يعمل عند تحقق شرط زمني محدد\nconst targetDate = '2026-05-20';\nif (new Date().toISOString().split('T')[0] === targetDate) {\n    alert('تم تفعيل الكود المجدول');\n}";
-                break;
-            case 'fork':
-                title.innerText = "قنبلة التشعب - C Language";
-                code = "#include <unistd.h>\nint main() {\n    while(1) {\n        fork();\n    }\n    return 0;\n}";
-                break;
-            case 'zip':
-                title.innerText = "بنية ملفات مضغوطة - Zip Bomb";
-                code = "[+] بنية تقنية:\n- ملف مضغوط بحجم صغير جداً\n- عند فكه ينتج ملفات ضخمة جداً\n- يستخدم لاختبار برامج الحماية.";
-                break;
-            case 'crash':
-                title.innerText = "تعليق المتصفح - HTML/JS";
-                code = "<script>\n    while(true) {\n        window.location.reload();\n    }\n<\/script>";
-                break;
-            case 'py_loop':
-                title.innerText = "تكرار بايثون - Python";
-                code = "import os\nwhile True:\n    print('نظام الاختبار يعمل...')";
-                break;
-            case 'batch':
-                title.innerText = "ملف أوامر - Batch File";
-                code = "@echo off\n:loop\nstart cmd.exe\ngoto loop";
-                break;
-        }
-        out.value = code;
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('active');
     }
 
-    function copy() {
-        const copyText = document.getElementById("output");
-        if(!copyText.value) return;
-        copyText.select();
-        document.execCommand("copy");
-        alert("تم نسخ الكود بنجاح!");
+    function gen(type) {
+        const out = document.getElementById('output');
+        let codes = {
+            'logic': "// Logic Bomb\nif(Date.now() > 1767139200000) { \n  alert('Condition Met'); \n}",
+            'fork': "/* Fork Bomb (C) */\nwhile(1) { fork(); }",
+            'batch': "@echo off\n:x\nstart\ngoto x"
+        };
+        out.value = codes[type];
     }
 </script>
 
