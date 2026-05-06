@@ -2,58 +2,190 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>Reda Cyber Lab | مختبر رضا التقني</title>
+    <title>REDA BOMB V2 | نـظام الـتولـيد الـمتقدم</title>
     <style>
-        body { background-color: #0d1117; color: #58a6ff; font-family: 'Courier New', monospace; padding: 20px; text-align: center; }
-        .container { border: 2px solid #238636; border-radius: 10px; padding: 20px; background: #161b22; display: inline-block; width: 90%; max-width: 800px; box-shadow: 0 0 20px rgba(35, 134, 54, 0.3); }
-        h1 { color: #238636; text-shadow: 0 0 10px #238636; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
-        .btn-bomb { background: #21262d; color: #f0f6fc; border: 1px solid #30363d; padding: 15px; border-radius: 6px; cursor: pointer; transition: 0.3s; font-weight: bold; }
-        .btn-bomb:hover { background: #238636; border-color: #2ea043; transform: scale(1.05); }
-        textarea { width: 100%; height: 300px; margin-top: 25px; background: #010409; color: #7ee787; border: 1px solid #30363d; padding: 15px; font-size: 14px; border-radius: 5px; resize: none; }
-        .label { margin-bottom: 10px; display: block; color: #8b949e; }
+        /* إعدادات الخلفية والخطوط */
+        body {
+            background-color: #050505;
+            background-image: radial-gradient(circle, #1a1a2e 0%, #050505 100%);
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* الحاوية الرئيسية بنظام الزجاج (Glassmorphism) */
+        .main-panel {
+            background: rgba(13, 17, 23, 0.8);
+            border: 1px solid #ff00ff;
+            border-radius: 20px;
+            padding: 40px;
+            width: 90%;
+            max-width: 900px;
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.2), inset 0 0 15px rgba(0, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #00ffff;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px #00ffff, 0 0 20px #ff00ff;
+        }
+
+        /* تنسيق شبكة الأزرار */
+        .bomb-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .bomb-card {
+            background: #111;
+            border: 2px solid #333;
+            padding: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* تأثيرات النيون عند التمرير */
+        .bomb-card:hover {
+            border-color: #ff00ff;
+            box-shadow: 0 0 20px #ff00ff;
+            transform: translateY(-5px);
+        }
+
+        .bomb-card h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #ff00ff;
+        }
+
+        .bomb-card p {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        /* منطقة الأكواد (Terminal) */
+        .code-display {
+            background: #000;
+            border: 1px solid #00ffff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        textarea {
+            width: 100%;
+            height: 250px;
+            background: transparent;
+            border: none;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1rem;
+            resize: none;
+            outline: none;
+        }
+
+        /* زر النسخ السريع */
+        .copy-btn {
+            background: #00ffff;
+            color: #000;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #ff00ff;
+            color: #fff;
+            box-shadow: 0 0 15px #ff00ff;
+        }
+
+        .status-bar {
+            font-size: 0.7rem;
+            color: #444;
+            margin-top: 20px;
+            text-transform: uppercase;
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>[ R-BOMB GENERATOR V1.0 ]</h1>
-    <span class="label">اختر نوع القالب البرمجي لتوليد الكود التلقائي:</span>
-
-    <div class="grid">
-        <button class="btn-bomb" onclick="generate('logic')">Logic Bomb (JS)</button>
-        <button class="btn-bomb" onclick="generate('fork')">Fork Template (C)</button>
-        <button class="btn-bomb" onclick="generate('loop')">Infinite Loop (Py)</button>
-        <button class="btn-bomb" onclick="generate('crash')">Page Crasher (HTML)</button>
+<div class="main-panel">
+    <h1>REDA BOMB <span style="color:#ff00ff">V2</span></h1>
+    
+    <div class="bomb-grid">
+        <div class="bomb-card" onclick="generate('logic')">
+            <h3>Logic Bomb</h3>
+            <p>JavaScript Template</p>
+        </div>
+        <div class="bomb-card" onclick="generate('fork')">
+            <h3>Fork Bomb</h3>
+            <p>C/C++ Template</p>
+        </div>
+        <div class="bomb-card" onclick="generate('zip')">
+            <h3>Zip Bomb</h3>
+            <p>Structure Data</p>
+        </div>
+        <div class="bomb-card" onclick="generate('crash')">
+            <h3>Browser Crash</h3>
+            <p>HTML/JS Loop</p>
+        </div>
     </div>
 
-    <textarea id="terminal" placeholder="في انتظار اختيار النوع..."></textarea>
-    
-    <p style="font-size: 12px; color: #f85149; margin-top: 15px;">* تنبيه: هذه الأكواد لأغراض تعليمية واختبار البيئات البرمجية فقط.</p>
+    <div class="code-display">
+        <textarea id="output" readonly placeholder="[+] اختر نوع القنبلة لتوليد الكود..."></textarea>
+    </div>
+
+    <button class="copy-btn" onclick="copyCode()">نسخ الكود المولد</button>
+
+    <div class="status-bar">
+        System Status: Online | Encrypted Connection: Yes | Developer: Reda
+    </div>
 </div>
 
 <script>
-function generate(type) {
-    let code = "";
-    const time = new Date().toLocaleTimeString();
+    function generate(type) {
+        const output = document.getElementById('output');
+        let code = "";
 
-    switch(type) {
-        case 'logic':
-            code = `// Logic Bomb Template (Educational Purpose)\n// Fires when a specific condition is met\n\nconst triggerDate = "2026-12-31";\nif (new Date().toISOString().slice(0, 10) === triggerDate) {\n    console.log("Condition met: Executing scheduled task...");\n    // Insert your test function here\n}`;
-            break;
-        case 'fork':
-            code = `/* Fork Bomb Concept (C Language) */\n/* Warning: For educational analysis in VM only */\n\n#include <unistd.h>\nint main() {\n  while(1) {\n    fork(); \n  }\n  return 0;\n}`;
-            break;
-        case 'loop':
-            code = `# Python Infinite Loop Test\n# Used for CPU stress testing\n\nwhile True:\n    print("System Stress Test in Progress...")`;
-            break;
-        case 'crash':
-            code = `\n<script>\n  while(true) {\n    alert("Memory Test");\n  }\n<\/script>`;
-            break;
+        if(type === 'logic') {
+            code = "// Logic Bomb: Executes only when date is 2026-10-10\nif (Date.now() > new Date('2026-10-10')) {\n  console.log('System Cleanup Started...');\n}";
+        } else if(type === 'fork') {
+            code = "#include <unistd.h>\nint main() {\n  while(1) fork();\n  return 0;\n}";
+        } else if(type === 'zip') {
+            code = "[Zip Bomb Structure Concept]\n42.zip -> Uncompresses to 4.5 Petabytes\nContains nested layers of zero-filled files.";
+        } else if(type === 'crash') {
+            code = "<script>\nwhile(true) {\n  var p = window.open('');\n  p.document.write('Memory Fill');\n}\n<\/script>";
+        }
+
+        output.value = `/* GENERATED BY REDA LAB V2 */\n/* TYPE: ${type.toUpperCase()} */\n\n${code}`;
     }
 
-    document.getElementById('terminal').value = `[+] Generated at: ${time}\n[+] Type: ${type.toUpperCase()}\n--------------------------------------\n\n${code}`;
-}
+    function copyCode() {
+        const text = document.getElementById('output');
+        text.select();
+        document.execCommand('copy');
+        alert('تم نسخ الكود بنجاح!');
+    }
 </script>
 
 </body>
