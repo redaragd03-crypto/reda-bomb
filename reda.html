@@ -2,34 +2,59 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>Reda Lab | مختبر دكتور رضا</title>
+    <title>Reda Cyber Lab | مختبر رضا التقني</title>
     <style>
-        body { background: #0a0a0a; color: #00ff41; font-family: monospace; text-align: center; padding: 50px; }
-        .box { border: 2px solid #00ff41; padding: 20px; border-radius: 10px; display: inline-block; background: #000; box-shadow: 0 0 15px #00ff41; }
-        input { background: #111; color: #00ff41; border: 1px solid #00ff41; padding: 10px; margin: 10px; width: 80%; }
-        button { background: #00ff41; color: #000; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; }
-        button:hover { background: #008f11; color: white; }
-        textarea { width: 90%; margin-top: 20px; background: #000; color: #00ff41; border: 1px dotted #00ff41; }
+        body { background-color: #0d1117; color: #58a6ff; font-family: 'Courier New', monospace; padding: 20px; text-align: center; }
+        .container { border: 2px solid #238636; border-radius: 10px; padding: 20px; background: #161b22; display: inline-block; width: 90%; max-width: 800px; box-shadow: 0 0 20px rgba(35, 134, 54, 0.3); }
+        h1 { color: #238636; text-shadow: 0 0 10px #238636; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .btn-bomb { background: #21262d; color: #f0f6fc; border: 1px solid #30363d; padding: 15px; border-radius: 6px; cursor: pointer; transition: 0.3s; font-weight: bold; }
+        .btn-bomb:hover { background: #238636; border-color: #2ea043; transform: scale(1.05); }
+        textarea { width: 100%; height: 300px; margin-top: 25px; background: #010409; color: #7ee787; border: 1px solid #30363d; padding: 15px; font-size: 14px; border-radius: 5px; resize: none; }
+        .label { margin-bottom: 10px; display: block; color: #8b949e; }
     </style>
 </head>
 <body>
-    <div class="box">
-        <h2>[+] مـوَلـد المـواقـع التـلقـائي [+]</h2>
-        <p>أدخل اسم الموقع الذي تريد بناءه:</p>
-        <input type="text" id="targetName" placeholder="مثلاً: موقع التحدي">
-        <br>
-        <button onclick="generate()">تـولـيـد الـكـود</button>
-        <br>
-        <textarea id="result" rows="8" readonly></textarea>
+
+<div class="container">
+    <h1>[ R-BOMB GENERATOR V1.0 ]</h1>
+    <span class="label">اختر نوع القالب البرمجي لتوليد الكود التلقائي:</span>
+
+    <div class="grid">
+        <button class="btn-bomb" onclick="generate('logic')">Logic Bomb (JS)</button>
+        <button class="btn-bomb" onclick="generate('fork')">Fork Template (C)</button>
+        <button class="btn-bomb" onclick="generate('loop')">Infinite Loop (Py)</button>
+        <button class="btn-bomb" onclick="generate('crash')">Page Crasher (HTML)</button>
     </div>
 
-    <script>
-        function generate() {
-            const name = document.getElementById('targetName').value || "Reda Project";
-            const code = `\n<html>\n<head><title>${name}</title></head>\n<body style='background:black; color:red; text-align:center;'>\n<h1>Target: ${name}</h1>\n<p>Status: Ready</p>\n</body>\n</html>`;
-            document.getElementById('result').value = code;
-            alert("تم توليد كود الموقع بنجاح!");
-        }
-    </script>
+    <textarea id="terminal" placeholder="في انتظار اختيار النوع..."></textarea>
+    
+    <p style="font-size: 12px; color: #f85149; margin-top: 15px;">* تنبيه: هذه الأكواد لأغراض تعليمية واختبار البيئات البرمجية فقط.</p>
+</div>
+
+<script>
+function generate(type) {
+    let code = "";
+    const time = new Date().toLocaleTimeString();
+
+    switch(type) {
+        case 'logic':
+            code = `// Logic Bomb Template (Educational Purpose)\n// Fires when a specific condition is met\n\nconst triggerDate = "2026-12-31";\nif (new Date().toISOString().slice(0, 10) === triggerDate) {\n    console.log("Condition met: Executing scheduled task...");\n    // Insert your test function here\n}`;
+            break;
+        case 'fork':
+            code = `/* Fork Bomb Concept (C Language) */\n/* Warning: For educational analysis in VM only */\n\n#include <unistd.h>\nint main() {\n  while(1) {\n    fork(); \n  }\n  return 0;\n}`;
+            break;
+        case 'loop':
+            code = `# Python Infinite Loop Test\n# Used for CPU stress testing\n\nwhile True:\n    print("System Stress Test in Progress...")`;
+            break;
+        case 'crash':
+            code = `\n<script>\n  while(true) {\n    alert("Memory Test");\n  }\n<\/script>`;
+            break;
+    }
+
+    document.getElementById('terminal').value = `[+] Generated at: ${time}\n[+] Type: ${type.toUpperCase()}\n--------------------------------------\n\n${code}`;
+}
+</script>
+
 </body>
 </html>
