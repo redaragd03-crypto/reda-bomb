@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>مركز المطور رضا - مولد المواقع</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a2e;
+            color: #ffffff;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            background-color: #16213e;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            display: inline-block;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+        button {
+            background-color: #e94560;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover { background-color: #ff2e63; }
+        textarea {
+            width: 100%;
+            margin-top: 20px;
+            background: #0f3460;
+            color: #00ff41; /* لون Terminal */
+            border: 1px solid #533483;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>مرحباً بك في مختبر البرمجة</h1>
+        <p>أدخل بيانات الموقع الذي تريد توليد الكود الخاص به:</p>
+        
+        <input type="text" id="siteName" placeholder="اسم الموقع الجديد">
+        <br>
+        <button onclick="buildSite()">إنشاء الكود الجاهز</button>
+
+        <textarea id="output" rows="10" placeholder="الكود البرمجي سيظهر هنا..."></textarea>
+    </div>
+
+    <script>
+        function buildSite() {
+            const name = document.getElementById('siteName').value || "موقعي";
+            const code = `<!DOCTYPE html>\n<html>\n<head><title>${name}</title></head>\n<body><h1>تم إنشاء ${name} بنجاح!</h1></body>\n</html>`;
+            document.getElementById('output').value = code;
+        }
+    </script>
+</body>
+</html>
