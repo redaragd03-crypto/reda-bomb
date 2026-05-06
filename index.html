@@ -2,189 +2,183 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>REDA BOMB V2 | نـظام الـتولـيد الـمتقدم</title>
+    <title>مختبر البرمجة المتقدم - دكتور رضا</title>
     <style>
-        /* إعدادات الخلفية والخطوط */
+        /* تصميم هادئ واحترافي */
         body {
-            background-color: #050505;
-            background-image: radial-gradient(circle, #1a1a2e 0%, #050505 100%);
-            color: #fff;
+            background-color: #121212;
+            color: #e0e0e0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
+            padding: 40px 20px;
         }
 
-        /* الحاوية الرئيسية بنظام الزجاج (Glassmorphism) */
-        .main-panel {
-            background: rgba(13, 17, 23, 0.8);
-            border: 1px solid #ff00ff;
-            border-radius: 20px;
-            padding: 40px;
-            width: 90%;
-            max-width: 900px;
-            box-shadow: 0 0 30px rgba(255, 0, 255, 0.2), inset 0 0 15px rgba(0, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            text-align: center;
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            background: #1e1e1e;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            border: 1px solid #333;
         }
 
         h1 {
-            font-size: 3rem;
-            color: #00ffff;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            margin-bottom: 30px;
-            text-shadow: 0 0 10px #00ffff, 0 0 20px #ff00ff;
+            color: #81d4fa;
+            text-align: center;
+            margin-bottom: 10px;
         }
 
-        /* تنسيق شبكة الأزرار */
-        .bomb-grid {
+        p.subtitle {
+            text-align: center;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        /* شبكة الأزرار */
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
             margin-bottom: 30px;
         }
 
-        .bomb-card {
-            background: #111;
-            border: 2px solid #333;
-            padding: 20px;
-            border-radius: 12px;
+        .btn {
+            background: #2c2c2c;
+            color: #81d4fa;
+            border: 1px solid #444;
+            padding: 15px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.4s ease;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: #81d4fa;
+            color: #121212;
+            border-color: #81d4fa;
+        }
+
+        /* منطقة الأكواد */
+        .code-area {
             position: relative;
-            overflow: hidden;
-        }
-
-        /* تأثيرات النيون عند التمرير */
-        .bomb-card:hover {
-            border-color: #ff00ff;
-            box-shadow: 0 0 20px #ff00ff;
-            transform: translateY(-5px);
-        }
-
-        .bomb-card h3 {
-            margin: 0;
-            font-size: 1.2rem;
-            color: #ff00ff;
-        }
-
-        .bomb-card p {
-            font-size: 0.8rem;
-            color: #888;
-            margin-top: 10px;
-        }
-
-        /* منطقة الأكواد (Terminal) */
-        .code-display {
             background: #000;
-            border: 1px solid #00ffff;
-            border-radius: 10px;
+            border-radius: 8px;
             padding: 20px;
-            margin-top: 20px;
-            position: relative;
+            border: 1px solid #333;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #222;
+            padding-bottom: 10px;
         }
 
         textarea {
             width: 100%;
-            height: 250px;
+            height: 350px;
             background: transparent;
+            color: #cfd8dc;
             border: none;
-            color: #00ff00;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1rem;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
             resize: none;
             outline: none;
+            direction: ltr; /* الكود يكتب من اليسار */
         }
 
-        /* زر النسخ السريع */
         .copy-btn {
-            background: #00ffff;
-            color: #000;
+            background: #4caf50;
+            color: white;
             border: none;
-            padding: 10px 25px;
-            border-radius: 50px;
-            font-weight: bold;
+            padding: 8px 20px;
+            border-radius: 4px;
             cursor: pointer;
-            margin-top: 20px;
-            transition: 0.3s;
         }
 
-        .copy-btn:hover {
-            background: #ff00ff;
-            color: #fff;
-            box-shadow: 0 0 15px #ff00ff;
-        }
+        .copy-btn:hover { background: #45a049; }
 
-        .status-bar {
-            font-size: 0.7rem;
-            color: #444;
-            margin-top: 20px;
-            text-transform: uppercase;
+        footer {
+            margin-top: 30px;
+            color: #666;
+            font-size: 13px;
         }
     </style>
 </head>
 <body>
 
-<div class="main-panel">
-    <h1>REDA BOMB <span style="color:#ff00ff">V2</span></h1>
-    
-    <div class="bomb-grid">
-        <div class="bomb-card" onclick="generate('logic')">
-            <h3>Logic Bomb</h3>
-            <p>JavaScript Template</p>
-        </div>
-        <div class="bomb-card" onclick="generate('fork')">
-            <h3>Fork Bomb</h3>
-            <p>C/C++ Template</p>
-        </div>
-        <div class="bomb-card" onclick="generate('zip')">
-            <h3>Zip Bomb</h3>
-            <p>Structure Data</p>
-        </div>
-        <div class="bomb-card" onclick="generate('crash')">
-            <h3>Browser Crash</h3>
-            <p>HTML/JS Loop</p>
-        </div>
+<div class="container">
+    <h1>مختبر دكتور رضا لتوليد الأكواد</h1>
+    <p class="subtitle">اختر نوع القالب البرمجي لتوليد الكود التعليمي المناسب</p>
+
+    <div class="grid">
+        <div class="btn" onclick="gen('logic')">قنبلة منطقية (JS)</div>
+        <div class="btn" onclick="gen('fork')">قنبلة التشعب (C)</div>
+        <div class="btn" onclick="gen('zip')">قنبلة الملفات (Structure)</div>
+        <div class="btn" onclick="gen('crash')">قفل المتصفح (HTML)</div>
+        <div class="btn" onclick="gen('py_loop')">تكرار لانهائي (Python)</div>
+        <div class="btn" onclick="gen('batch')">قنبلة الأوامر (Windows)</div>
     </div>
 
-    <div class="code-display">
-        <textarea id="output" readonly placeholder="[+] اختر نوع القنبلة لتوليد الكود..."></textarea>
-    </div>
-
-    <button class="copy-btn" onclick="copyCode()">نسخ الكود المولد</button>
-
-    <div class="status-bar">
-        System Status: Online | Encrypted Connection: Yes | Developer: Reda
+    <div class="code-area">
+        <div class="code-header">
+            <span id="code-title">بانتظار اختيارك...</span>
+            <button class="copy-btn" onclick="copy()">نسخ الكود</button>
+        </div>
+        <textarea id="output" readonly></textarea>
     </div>
 </div>
 
+<footer>حقوق الطبع محفوظة © 2026 - مختبر دكتور رضا التعليمي</footer>
+
 <script>
-    function generate(type) {
-        const output = document.getElementById('output');
+    function gen(type) {
+        const out = document.getElementById('output');
+        const title = document.getElementById('code-title');
         let code = "";
 
-        if(type === 'logic') {
-            code = "// Logic Bomb: Executes only when date is 2026-10-10\nif (Date.now() > new Date('2026-10-10')) {\n  console.log('System Cleanup Started...');\n}";
-        } else if(type === 'fork') {
-            code = "#include <unistd.h>\nint main() {\n  while(1) fork();\n  return 0;\n}";
-        } else if(type === 'zip') {
-            code = "[Zip Bomb Structure Concept]\n42.zip -> Uncompresses to 4.5 Petabytes\nContains nested layers of zero-filled files.";
-        } else if(type === 'crash') {
-            code = "<script>\nwhile(true) {\n  var p = window.open('');\n  p.document.write('Memory Fill');\n}\n<\/script>";
+        switch(type) {
+            case 'logic':
+                title.innerText = "قنبلة منطقية - JavaScript";
+                code = "// كود يعمل عند تحقق شرط زمني محدد\nconst targetDate = '2026-05-20';\nif (new Date().toISOString().split('T')[0] === targetDate) {\n    alert('تم تفعيل الكود المجدول');\n    // أضف وظيفتك هنا\n}";
+                break;
+            case 'fork':
+                title.innerText = "قنبلة التشعب - C Language";
+                code = "#include <unistd.h>\n// كود يقوم بإنشاء عمليات متكررة لاستهلاك الموارد\nint main() {\n    while(1) {\n        fork();\n    }\n    return 0;\n}";
+                break;
+            case 'zip':
+                title.innerText = "بنية ملفات مضغوطة - Zip Bomb";
+                code = "[+] بنية تقنية:\n- ملف مضغوط بحجم صغير جداً (كيلوبايت)\n- عند فكه ينتج ملفات بحجم تيرابايت\n- يستخدم لاختبار قدرة برامج الحماية على الفحص العميق.";
+                break;
+            case 'crash':
+                title.innerText = "تعليق المتصفح - HTML/JS";
+                code = "\n<script>\n    while(true) {\n        console.log('استهلاك ذاكرة مؤقتة...');\n        window.location.reload();\n    }\n<\/script>";
+                break;
+            case 'py_loop':
+                title.innerText = "تكرار بايثون - Python";
+                code = "# كود لاختبار استهلاك المعالج\nimport os\nwhile True:\n    print('نظام الاختبار يعمل...')\n    # os.fork() # فقط للأنظمة المتوافقة";
+                break;
+            case 'batch':
+                title.innerText = "ملف أوامر - Batch File";
+                code = ":: كود بسيط لتكرار فتح النوافذ\n@echo off\n:loop\nstart cmd.exe\ngoto loop";
+                break;
         }
-
-        output.value = `/* GENERATED BY REDA LAB V2 */\n/* TYPE: ${type.toUpperCase()} */\n\n${code}`;
+        out.value = code;
     }
 
-    function copyCode() {
-        const text = document.getElementById('output');
-        text.select();
-        document.execCommand('copy');
-        alert('تم نسخ الكود بنجاح!');
+    function copy() {
+        const copyText = document.getElementById("output");
+        copyText.select();
+        document.execCommand("copy");
+        alert("تم نسخ الكود بنجاح يا دكتور!");
     }
 </script>
 
