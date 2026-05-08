@@ -121,7 +121,6 @@
 </head>
 <body>
 
-<!-- القائمة اليمنى: الموسوعة -->
 <div class="sidebar-right" id="sidebarRight">
     <div class="sidebar-header">
         <span>📖 الموسوعة الشاملة (100 معلومة)</span>
@@ -130,7 +129,6 @@
     <div id="infoItems"></div>
 </div>
 
-<!-- القائمة اليسرى: ماذا لو كنت رضا -->
 <div class="sidebar-left" id="sidebarLeft">
     <div class="sidebar-header header-reda">
         <span>👑 ماذا لو كنت رضا؟</span>
@@ -138,7 +136,6 @@
     </div>
     
     <div id="redaItems" style="padding: 5px;">
-        <!-- المربع الأول: إخلاء مسؤولية وتحذيرات -->
         <div class="info-item reda-item" style="border-right-color: #ef4444 !important; background: #2d1a1a;">
             <h3 style="color: #f87171; margin-top: 0;">⚠️ إخلاء مسؤولية وتحذيرات</h3>
             <p style="font-size: 0.8rem; color: #fca5a5;">
@@ -152,7 +149,6 @@
             </p>
         </div>
 
-        <!-- المربع الثاني: كالي لينكس -->
         <div class="info-item reda-item" style="border-right-color: #3b82f6 !important; background: #1a2332;">
             <h3 style="color: #60a5fa; margin-top: 0;">🐉 كالي لينكس (Kali Linux)</h3>
             <p style="font-size: 0.8rem; color: #93c5fd;">
@@ -170,7 +166,6 @@
             </p>
         </div>
 
-        <!-- نصائح رضا الإضافية -->
         <div class="info-item reda-item" style="border-right-color: var(--red-gold) !important;">
             <strong>فلسفة رضا:</strong> البرمجة ليست مجرد كود، بل هي منطق وقوة للسيطرة على الآلة.
         </div>
@@ -178,8 +173,9 @@
 </div>
 
 <div class="main-content">
-    <div class="btn-group">
+    <div class="btn-group" style="align-items: center;">
         <button class="trigger-btn learn-trigger" onclick="toggleSide('Right')">📖 الموسوعة الشاملة</button>
+        <img src="image_1.png" alt="المطور رضا رجب" style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--red-gold); box-shadow: 0 0 15px rgba(250, 204, 21, 0.5); object-fit: cover;">
         <button class="trigger-btn reda-trigger" onclick="toggleSide('Left')">👑 ماذا لو كنت رضا؟</button>
     </div>
 
