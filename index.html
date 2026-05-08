@@ -52,6 +52,24 @@
 
         /* المحتوى الرئيسي */
         .main-content { flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center; overflow-y: auto; }
+        
+        /* تنسيق الصورة المكبرة */
+        .profile-container {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .profile-img {
+            width: 250px; /* تكبير الحجم */
+            height: auto; /* الحفاظ على الأبعاد الأصلية */
+            border-radius: 15px; /* حواف ناعمة بدل الدائرة الكاملة لإظهار الصورة كاملة */
+            border: 5px solid var(--red-gold);
+            box-shadow: 0 0 30px rgba(250, 204, 21, 0.3);
+            transition: 0.3s transform;
+        }
+        .profile-img:hover {
+            transform: scale(1.05);
+        }
+
         .btn-group { display: flex; gap: 15px; margin-bottom: 25px; align-items: center; }
         .trigger-btn { padding: 12px 25px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         .learn-trigger { background: var(--accent); color: #000; }
@@ -91,32 +109,30 @@
         <button onclick="toggleSide('Left')">✕</button>
     </div>
     <div style="padding: 10px;">
-        <!-- قسم النصائح -->
         <div class="info-item" style="border-right-color: var(--red-gold);">
             <strong>فلسفة رضا:</strong> "البرمجة ليست مجرد كود، بل هي وسيلة للسيطرة على العالم الرقمي."
         </div>
         
-        <!-- قسم التحذيرات (Warning Item) -->
         <div class="info-item warning-item">
-            <strong>⚠️ تحذير أمني:</strong> "لا تقم أبداً بتشغيل أكواد Fork Bombs أو Bash Bombs على جهازك الشخصي، استخدم دائماً Virtual Machine."
+            <strong>⚠️ تحذير أمني:</strong> "لا تقم أبداً بتشغيل أكواد Fork Bombs على جهازك الشخصي، استخدم دائماً Virtual Machine."
         </div>
         <div class="info-item warning-item">
             <strong>⚠️ تحذير الشبكة:</strong> "تجاوز الحجب باستخدام الـ SNI قد يعرض بياناتك للمراقبة إذا لم تستخدم تشفيراً قوياً."
         </div>
         <div class="info-item warning-item">
-            <strong>⚠️ تحذير القانون:</strong> "استخدام أدوات Kali Linux ضد أهداف لا تملك تصريحاً بها هو أمر غير قانوني؛ المختبر للأغراض التعليمية فقط."
-        </div>
-
-        <div class="info-item" style="border-right-color: var(--accent);">
-            <strong>نصيحة تقنية:</strong> "تعلم الـ Networking هو بوابتك الحقيقية لفهم كيف تعمل أدوات الاختراق."
+            <strong>⚠️ تحذير القانون:</strong> "استخدام أدوات Kali Linux ضد أهداف لا تملك تصريحاً بها هو أمر غير قانوني."
         </div>
     </div>
 </div>
 
 <div class="main-content">
+    <!-- عرض الصورة كاملة ومكبرة -->
+    <div class="profile-container">
+        <img src="13993.png" alt="المطور رضا رجب" class="profile-img">
+    </div>
+
     <div class="btn-group">
         <button class="trigger-btn learn-trigger" onclick="toggleSide('Right')">📖 الموسوعة</button>
-        <img src="13993.png" alt="رضا" style="width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--red-gold); object-fit: cover;">
         <button class="trigger-btn reda-trigger" onclick="toggleSide('Left')">👑 ماذا لو كنت رضا؟</button>
     </div>
 
