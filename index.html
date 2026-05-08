@@ -2,200 +2,130 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>مختبر رضا المطور | النسخة النهائية V4</title>
+    <title>مختبر رضا المطور | DARK EDITION</title>
     <style>
         :root {
-            --bg: #020617;
-            --panel: #1e293b;
-            --accent: #38bdf8;
-            --text: #f1f5f9;
-            --lvl1: #4ade80;
-            --lvl2: #fbbf24;
-            --lvl3: #f87171;
-            --bash: #c084fc;
-            --net: #f472b6;
-            --cpu: #fb7185;
-            --red-gold: #facc15;
+            --bg: #050505;
+            --panel: #0a0a0a;
+            --accent: #ef4444; /* أحمر دموي للوضع السوداوي */
+            --text: #d1d5db;
+            --reda-gold: #facc15;
+            --terminal-green: #00ff41;
         }
 
         body {
             background-color: var(--bg);
             color: var(--text);
-            font-family: 'Segoe UI', Tahoma, sans-serif;
+            font-family: 'Courier New', Courier, monospace;
             margin: 0;
             display: flex;
             min-height: 100vh;
             overflow: hidden;
+            transition: transform 0.1s;
         }
 
-        /* القائمة اليمنى - الموسوعة */
-        .sidebar-right {
+        /* تأثير الانهيار (Screen Shake) */
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            40% { transform: translate(3px, 2px) rotate(0deg); }
+            60% { transform: translate(-3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            100% { transform: translate(1px, -2px) rotate(0deg); }
+        }
+
+        .shaking { animation: shake 0.2s infinite; background: #200 !important; }
+
+        .sidebar-right, .sidebar-left {
             width: 380px;
-            background: #020617;
-            border-left: 2px solid var(--accent);
-            transition: 0.5s;
-            position: fixed;
-            right: -380px;
-            height: 100vh;
-            z-index: 1000;
-            overflow-y: auto;
-            box-shadow: -10px 0 30px rgba(0,0,0,0.7);
-        }
-        .sidebar-right.active { right: 0; }
-
-        /* القائمة اليسرى - ماذا لو كنت رضا */
-        .sidebar-left {
-            width: 380px;
-            background: #020617;
-            border-right: 2px solid var(--red-gold);
-            transition: 0.5s;
-            position: fixed;
-            left: -380px;
-            height: 100vh;
-            z-index: 1000;
-            overflow-y: auto;
-            box-shadow: 10px 0 30px rgba(0,0,0,0.7);
-        }
-        .sidebar-left.active { left: 0; }
-
-        .sidebar-header { 
-            padding: 20px; 
-            background: var(--accent); 
-            color: #000; 
-            font-weight: bold; 
-            display: flex; 
-            justify-content: space-between;
-            align-items: center;
-        }
-        .header-reda { background: var(--red-gold) !important; }
-
-        .info-item { 
-            background: #1e293b; 
-            padding: 15px; 
-            margin: 12px; 
-            border-radius: 10px; 
-            font-size: 0.85rem;
-            line-height: 1.6;
-            border-right: 4px solid var(--accent);
-        }
-        .reda-item { border-right-width: 5px !important; }
-
-        .code-snippet {
-            display: block;
             background: #000;
-            color: #4ade80;
-            padding: 8px;
-            margin-top: 8px;
-            border-radius: 5px;
-            font-family: monospace;
-            direction: ltr;
-            text-align: left;
-            font-size: 0.8rem;
+            transition: 0.5s;
+            position: fixed;
+            height: 100vh;
+            z-index: 1000;
+            overflow-y: auto;
+            border: 1px solid #222;
+        }
+        .sidebar-right { right: -380px; }
+        .sidebar-left { left: -380px; }
+        .sidebar-right.active { right: 0; border-left: 2px solid var(--accent); }
+        .sidebar-left.active { left: 0; border-right: 2px solid var(--reda-gold); }
+
+        .main-content { flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+
+        .profile-img {
+            width: 100px; height: 100px; border-radius: 50%;
+            border: 3px solid var(--reda-gold);
+            box-shadow: 0 0 20px rgba(250, 204, 21, 0.3);
+            object-fit: cover; cursor: pointer; transition: 0.3s;
+        }
+        .profile-img:hover { transform: scale(1.1); filter: grayscale(1); }
+
+        .card { 
+            background: var(--panel); width: 90%; max-width: 800px; padding: 40px; 
+            border-radius: 5px; border: 1px solid #111; 
+            box-shadow: 0 0 50px rgba(0,0,0,1);
         }
 
-        /* المحتوى الرئيسي */
-        .main-content { flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center; overflow-y: auto; }
+        .btn-group { display: flex; gap: 20px; align-items: center; margin-bottom: 30px; }
+        
+        .level-btn { 
+            background: #111; color: #444; border: 1px solid #222; 
+            padding: 10px 20px; cursor: pointer; font-weight: bold;
+        }
+        .level-btn.active { color: var(--accent); border-color: var(--accent); box-shadow: 0 0 10px var(--accent); }
 
-        .btn-group { display: flex; gap: 15px; margin-bottom: 25px; }
+        .type-btn { 
+            background: #000; color: #666; border: 1px solid #222; 
+            padding: 15px; cursor: pointer; transition: 0.2s;
+        }
+        .type-btn:hover { color: #fff; border-color: #fff; }
 
-        .trigger-btn { padding: 12px 25px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .learn-trigger { background: var(--accent); color: #000; }
-        .reda-trigger { background: var(--red-gold); color: #000; }
-        .trigger-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
+        .code-box { 
+            background: #000; padding: 20px; border: 1px solid var(--accent); 
+            margin-top: 20px; position: relative;
+        }
+        .code-box pre { color: var(--terminal-green); font-size: 0.9rem; }
 
-        .card { background: var(--panel); width: 95%; max-width: 900px; padding: 30px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
-
-        .level-container { display: flex; gap: 10px; justify-content: center; margin-bottom: 25px; }
-        .level-btn { padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; background: #334155; color: white; font-weight: bold; }
-        .level-btn.active { background: var(--lvl1); color: #000; }
-
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-        .type-btn { background: #0f172a; color: var(--text); border: 1px solid #334155; padding: 15px; border-radius: 12px; cursor: pointer; font-weight: bold; transition: 0.2s; }
-        .type-btn:hover { border-color: var(--accent); color: var(--accent); background: #1e293b; }
-
-        #results { margin-top: 25px; }
-        .code-box { background: #000; padding: 25px; border-radius: 12px; border-right: 5px solid var(--accent); position: relative; }
-        .code-box pre { margin: 0; color: #f8fafc; font-family: 'Consolas', monospace; direction: ltr; white-space: pre-wrap; }
-        .model-label { color: var(--accent); font-size: 0.75rem; position: absolute; top: 8px; left: 15px; font-weight: bold; }
+        #system-status { font-size: 0.7rem; color: #444; margin-top: 10px; }
     </style>
 </head>
-<body>
+<body id="mainBody">
 
 <div class="sidebar-right" id="sidebarRight">
-    <div class="sidebar-header">
-        <span>📖 الموسوعة الشاملة (100 معلومة)</span>
-        <button onclick="toggleSide('Right')" style="cursor:pointer; border:none; background:#fff; border-radius:3px;">إغلاق</button>
-    </div>
+    <div style="padding:20px; background: #111; color: var(--accent);">[ ARCHIVE_DATA ]</div>
     <div id="infoItems"></div>
 </div>
 
 <div class="sidebar-left" id="sidebarLeft">
-    <div class="sidebar-header header-reda">
-        <span>👑 ماذا لو كنت رضا؟</span>
-        <button onclick="toggleSide('Left')" style="cursor:pointer; border:none; background:#fff; border-radius:3px;">إغلاق</button>
-    </div>
-    
-    <div id="redaItems" style="padding: 5px;">
-        <div class="info-item reda-item" style="border-right-color: #ef4444 !important; background: #2d1a1a;">
-            <h3 style="color: #f87171; margin-top: 0;">⚠️ إخلاء مسؤولية وتحذيرات</h3>
-            <p style="font-size: 0.8rem; color: #fca5a5;">
-                هذا المختبر مخصص للأغراض <strong>التعليمية والبحثية فقط</strong>. 
-                <br><br>
-                • رضا المطور غير مسؤول عن أي استخدام خاطئ لهذه الأكواد.
-                <br>
-                • تجربة هذه الأكواد على أجهزة الغير دون إذن جريمة يعاقب عليها القانون.
-                <br>
-                • بعض الأكواد قد تعطل متصفحك، استخدمها بذكاء.
-            </p>
-        </div>
-
-        <div class="info-item reda-item" style="border-right-color: #3b82f6 !important; background: #1a2332;">
-            <h3 style="color: #60a5fa; margin-top: 0;">🐉 كالي لينكس (Kali Linux)</h3>
-            <p style="font-size: 0.8rem; color: #93c5fd;">
-                نظام التشغيل المفضل لدى رضا المطور لاختبار الاختراق.
-                <br><br>
-                <strong>أدوات ينصح بها رضا:</strong>
-                <br>
-                • <b>Metasploit:</b> للاختراق المتقدم.
-                <br>
-                • <b>Nmap:</b> لفحص الشبكات.
-                <br>
-                • <b>Wireshark:</b> لتحليل البيانات.
-                <br><br>
-                <span style="color: #fbbf24;">"كالي لينكس سلاح، فكن محارباً نبيلاً."</span>
-            </p>
-        </div>
-
-        <div class="info-item reda-item" style="border-right-color: var(--red-gold) !important;">
-            <strong>فلسفة رضا:</strong> البرمجة ليست مجرد كود، بل هي منطق وقوة للسيطرة على الآلة.
-        </div>
+    <div style="padding:20px; background: #111; color: var(--reda-gold);">[ REDA_LOGS ]</div>
+    <div style="padding: 15px;">
+        <p style="color: #888; font-size: 0.8rem;">بصمة المطور: رضا رجب</p>
+        <p style="color: var(--accent); font-size: 0.7rem;">تحذير: المستويات العالية قد تؤدي لانهيار محاكاة النظام.</p>
     </div>
 </div>
 
 <div class="main-content">
-    <div class="btn-group" style="align-items: center;">
-        <button class="trigger-btn learn-trigger" onclick="toggleSide('Right')">📖 الموسوعة الشاملة</button>
-        <img src="image_1.png" alt="المطور رضا رجب" style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--red-gold); box-shadow: 0 0 15px rgba(250, 204, 21, 0.5); object-fit: cover;">
-        <button class="trigger-btn reda-trigger" onclick="toggleSide('Left')">👑 ماذا لو كنت رضا؟</button>
+    <div class="btn-group">
+        <button class="level-btn" onclick="toggleSide('Right')">الموسوعة</button>
+        <img src="13993.png" class="profile-img" onclick="toggleSide('Left')" alt="رضا رجب">
+        <button class="level-btn" onclick="toggleSide('Left')">الملف الشخصي</button>
     </div>
 
     <div class="card">
-        <h1 style="text-align:center; color: var(--accent); margin: 0 0 10px 0;">مختبر رضا المطور V4</h1>
-        <p style="text-align:center; color: #94a3b8; margin-bottom: 20px;">نظام محاكاة الأكواد عالية التأثير</p>
-        
-        <div class="level-container">
-            <button class="level-btn active" id="l1" onclick="setLevel(1)">المستوى 1</button>
-            <button class="level-btn" id="l2" onclick="setLevel(2)">المستوى 2</button>
-            <button class="level-btn" id="l3" onclick="setLevel(3)">المستوى 3</button>
+        <h2 style="color: #fff; letter-spacing: 5px;">REDA_LAB_V4.exe</h2>
+        <div id="system-status">STATUS: SYSTEM_READY // ENCRYPTION: ACTIVE</div>
+
+        <div style="display:flex; justify-content: center; gap: 10px; margin: 20px 0;">
+            <button class="level-btn active" id="l1" onclick="setLevel(1)">LVL 01</button>
+            <button class="level-btn" id="l2" onclick="setLevel(2)">LVL 02</button>
+            <button class="level-btn" id="l3" onclick="setLevel(3)" style="color: red;">LVL 03 [CRITICAL]</button>
         </div>
 
-        <div class="grid">
-            <button class="type-btn" onclick="generate('logic')">قنبلة منطقية JS</button>
-            <button class="type-btn" onclick="generate('crash')">استنزاف ذاكرة</button>
-            <button class="type-btn" onclick="generate('bash')" style="color:var(--bash)">قنابل Bash</button>
-            <button class="type-btn" onclick="generate('network')" style="color:var(--net)">قنبلة الشبكة</button>
-            <button class="type-btn" onclick="generate('regex')" style="color:var(--cpu)">قنبلة المعالج</button>
-            <button class="type-btn" onclick="generate('file')" style="color:var(--lvl3)">تدمير الملفات</button>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+            <button class="type-btn" onclick="generate('logic')">LOGIC_BOMB</button>
+            <button class="type-btn" onclick="generate('crash')">MEMORY_DRAIN</button>
+            <button class="type-btn" onclick="generate('network')">NET_FLOOD</button>
         </div>
 
         <div id="results"></div>
@@ -204,57 +134,48 @@
 
 <script>
     let currentLevel = 1;
-
-    function toggleSide(side) {
-        const sidebar = document.getElementById('sidebar' + side);
-        sidebar.classList.toggle('active');
-    }
-
-    function setLevel(lvl) {
-        currentLevel = lvl;
+    function toggleSide(s) { document.getElementById('sidebar' + s).classList.toggle('active'); }
+    
+    function setLevel(l) {
+        currentLevel = l;
         document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById('l' + lvl).classList.add('active');
+        if(l === 1) document.getElementById('l1').classList.add('active');
+        if(l === 2) document.getElementById('l2').classList.add('active');
+        if(l === 3) document.getElementById('l3').classList.add('active');
     }
 
-    // توليد الموسوعة (100 معلومة)
-    const infoList = document.getElementById('infoItems');
-    const expertData = [
-        {txt: "قنبلة الـ Fork تكرر نفسها للأبد.", code: ":(){ :|:& };:"},
-        {txt: "هجوم ReDoS يستهلك طاقة المعالج.", code: "/(a+)+$/"},
-        {txt: "تصفير القرص الصلب يدمر البيانات.", code: "dd if=/dev/zero of=/dev/sda"},
-        {txt: "قنبلة الـ Zip تتمدد بشكل انفجاري.", code: "Exploding 42.zip"},
-        {txt: "في C، استنزاف الذاكرة عبر malloc.", code: "while(1){malloc(1024);}"}
-    ];
-
-    for (let i = 1; i <= 100; i++) {
-        let d = expertData[i % expertData.length];
-        infoList.innerHTML += `
-            <div class="info-item">
-                <strong>معلومة #${i}:</strong> ${d.txt}
-                <code class="code-snippet">${d.code}</code>
-            </div>`;
-    }
-
-    // مستودع الأكواد
     const repo = {
-        logic: { 1: ["if(new Date().getFullYear() === 2026) alert('Boom!');"], 2: ["setTimeout(()=>document.body.remove(), 5000)"], 3: ["while(true){history.pushState(0,0,1)}"] },
-        crash: { 1: ["let a = Array(100000).fill('x')"], 2: ["let s = 'x'; while(true) s += s;"], 3: ["setInterval(()=>window.open(), 1)"] },
-        bash: { 1: ["wall 'System Warning'"], 2: ["cat /dev/zero > leak.img"], 3: [":(){ :|:& };:"] },
-        network: { 1: ["console.log('Scanning...');"], 2: ["for(i=0;i<100;i++) fetch('/');"], 3: ["setInterval(()=>fetch('/?'+Math.random()), 1)"] },
-        regex: { 1: ["/a+/.test('aa')"], 2: ["/([a-z]+)+$/"], 3: ["'aaaaa!'.match(/([a-zA-Z]+)*$/)"] },
-        file: { 1: ["mkdir test_{1..10}"], 2: ["touch file_$RANDOM"], 3: ["rm -rf / --no-preserve-root"] }
+        logic: { 1: ["alert('System Ping');"], 2: ["while(1){console.log('Error')}"], 3: ["KILL_PROCESS_ALL"] },
+        crash: { 1: ["[]"], 2: ["new Array(1000000)"], 3: ["SYSTEM_OVERFLOW_INIT"] },
+        network: { 1: ["ping 127.0.0.1"], 2: ["fetch('/')"], 3: ["PACKET_STORM_START"] }
     };
 
-    function generate(type) {
+    function generate(t) {
+        const body = document.getElementById('mainBody');
         const res = document.getElementById('results');
-        const code = repo[type][currentLevel];
-        res.innerHTML = `
-            <div class="code-box">
-                <span class="model-label">${type.toUpperCase()} - LEVEL ${currentLevel}</span>
-                <pre>${Array.isArray(code) ? code.join('\n') : code}</pre>
+        
+        if (currentLevel === 3) {
+            body.classList.add('shaking');
+            res.innerHTML = `<div class="code-box" style="border-color:red">
+                <pre style="color:red">⚠️ CRITICAL FAILURE: EXECUTING ${t.toUpperCase()}...
+                ACCESSING CORE...
+                SHUTTING DOWN SIMULATION...</pre>
             </div>`;
+            setTimeout(() => {
+                body.classList.remove('shaking');
+            }, 2000);
+        } else {
+            res.innerHTML = `<div class="code-box"><pre>> EXEC ${t.toUpperCase()}_L${currentLevel} \n> RESULT: ${repo[t][currentLevel]}</pre></div>`;
+        }
+    }
+
+    // تعبئة الموسوعة ببيانات سوداوية
+    const infoItems = document.getElementById('infoItems');
+    for(let i=1; i<=100; i++) {
+        infoItems.innerHTML += `<div style="padding:10px; border-bottom:1px solid #111; font-size:0.7rem; color:#444;">
+            [DATA_POINT_${i}] : خوارزمية رضا رقم ${Math.floor(Math.random()*999)} فعالة بنسبة 99%.
+        </div>`;
     }
 </script>
-
 </body>
 </html>
