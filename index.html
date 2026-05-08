@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مختبر رضا المطور | KALI PRO</title>
+    <title>مختبر رضا المطور | KALI SECRET EDITION</title>
     <style>
         :root {
             --bg: #020617;
@@ -16,29 +16,12 @@
             --red-gold: #facc15;
             --warning: #ef4444;
             --kali: #2e67ff;
+            --secret: #a855f7;
         }
 
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            margin: 0;
-            display: flex;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* القوائم الجانبية */
-        .sidebar {
-            width: 380px;
-            background: #020617;
-            transition: 0.5s;
-            position: fixed;
-            height: 100vh;
-            z-index: 1000;
-            overflow-y: auto;
-            box-shadow: 0 0 30px rgba(0,0,0,0.7);
-        }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; display: flex; min-height: 100vh; overflow-x: hidden; }
+        
+        .sidebar { width: 380px; background: #020617; transition: 0.5s; position: fixed; height: 100vh; z-index: 1000; overflow-y: auto; box-shadow: 0 0 30px rgba(0,0,0,0.7); }
         .sidebar-right { right: -380px; border-left: 2px solid var(--accent); }
         .sidebar-left { left: -380px; border-right: 2px solid var(--red-gold); }
         .sidebar-right.active { right: 0; }
@@ -47,63 +30,30 @@
         .sidebar-header { padding: 20px; background: var(--accent); color: #000; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
         .header-reda { background: var(--red-gold) !important; }
 
-        .info-item { background: #1e293b; padding: 15px; margin: 12px; border-radius: 10px; font-size: 0.85rem; border-right: 4px solid var(--accent); }
-        .warning-item { border-right: 4px solid var(--warning) !important; background: #2d1a1a; color: #fecaca; }
-        .code-snippet { display: block; background: #000; color: #4ade80; padding: 8px; margin-top: 8px; border-radius: 5px; font-family: monospace; direction: ltr; text-align: left; }
-
-        /* المحتوى الرئيسي */
         .main-content { flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center; overflow-y: auto; }
         
         .profile-container { margin-top: 20px; margin-bottom: 25px; text-align: center; }
-        .profile-img {
-            width: 300px; 
-            height: auto; 
-            border-radius: 15px; 
-            border: 5px solid var(--red-gold);
-            box-shadow: 0 0 30px rgba(250, 204, 21, 0.4);
-        }
+        .profile-img { width: 300px; height: auto; border-radius: 15px; border: 5px solid var(--red-gold); box-shadow: 0 0 30px rgba(250, 204, 21, 0.4); }
 
         .btn-group { display: flex; gap: 15px; margin-bottom: 25px; flex-wrap: wrap; justify-content: center; }
         .trigger-btn { padding: 12px 25px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-        .learn-trigger { background: var(--accent); color: #000; }
-        .reda-trigger { background: var(--red-gold); color: #000; }
         .kali-btn { background: var(--kali); color: white; border: 2px solid white; box-shadow: 0 0 20px rgba(46, 103, 255, 0.5); }
+
+        .kali-tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-top: 15px; display: none; width: 90%; }
+        .tool-sub-btn { background: #334155; color: white; border: 1px solid var(--kali); padding: 12px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; transition: 0.3s; font-weight: bold; }
+        .tool-sub-btn:hover { background: var(--kali); transform: translateY(-3px); }
 
         .card { background: var(--panel); width: 95%; max-width: 900px; padding: 30px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); margin-bottom: 30px; }
         
-        /* أدوات كالي الداخلية */
-        .kali-tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-top: 15px; display: none; }
-        .tool-sub-btn { background: #334155; color: white; border: 1px solid var(--kali); padding: 10px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; transition: 0.3s; }
-        .tool-sub-btn:hover { background: var(--kali); }
-
-        .level-btn { padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; background: #334155; color: white; font-weight: bold; margin: 5px; transition: 0.2s; }
-        .level-btn.active { background: var(--lvl1); color: #000; }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin-top: 15px; }
-        .type-btn { background: #0f172a; color: var(--text); border: 1px solid #334155; padding: 15px; border-radius: 12px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .code-box { background: #000; padding: 25px; border-radius: 12px; border-right: 5px solid var(--accent); margin-top: 25px; }
+        .secret-tag { background: var(--secret); color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; margin-bottom: 10px; display: inline-block; }
+        .code-box pre { margin: 15px 0; color: #f8fafc; font-family: monospace; direction: ltr; white-space: pre-wrap; background: #111; padding: 15px; border-radius: 5px; border: 1px solid #222; }
         
-        .code-box { background: #000; padding: 25px; border-radius: 12px; border-right: 5px solid var(--accent); margin-top: 25px; overflow-x: auto; }
-        .code-box pre { margin: 0; color: #f8fafc; font-family: monospace; direction: ltr; white-space: pre-wrap; }
-
-        .ask-reda-section { margin-top: 20px; background: #0f172a; padding: 20px; border-radius: 15px; border: 1px dashed var(--red-gold); width: 100%; box-sizing: border-box; }
-        .ask-input { width: 100%; padding: 12px; background: #020617; border: 1px solid #334155; color: white; border-radius: 8px; margin-bottom: 10px; box-sizing: border-box; }
-        .reda-response { margin-top: 15px; padding: 15px; background: #1e293b; border-right: 4px solid var(--red-gold); font-size: 0.9rem; display: none; line-height: 1.6; }
+        .detail-item { margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px dashed #334155; }
+        .detail-label { color: var(--lvl2); font-weight: bold; display: block; margin-bottom: 5px; }
     </style>
 </head>
 <body>
-
-<div class="sidebar sidebar-right" id="sidebarRight">
-    <div class="sidebar-header"><span>📖 الموسوعة البرمجية</span><button onclick="toggleSide('Right')">✕</button></div>
-    <div id="infoItems"></div>
-</div>
-
-<div class="sidebar sidebar-left" id="sidebarLeft">
-    <div class="sidebar-header header-reda"><span>👑 ماذا لو كنت رضا؟</span><button onclick="toggleSide('Left')">✕</button></div>
-    <div style="padding: 10px;">
-        <div class="info-item warning-item"><strong>⚠️ تحذير الموارد:</strong> أكواد المستوى 3 قوية جداً وتستهلك الذاكرة.</div>
-        <div class="info-item" style="border-right-color: var(--red-gold);"><strong>فلسفة المطور:</strong> الأنظمة وجدت لتمتحن قوتها.</div>
-    </div>
-</div>
 
 <div class="main-content">
     <div class="profile-container">
@@ -111,126 +61,91 @@
     </div>
 
     <div class="btn-group">
-        <button class="trigger-btn learn-trigger" onclick="toggleSide('Right')">📖 الموسوعة</button>
-        <button class="trigger-btn kali-btn" onclick="toggleKaliGrid()">🐉 كالي لينكس الخاص بـ رضا</button>
-        <button class="trigger-btn reda-trigger" onclick="toggleSide('Left')">👑 ماذا لو كنت رضا؟</button>
+        <button class="trigger-btn kali-btn" onclick="toggleKaliGrid()">🐉 كالي لينكس: الأسرار والأدوات</button>
     </div>
 
-    <!-- أزرار أدوات كالي الفرعية -->
     <div class="kali-tools-grid" id="kaliToolsGrid">
-        <button class="tool-sub-btn" onclick="showTool('airodump')">📡 Airodump-ng (شبكة)</button>
-        <button class="tool-sub-btn" onclick="showTool('nmap')">🔍 Nmap (شبكة)</button>
-        <button class="tool-sub-btn" onclick="showTool('slowloris')">🌪️ Slowloris (تعطيل)</button>
-        <button class="tool-sub-btn" onclick="showTool('hping3')">💣 Hping3 (تعطيل)</button>
+        <button class="tool-sub-btn" onclick="showSecretTool('airodump')">📡 Airodump (خفايا الـ WIFI)</button>
+        <button class="tool-sub-btn" onclick="showSecretTool('nmap')">🔍 Nmap (أسرار المنافذ)</button>
+        <button class="tool-sub-btn" onclick="showSecretTool('slowloris')">🌪️ Slowloris (كسر السيرفرات)</button>
+        <button class="tool-sub-btn" onclick="showSecretTool('hping3')">💣 Hping3 (الفيضان النووي)</button>
     </div>
 
-    <div class="card">
-        <h1 style="text-align:center; color: var(--accent); margin:0;">REDA TECH LAB (PRO)</h1>
-        
-        <div style="text-align: center; margin: 20px 0;">
-            <button class="level-btn active" id="l1" onclick="setLevel(1)">المستوى 1</button>
-            <button class="level-btn" id="l2" onclick="setLevel(2)">المستوى 2</button>
-            <button class="level-btn" id="l3" onclick="setLevel(3)">المستوى 3 🔥</button>
-        </div>
-
-        <div class="grid">
-            <button class="type-btn" onclick="generate('logic')">قنبلة منطقية</button>
-            <button class="type-btn" onclick="generate('crash')">استنزاف RAM</button>
-            <button class="type-btn" onclick="generate('bash')">قنابل Bash</button>
-            <button class="type-btn" onclick="generate('network')">Network Flood</button>
-            <button class="type-btn" onclick="generate('bypass')">Bypass</button>
-            <button class="type-btn" onclick="generate('file')">الملفات</button>
-        </div>
-
-        <div id="results"></div>
-
-        <div class="ask-reda-section">
-            <h3 style="color: var(--red-gold); margin-top: 0;">💬 اسأل رضا</h3>
-            <input type="text" id="userQuestion" class="ask-input" placeholder="اسأل رضا عن أي أداة...">
-            <button class="trigger-btn reda-trigger" style="padding: 8px 20px;" onclick="askReda()">إرسال</button>
-            <div id="redaResponse" class="reda-response"></div>
-        </div>
+    <div class="card" id="displayArea">
+        <h1 style="text-align:center; color: var(--accent); margin:0;">REDA TECH LAB (SECURED)</h1>
+        <p style="text-align:center; color: #94a3b8;">اضغط على زر كالي بالأعلى لاستكشاف أسرار الأدوات</p>
     </div>
 </div>
 
 <script>
-    let currentLevel = 1;
-    let heavyLoad = [];
-
-    function toggleSide(s) { document.getElementById('sidebar' + s).classList.toggle('active'); }
-    function setLevel(l) { 
-        currentLevel = l; 
-        document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById('l' + l).classList.add('active');
-    }
-
     function toggleKaliGrid() {
         const grid = document.getElementById('kaliToolsGrid');
         grid.style.display = (grid.style.display === 'grid') ? 'none' : 'grid';
     }
 
-    const toolInfo = {
+    const toolSecrets = {
         airodump: {
-            title: "📡 أداة Airodump-ng (مراقبة الشبكات)",
-            desc: "تُستخدم لالتقاط البيانات من الشبكات اللاسلكية واكتشاف الـ BSSID والأجهزة المتصلة.",
-            code: "# بدء المراقبة على كرت الشبكة\nsudo airodump-ng wlan0mon\n\n# تحديد شبكة معينة للحفظ\nsudo airodump-ng --bssid [MAC] -c [Channel] -w output wlan0mon"
+            title: "Airodump-ng: مراقب الهواء الصامت",
+            secret: "السر يكمن في 'Monitor Mode'. كرت الشبكة العادي يتجاهل البيانات التي ليست موجهة له، لكن في هذا الوضع، يتحول الكرت لأذن عملاقة تسمع كل ذرة بيانات في الهواء.",
+            target: "استغلال ثغرة عدم تشفير الـ Management Frames في بروتوكول 802.11.",
+            usage: "يستخدم رضا هذه الأداة ليس فقط للمراقبة، بل لجمع الـ Handshake (المصافحة) التي هي مفتاح كسر كلمة السر لاحقاً.",
+            code: "sudo airmon-ng start wlan0\nsudo airodump-ng wlan0mon --bssid [MAC] -c [CH] -w capture_file"
         },
         nmap: {
-            title: "🔍 أداة Nmap (فحص الثغرات)",
-            desc: "الأداة الأقوى لفحص المنافذ (Ports) والخدمات ومعظمة أنظمة التشغيل للأهداف.",
-            code: "# فحص سريع للمنافذ المفتوحة\nnmap -F [Target_IP]\n\n# فحص عميق مع محاولة كشف إصدارات الخدمات\nnmap -sV -sC -O [Target_IP]"
+            title: "Nmap: أداة رسم خرائط الأعداء",
+            secret: "أقوى سر هو الـ 'Stealth Scan' (-sS). الأداة لا تكمل الاتصال بالهدف (Half-open)، مما يجعل السيرفر لا يسجل محاولة الفحص كاختراق في معظم السجلات القديمة.",
+            target: "الاستجابة لطلبات SYN بمختلف أنواعها لكشف جدار الحماية.",
+            usage: "يعتمد عليها رضا لمعرفة 'نظام التشغيل' بدقة ومعرفة إذا كان السيرفر يعمل خلف Firewall أو Cloudflare.",
+            code: "nmap -sS -Pn -p- -T4 [Target_IP]\n# -p- يفحص كل الـ 65535 منفذ لضمان عدم فوات أي شيء"
         },
         slowloris: {
-            title: "🌪️ أداة Slowloris (تعطيل السيرفرات هادئ)",
-            desc: "تقوم بفتح اتصالات HTTP كاذبة وإبقائها مفتوحة لاستنزاف موارد السيرفر ومنعه من استقبال زوار جدد.",
-            code: "# تثبيت وتشغيل الأداة (بايثون)\npython3 slowloris.py [Target_URL] -s 500\n\n# ملاحظة: تعتمد على عدد الاتصالات (Sockets) المفتوحة."
+            title: "Slowloris: هجوم الثقب الأسود",
+            secret: "هذا الهجوم لا يحتاج لإنترنت قوي. السر هو 'البطء المقلي'. هو يرسل طلبات HTTP ناقصة ويستمر في إرسال ترويسات (Headers) وهمية كل فترة ليبقى السيرفر منتظراً للأبد.",
+            target: "استنزاف الـ Maximum Concurrent Connections في سيرفرات مثل Apache.",
+            usage: "يستخدمه رضا لتعطيل مواقع ضخمة من خلال جهاز كمبيوتر بسيط أو حتى موبايل، لأنه يستهلك موارد السيرفر لا موارد المهاجم.",
+            code: "python3 slowloris.py example.com -s 800 -p 80\n# الرقم 800 هو عدد المقاعد التي سيحجزها في السيرفر"
         },
         hping3: {
-            title: "💣 أداة Hping3 (هجوم Flood)",
-            desc: "تُستخدم لإرسال سيل ضخم من حزم SYN أو TCP لتعطيل استجابة الموقع (DDoS Simulation).",
-            code: "# هجوم SYN Flood سريع جداً\nsudo hping3 -S --flood -V -p 80 [Target_IP]\n\n# إرسال حزم عشوائية المصدر\nsudo hping3 --rand-source [Target_IP]"
+            title: "Hping3: مطرقة الـ DDoS",
+            secret: "السر العظيم هنا هو 'Spoofing' (-a). يمكنك جعل السيرفر يعتقد أن الهجوم يأتي من عنوان IP الخاص بـ Google أو حتى IP السيرفر نفسه (Land Attack).",
+            target: "إغراق ذاكرة الـ Stack في المعالج بحزم SYN لا تنتهي.",
+            usage: "أداة رضا المفضلة لعمل 'اختبار تحمل' حقيقي، حيث يمكنها إرسال ملايين الحزم في ثوانٍ معدودة.",
+            code: "sudo hping3 -S --flood -V --rand-source -p 80 [Target_IP]\n# --rand-source تجعل الهجوم يبدو وكأنه من آلاف الأجهزة المختلفة"
         }
     };
 
-    function showTool(t) {
-        const res = document.getElementById('results');
-        const data = toolInfo[t];
-        res.innerHTML = `
+    function showSecretTool(t) {
+        const area = document.getElementById('displayArea');
+        const data = toolSecrets[t];
+        area.innerHTML = `
             <div class="code-box" style="border-right-color: var(--kali)">
-                <h3 style="color:var(--kali); margin-top:0;">${data.title}</h3>
-                <p style="color:#94a3b8; font-size:0.9rem;">${data.desc}</p>
-                <hr style="border:0; border-top:1px solid #334155; margin:15px 0;">
-                <pre>${data.code}</pre>
+                <span class="secret-tag">تصنيف: سري للغاية / رضا</span>
+                <h2 style="color:var(--kali); margin:0 0 20px 0;">${data.title}</h2>
+                
+                <div class="detail-item">
+                    <span class="detail-label">🔒 السر التقني (كيف تعمل؟):</span>
+                    <p style="font-size:0.95rem; line-height:1.6;">${data.secret}</p>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">🎯 الثغرة المستهدفة:</span>
+                    <p style="font-size:0.95rem;">${data.target}</p>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">💡 ملاحظة المطور رضا:</span>
+                    <p style="font-size:0.95rem; font-style: italic; color: var(--red-gold);">${data.usage}</p>
+                </div>
+
+                <div class="detail-item" style="border:none;">
+                    <span class="detail-label">💻 الكود البرمجي (الأوامر):</span>
+                    <pre>${data.code}</pre>
+                </div>
             </div>`;
+        
+        // التمرير التلقائي للأسفل لرؤية النتائج
+        window.scrollTo({ top: area.offsetTop, behavior: 'smooth' });
     }
-
-    // الأكواد الأساسية لباقي الوظائف (كما في النسخة السابقة)
-    const repo = {
-        logic: { 1: ["alert('Ping!');"], 2: ["setInterval(()=>console.log('Test'), 100)"], 3: ["while(true) { window.open('','','width=10,height=10'); }"] },
-        crash: { 1: ["let x = new Array(100)"], 2: ["while(true){console.count()}"], 3: ["setInterval(() => { heavyLoad.push(new Uint8Array(100*1024*1024).fill(1)); }, 50);"] },
-        bash: { 1: ["whoami"], 2: ["cat /dev/zero > leak.img"], 3: ["for i in {1..20}; do (while true; do true; done &); done"] },
-        network: { 1: ["ping 127.0.0.1"], 2: ["netstat -a"], 3: ["while(true){ fetch('http://127.0.0.1', {mode:'no-cors'}); }"] },
-        bypass: { 1: ["Host: ekb.eg"], 2: ["SNI: moe.gov.eg"], 3: ["Payload: [raw][host_port]"] },
-        file: { 1: ["ls"], 2: ["mkdir reda_lab"], 3: ["rm -rf /tmp/*"] }
-    };
-
-    function generate(t) {
-        const res = document.getElementById('results');
-        res.innerHTML = `<div class="code-box"><pre>> EXEC: ${t.toUpperCase()}\n\n${repo[t][currentLevel].join('\n')}</pre></div>`;
-    }
-
-    function askReda() {
-        const q = document.getElementById('userQuestion').value.toLowerCase();
-        const r = document.getElementById('redaResponse');
-        r.style.display = 'block';
-        r.innerHTML = "<strong>رضا يقول:</strong> استخدم أدوات كالي بحذر وفي بيئة اختبار فقط لتعلم الحماية.";
-    }
-
-    const expertData = [{t:"فحص الشبكة", c:"airodump-ng"}, {t:"كشف المنافذ", c:"nmap"}, {t:"تخطي الحجب", c:"SNI Host"}];
-    const infoList = document.getElementById('infoItems');
-    expertData.forEach((d, i) => {
-        infoList.innerHTML += `<div class="info-item"><strong style="color:var(--accent)">#${i+1}:</strong> ${d.t}<code class="code-snippet">${d.c}</code></div>`;
-    });
 </script>
 </body>
 </html>
