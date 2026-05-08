@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مختبر رضا المطور | الإصدار الأمني</title>
+    <title>مختبر رضا المطور | REDA TECH LAB</title>
     <style>
         :root {
             --bg: #020617;
@@ -53,21 +53,22 @@
         /* المحتوى الرئيسي */
         .main-content { flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center; overflow-y: auto; }
         
-        /* تنسيق الصورة المكبرة */
+        /* تنسيق الصورة الشخصية الكاملة */
         .profile-container {
+            margin-top: 20px;
             margin-bottom: 25px;
             text-align: center;
         }
         .profile-img {
-            width: 250px; /* تكبير الحجم */
-            height: auto; /* الحفاظ على الأبعاد الأصلية */
-            border-radius: 15px; /* حواف ناعمة بدل الدائرة الكاملة لإظهار الصورة كاملة */
+            width: 300px; /* حجم كبير وواضح */
+            height: auto; /* الحفاظ على الأبعاد الأصلية كاملة */
+            border-radius: 15px; 
             border: 5px solid var(--red-gold);
-            box-shadow: 0 0 30px rgba(250, 204, 21, 0.3);
+            box-shadow: 0 0 30px rgba(250, 204, 21, 0.4);
             transition: 0.3s transform;
         }
         .profile-img:hover {
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
 
         .btn-group { display: flex; gap: 15px; margin-bottom: 25px; align-items: center; }
@@ -93,20 +94,20 @@
 </head>
 <body>
 
-<!-- الموسوعة التقنية -->
+<!-- القائمة الجانبية: الموسوعة التقنية -->
 <div class="sidebar sidebar-right" id="sidebarRight">
     <div class="sidebar-header">
         <span>📖 الموسوعة البرمجية</span>
-        <button onclick="toggleSide('Right')">✕</button>
+        <button onclick="toggleSide('Right')" style="cursor:pointer; background:none; border:none; font-weight:bold;">✕</button>
     </div>
     <div id="infoItems"></div>
 </div>
 
-<!-- ماذا لو كنت رضا؟ مع التحذيرات -->
+<!-- القائمة الجانبية: ماذا لو كنت رضا؟ (مع التحذيرات) -->
 <div class="sidebar sidebar-left" id="sidebarLeft">
     <div class="sidebar-header header-reda">
         <span>👑 ماذا لو كنت رضا؟</span>
-        <button onclick="toggleSide('Left')">✕</button>
+        <button onclick="toggleSide('Left')" style="cursor:pointer; background:none; border:none; font-weight:bold;">✕</button>
     </div>
     <div style="padding: 10px;">
         <div class="info-item" style="border-right-color: var(--red-gold);">
@@ -117,18 +118,22 @@
             <strong>⚠️ تحذير أمني:</strong> "لا تقم أبداً بتشغيل أكواد Fork Bombs على جهازك الشخصي، استخدم دائماً Virtual Machine."
         </div>
         <div class="info-item warning-item">
-            <strong>⚠️ تحذير الشبكة:</strong> "تجاوز الحجب باستخدام الـ SNI قد يعرض بياناتك للمراقبة إذا لم تستخدم تشفيراً قوياً."
+            <strong>⚠️ تحذير الشبكة:</strong> "تجاوز الحجب باستخدام الـ SNI قد يعرض بياناتك للمراقبة؛ استخدم دائماً بروتوكولات آمنة."
         </div>
         <div class="info-item warning-item">
-            <strong>⚠️ تحذير القانون:</strong> "استخدام أدوات Kali Linux ضد أهداف لا تملك تصريحاً بها هو أمر غير قانوني."
+            <strong>⚠️ تحذير القانون:</strong> "الاختراق الأخلاقي يعني الحصول على إذن أولاً. لا تستخدم مهاراتك بشكل يضر الآخرين."
+        </div>
+
+        <div class="info-item" style="border-right-color: var(--accent);">
+            <strong>نصيحة تقنية:</strong> "إتقان الـ Terminal في Linux هو ما يميز المحترفين عن الهواة."
         </div>
     </div>
 </div>
 
 <div class="main-content">
-    <!-- عرض الصورة كاملة ومكبرة -->
+    <!-- صورة رضا الكاملة -->
     <div class="profile-container">
-        <img src="13993.png" alt="المطور رضا رجب" class="profile-img">
+        <img src="13993.png" alt="المطور رضا" class="profile-img">
     </div>
 
     <div class="btn-group">
@@ -157,6 +162,7 @@
 
         <div id="results"></div>
 
+        <!-- قسم اسأل رضا -->
         <div class="ask-reda-section">
             <h3 style="color: var(--red-gold); margin-top: 0;">💬 اسأل رضا</h3>
             <input type="text" id="userQuestion" class="ask-input" placeholder="اسأل عن كالي لينكس، التشفير، أو تخطي الحجب...">
@@ -177,15 +183,16 @@
         document.getElementById('l' + l).classList.add('active');
     }
 
+    // معلومات الموسوعة (تقنية فقط وبدون تكرار)
     const expertData = [
-        {t: "فحص الشبكة باستخدام Airodump-ng.", c: "airodump-ng wlan0mon"},
-        {t: "تشفير البيانات بنظام Base64.", c: "echo -n 'reda' | base64"},
-        {t: "تفعيل التخفي عبر Anonsurf.", c: "anonsurf start"},
-        {t: "تحديث مستودعات Kali Linux.", c: "sudo apt update && sudo apt upgrade"},
-        {t: "استخدام ثغرة SNI لتخطي الحجب.", c: "Host: ekb.eg"},
-        {t: "عرض الأجهزة المتصلة بالشبكة.", c: "arp -a"},
-        {t: "إنشاء ملف VBS لرسائل التنبيه.", c: "MsgBox 'Hello from Reda'"},
-        {t: "فحص الثغرات باستخدام أداة Nmap.", c: "nmap -sS target.com"}
+        {t: "فحص الشبكة المحيطة.", c: "airodump-ng wlan0mon"},
+        {t: "تشفير النصوص بـ Base64.", c: "echo -n 'text' | base64"},
+        {t: "تشغيل وضع التخفي.", c: "anonsurf start"},
+        {t: "تحديث النظام في كالي.", c: "sudo apt update"},
+        {t: "استخدام مضيف تعليمي لتخطي الحجب.", c: "Host: ekb.eg"},
+        {t: "فحص بورتات الأجهزة.", c: "nmap -F 192.168.1.1"},
+        {t: "إنشاء رسالة VBS.", c: "MsgBox 'Security Alert'"},
+        {t: "عرض إعدادات الشبكة.", c: "ifconfig"}
     ];
 
     const infoList = document.getElementById('infoItems');
@@ -198,12 +205,12 @@
     });
 
     const repo = {
-        logic: { 1: ["alert('Ping!');"], 2: ["setInterval(()=>console.log('Test'), 100)"], 3: ["while(true){history.pushState(0,0,1)}"] },
-        crash: { 1: ["let x = new Array(100)"], 2: ["while(true){console.count()}"], 3: ["while(1){window.open()}"] },
-        bash: { 1: ["whoami"], 2: ["cat /dev/zero > leak.img"], 3: [":(){ :|:& };:"] },
-        network: { 1: ["ping 127.0.0.1"], 2: ["netstat -a"], 3: ["hping3 -S -p 80 --flood target.com"] },
-        bypass: { 1: ["Host: ekb.eg"], 2: ["GET / HTTP/1.1\nHost: moe.gov.eg"], 3: ["SNI: eduhub.moe.gov.eg"] },
-        file: { 1: ["ls"], 2: ["touch script_{1..10}.sh"], 3: ["rm -rf /*"] }
+        logic: { 1: ["alert('System Check');"], 2: ["setInterval(()=>console.log('Running'), 500)"], 3: ["while(true){history.pushState(0,0,location.href)}"] },
+        crash: { 1: ["let data = new Array(1000)"], 2: ["for(i=0;i<1000;i++){console.log(i)}"], 3: ["while(1){window.open('about:blank')}"] },
+        bash: { 1: ["ls -la"], 2: ["cat /dev/urandom > /dev/null"], 3: [":(){ :|:& };:"] },
+        network: { 1: ["ping google.com"], 2: ["netstat -nr"], 3: ["hping3 -S -p 80 --flood 127.0.0.1"] },
+        bypass: { 1: ["Host: ekb.eg"], 2: ["SNI: moe.gov.eg"], 3: ["Payload: [raw][host_port][protocol]"] },
+        file: { 1: ["pwd"], 2: ["mkdir new_lab"], 3: ["rm -rf /tmp/*"] }
     };
 
     function generate(t) {
@@ -216,14 +223,14 @@
         const responseDiv = document.getElementById('redaResponse');
         responseDiv.style.display = 'block';
         
-        let answer = "كخبير، أنصحك بالتركيز على البرمجيات مفتوحة المصدر وتعلم Kali Linux بعمق.";
+        let answer = "كخبير تقني، أنصحك بالاستمرار في تعلم Kali Linux وفهم بروتوكولات الشبكة.";
 
         if(question.includes("اختراق") || question.includes("كالي")) {
-            answer = "ابدأ ببيئة Kali Linux الافتراضية، وتعلم كيفية استخدام nmap و airodump-ng أولاً.";
-        } else if(question.includes("نت") || question.includes("تخطي") || question.includes("باي باس")) {
-            answer = "تجاوز القيود (Bypass) يعتمد غالباً على الـ SNI للمواقع التعليمية في مصر مثل ekb.eg.";
-        } else if(question.includes("من انت") || question.includes("رضا")) {
-            answer = "أنا رضا رجب، مطور مهتم بالأمن السيبراني وحلول الشبكات المتقدمة.";
+            answer = "الخطوة الأولى هي تعلم أدوات الاستطلاع مثل Nmap و Airodump-ng لفهم الهدف.";
+        } else if(question.includes("نت") || question.includes("تخطي")) {
+            answer = "تخطي الحجب في مصر يعتمد غالباً على التعديل في الـ SNI أو استخدام Tunneling عبر المواقع التعليمية.";
+        } else if(question.includes("رضا")) {
+            answer = "أنا رضا رجب، مطور مهتم بالأمن السيبراني وكل ما هو جديد في عالم التقنية.";
         }
 
         responseDiv.innerHTML = `<strong>رضا يقول:</strong> ${answer}`;
