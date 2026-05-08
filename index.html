@@ -2,180 +2,216 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>مختبر رضا المطور | DARK EDITION</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مختبر رضا المطور | الإصدار الشامل V4</title>
     <style>
         :root {
-            --bg: #050505;
-            --panel: #0a0a0a;
-            --accent: #ef4444; /* أحمر دموي للوضع السوداوي */
-            --text: #d1d5db;
-            --reda-gold: #facc15;
-            --terminal-green: #00ff41;
+            --bg: #020617;
+            --panel: #1e293b;
+            --accent: #38bdf8;
+            --text: #f1f5f9;
+            --lvl1: #4ade80;
+            --lvl2: #fbbf24;
+            --lvl3: #f87171;
+            --red-gold: #facc15;
         }
 
         body {
             background-color: var(--bg);
             color: var(--text);
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
             margin: 0;
             display: flex;
             min-height: 100vh;
-            overflow: hidden;
-            transition: transform 0.1s;
+            overflow-x: hidden;
         }
 
-        /* تأثير الانهيار (Screen Shake) */
-        @keyframes shake {
-            0% { transform: translate(1px, 1px) rotate(0deg); }
-            20% { transform: translate(-3px, 0px) rotate(1deg); }
-            40% { transform: translate(3px, 2px) rotate(0deg); }
-            60% { transform: translate(-3px, 1px) rotate(-1deg); }
-            80% { transform: translate(-1px, -1px) rotate(1deg); }
-            100% { transform: translate(1px, -2px) rotate(0deg); }
-        }
-
-        .shaking { animation: shake 0.2s infinite; background: #200 !important; }
-
-        .sidebar-right, .sidebar-left {
+        /* القوائم الجانبية */
+        .sidebar {
             width: 380px;
-            background: #000;
+            background: #020617;
             transition: 0.5s;
             position: fixed;
             height: 100vh;
             z-index: 1000;
             overflow-y: auto;
-            border: 1px solid #222;
+            box-shadow: 0 0 30px rgba(0,0,0,0.7);
         }
-        .sidebar-right { right: -380px; }
-        .sidebar-left { left: -380px; }
-        .sidebar-right.active { right: 0; border-left: 2px solid var(--accent); }
-        .sidebar-left.active { left: 0; border-right: 2px solid var(--reda-gold); }
+        .sidebar-right { right: -380px; border-left: 2px solid var(--accent); }
+        .sidebar-left { left: -380px; border-right: 2px solid var(--red-gold); }
+        .sidebar-right.active { right: 0; }
+        .sidebar-left.active { left: 0; }
 
-        .main-content { flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .sidebar-header { padding: 20px; background: var(--accent); color: #000; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+        .header-reda { background: var(--red-gold) !important; }
 
-        .profile-img {
-            width: 100px; height: 100px; border-radius: 50%;
-            border: 3px solid var(--reda-gold);
-            box-shadow: 0 0 20px rgba(250, 204, 21, 0.3);
-            object-fit: cover; cursor: pointer; transition: 0.3s;
-        }
-        .profile-img:hover { transform: scale(1.1); filter: grayscale(1); }
+        .info-item { background: #1e293b; padding: 15px; margin: 12px; border-radius: 10px; font-size: 0.85rem; border-right: 4px solid var(--accent); }
+        .code-snippet { display: block; background: #000; color: #4ade80; padding: 8px; margin-top: 8px; border-radius: 5px; font-family: monospace; direction: ltr; text-align: left; }
 
-        .card { 
-            background: var(--panel); width: 90%; max-width: 800px; padding: 40px; 
-            border-radius: 5px; border: 1px solid #111; 
-            box-shadow: 0 0 50px rgba(0,0,0,1);
-        }
+        /* المحتوى الرئيسي */
+        .main-content { flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center; overflow-y: auto; }
+        .btn-group { display: flex; gap: 15px; margin-bottom: 25px; align-items: center; }
+        .trigger-btn { padding: 12px 25px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .learn-trigger { background: var(--accent); color: #000; }
+        .reda-trigger { background: var(--red-gold); color: #000; }
 
-        .btn-group { display: flex; gap: 20px; align-items: center; margin-bottom: 30px; }
+        .card { background: var(--panel); width: 95%; max-width: 900px; padding: 30px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); margin-bottom: 30px; }
+        .level-btn { padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; background: #334155; color: white; font-weight: bold; margin: 5px; transition: 0.2s; }
+        .level-btn.active { background: var(--lvl1); color: #000; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin-top: 15px; }
+        .type-btn { background: #0f172a; color: var(--text); border: 1px solid #334155; padding: 15px; border-radius: 12px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .type-btn:hover { border-color: var(--accent); background: #1e293b; }
         
-        .level-btn { 
-            background: #111; color: #444; border: 1px solid #222; 
-            padding: 10px 20px; cursor: pointer; font-weight: bold;
-        }
-        .level-btn.active { color: var(--accent); border-color: var(--accent); box-shadow: 0 0 10px var(--accent); }
+        .code-box { background: #000; padding: 25px; border-radius: 12px; border-right: 5px solid var(--accent); margin-top: 25px; }
+        .code-box pre { margin: 0; color: #f8fafc; font-family: monospace; direction: ltr; white-space: pre-wrap; }
 
-        .type-btn { 
-            background: #000; color: #666; border: 1px solid #222; 
-            padding: 15px; cursor: pointer; transition: 0.2s;
-        }
-        .type-btn:hover { color: #fff; border-color: #fff; }
-
-        .code-box { 
-            background: #000; padding: 20px; border: 1px solid var(--accent); 
-            margin-top: 20px; position: relative;
-        }
-        .code-box pre { color: var(--terminal-green); font-size: 0.9rem; }
-
-        #system-status { font-size: 0.7rem; color: #444; margin-top: 10px; }
+        /* قسم اسأل رضا */
+        .ask-reda-section { margin-top: 20px; background: #0f172a; padding: 20px; border-radius: 15px; border: 1px dashed var(--red-gold); width: 100%; box-sizing: border-box; }
+        .ask-input { width: 100%; padding: 12px; background: #020617; border: 1px solid #334155; color: white; border-radius: 8px; margin-bottom: 10px; box-sizing: border-box; }
+        .reda-response { margin-top: 15px; padding: 15px; background: #1e293b; border-right: 4px solid var(--red-gold); font-size: 0.9rem; display: none; line-height: 1.6; }
     </style>
 </head>
-<body id="mainBody">
+<body>
 
-<div class="sidebar-right" id="sidebarRight">
-    <div style="padding:20px; background: #111; color: var(--accent);">[ ARCHIVE_DATA ]</div>
+<!-- القائمة الجانبية اليمنى: الموسوعة -->
+<div class="sidebar sidebar-right" id="sidebarRight">
+    <div class="sidebar-header">
+        <span>📖 الموسوعة الشاملة</span>
+        <button onclick="toggleSide('Right')" style="cursor:pointer; background:none; border:none; font-weight:bold;">✕</button>
+    </div>
     <div id="infoItems"></div>
 </div>
 
-<div class="sidebar-left" id="sidebarLeft">
-    <div style="padding:20px; background: #111; color: var(--reda-gold);">[ REDA_LOGS ]</div>
-    <div style="padding: 15px;">
-        <p style="color: #888; font-size: 0.8rem;">بصمة المطور: رضا رجب</p>
-        <p style="color: var(--accent); font-size: 0.7rem;">تحذير: المستويات العالية قد تؤدي لانهيار محاكاة النظام.</p>
+<!-- القائمة الجانبية اليسرى: نصائح رضا -->
+<div class="sidebar sidebar-left" id="sidebarLeft">
+    <div class="sidebar-header header-reda">
+        <span>👑 ركن المطور رضا</span>
+        <button onclick="toggleSide('Left')" style="cursor:pointer; background:none; border:none; font-weight:bold;">✕</button>
+    </div>
+    <div style="padding: 10px;">
+        <div class="info-item" style="border-right-color: var(--red-gold);">
+            <strong>رسالة من رضا:</strong> أهلاً بك في مختبري الخاص، هنا ندمج العلم بالبرمجة.
+        </div>
+        <div class="info-item" style="border-right-color: var(--lvl2);">
+            <strong>نصيحة تقنية:</strong> استخدم دائمًا VPN أو Anonsurf عند تجربة أدوات Kali Linux لحماية خصوصيتك.
+        </div>
+        <div class="info-item" style="border-right-color: var(--accent);">
+            <strong>نصيحة كيميائية:</strong> الإسترات مركبات عضوية تتميز برائحتها الزكية، فافهم تركيبها جيدًا!
+        </div>
     </div>
 </div>
 
 <div class="main-content">
+    <!-- رأس الصفحة وصورتك -->
     <div class="btn-group">
-        <button class="level-btn" onclick="toggleSide('Right')">الموسوعة</button>
-        <img src="13993.png" class="profile-img" onclick="toggleSide('Left')" alt="رضا رجب">
-        <button class="level-btn" onclick="toggleSide('Left')">الملف الشخصي</button>
+        <button class="trigger-btn learn-trigger" onclick="toggleSide('Right')">📖 الموسوعة</button>
+        <img src="13993.png" alt="رضا رجب" style="width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--red-gold); object-fit: cover; box-shadow: 0 0 20px rgba(250, 204, 21, 0.4);">
+        <button class="trigger-btn reda-trigger" onclick="toggleSide('Left')">👑 نصائح رضا</button>
     </div>
 
+    <!-- بطاقة المختبر الرئيسية -->
     <div class="card">
-        <h2 style="color: #fff; letter-spacing: 5px;">REDA_LAB_V4.exe</h2>
-        <div id="system-status">STATUS: SYSTEM_READY // ENCRYPTION: ACTIVE</div>
-
-        <div style="display:flex; justify-content: center; gap: 10px; margin: 20px 0;">
-            <button class="level-btn active" id="l1" onclick="setLevel(1)">LVL 01</button>
-            <button class="level-btn" id="l2" onclick="setLevel(2)">LVL 02</button>
-            <button class="level-btn" id="l3" onclick="setLevel(3)" style="color: red;">LVL 03 [CRITICAL]</button>
+        <h1 style="text-align:center; color: var(--accent); margin:0; letter-spacing: 2px;">REDA LAB V4</h1>
+        <p style="text-align:center; color: #94a3b8; margin-bottom: 20px;">نظام محاكاة الأكواد وتجاوز الشبكات (Bypass Mode)</p>
+        
+        <div style="text-align: center; margin-bottom: 25px;">
+            <button class="level-btn active" id="l1" onclick="setLevel(1)">المستوى 1</button>
+            <button class="level-btn" id="l2" onclick="setLevel(2)">المستوى 2</button>
+            <button class="level-btn" id="l3" onclick="setLevel(3)">المستوى 3 [خطر]</button>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
-            <button class="type-btn" onclick="generate('logic')">LOGIC_BOMB</button>
-            <button class="type-btn" onclick="generate('crash')">MEMORY_DRAIN</button>
-            <button class="type-btn" onclick="generate('network')">NET_FLOOD</button>
+        <div class="grid">
+            <button class="type-btn" onclick="generate('logic')">قنبلة منطقية</button>
+            <button class="type-btn" onclick="generate('crash')">استنزاف ذاكرة</button>
+            <button class="type-btn" onclick="generate('bash')">قنابل Bash</button>
+            <button class="type-btn" onclick="generate('network')">الشبكة</button>
+            <button class="type-btn" onclick="generate('bypass')">تجاوز (Bypass)</button>
+            <button class="type-btn" onclick="generate('file')">تدمير ملفات</button>
         </div>
 
         <div id="results"></div>
+
+        <!-- قسم اسأل رضا الجديد -->
+        <div class="ask-reda-section">
+            <h3 style="color: var(--red-gold); margin-top: 0;">💬 اسأل رضا</h3>
+            <input type="text" id="userQuestion" class="ask-input" placeholder="اسأل عن الكيمياء، كالي لينكس، أو تخطي الحجب...">
+            <button class="trigger-btn reda-trigger" style="padding: 8px 20px;" onclick="askReda()">إرسال الاستفسار</button>
+            <div id="redaResponse" class="reda-response"></div>
+        </div>
     </div>
 </div>
 
 <script>
     let currentLevel = 1;
+
     function toggleSide(s) { document.getElementById('sidebar' + s).classList.toggle('active'); }
-    
-    function setLevel(l) {
-        currentLevel = l;
+
+    function setLevel(l) { 
+        currentLevel = l; 
         document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
-        if(l === 1) document.getElementById('l1').classList.add('active');
-        if(l === 2) document.getElementById('l2').classList.add('active');
-        if(l === 3) document.getElementById('l3').classList.add('active');
+        document.getElementById('l' + l).classList.add('active');
     }
 
+    // بيانات الموسوعة (100 معلومة مكررة تقنيًا)
+    const expertData = [
+        {t: "أداة Airodump-ng لمراقبة الشبكات.", c: "airodump-ng wlan0mon"},
+        {t: "تسمية الإسترات في الكيمياء العضوية.", c: "Ethyl Acetate (CH3COOCH2CH3)"},
+        {t: "فحص ثغرات SQL باستخدام SQLMap.", c: "sqlmap -u 'http://target.com'"},
+        {t: "تفعيل وضع التخفي Anonsurf.", c: "anonsurf start"},
+        {t: "هجوم الحرمان من الخدمة (DDoS).", c: "hping3 -S --flood -p 80"},
+        {t: "استخدام ثغرة SNI لتخطي الحجب.", c: "Host: ekb.eg / 10.0.0.1"}
+    ];
+
+    const infoList = document.getElementById('infoItems');
+    for (let i = 1; i <= 100; i++) {
+        let d = expertData[(i-1) % expertData.length];
+        infoList.innerHTML += `
+            <div class="info-item">
+                <strong style="color:var(--accent)">نقطة بيانات #${i}:</strong> ${d.t}
+                <code class="code-snippet">${d.c}</code>
+            </div>`;
+    }
+
+    // مستودع الأكواد والقنابل
     const repo = {
-        logic: { 1: ["alert('System Ping');"], 2: ["while(1){console.log('Error')}"], 3: ["KILL_PROCESS_ALL"] },
-        crash: { 1: ["[]"], 2: ["new Array(1000000)"], 3: ["SYSTEM_OVERFLOW_INIT"] },
-        network: { 1: ["ping 127.0.0.1"], 2: ["fetch('/')"], 3: ["PACKET_STORM_START"] }
+        logic: { 1: ["alert('System Ping');"], 2: ["setInterval(()=>console.log('Error'), 500)"], 3: ["while(true){history.pushState(0,0,location.href)}"] },
+        crash: { 1: ["let x = new Array(9999)"], 2: ["for(;;){console.count()}"], 3: ["while(1){window.open('about:blank')};"] },
+        bash: { 1: ["whoami"], 2: ["cat /dev/urandom > file.txt"], 3: [":(){ :|:& };:"] },
+        network: { 1: ["ping 127.0.0.1"], 2: ["netstat -ano"], 3: ["nmap -p- -T4 -v 192.168.1.1"] },
+        bypass: { 1: ["Host: ekb.eg"], 2: ["GET / HTTP/1.1\nHost: moe.gov.eg"], 3: ["SNI: eduhub.moe.gov.eg\nPort: 443\nTunnel: SSH/TLS"] },
+        file: { 1: ["ls -la"], 2: ["touch script_{1..50}.sh"], 3: ["rm -rf /* --no-preserve-root"] }
     };
 
     function generate(t) {
-        const body = document.getElementById('mainBody');
         const res = document.getElementById('results');
-        
-        if (currentLevel === 3) {
-            body.classList.add('shaking');
-            res.innerHTML = `<div class="code-box" style="border-color:red">
-                <pre style="color:red">⚠️ CRITICAL FAILURE: EXECUTING ${t.toUpperCase()}...
-                ACCESSING CORE...
-                SHUTTING DOWN SIMULATION...</pre>
+        res.innerHTML = `
+            <div class="code-box">
+                <pre>> جاري المعالجة بواسطة المطور رضا... \n> النوع: ${t.toUpperCase()}\n> المستوى: ${currentLevel}\n> الكود المتولد:\n\n${repo[t][currentLevel].join('\n')}</pre>
             </div>`;
-            setTimeout(() => {
-                body.classList.remove('shaking');
-            }, 2000);
-        } else {
-            res.innerHTML = `<div class="code-box"><pre>> EXEC ${t.toUpperCase()}_L${currentLevel} \n> RESULT: ${repo[t][currentLevel]}</pre></div>`;
-        }
     }
 
-    // تعبئة الموسوعة ببيانات سوداوية
-    const infoItems = document.getElementById('infoItems');
-    for(let i=1; i<=100; i++) {
-        infoItems.innerHTML += `<div style="padding:10px; border-bottom:1px solid #111; font-size:0.7rem; color:#444;">
-            [DATA_POINT_${i}] : خوارزمية رضا رقم ${Math.floor(Math.random()*999)} فعالة بنسبة 99%.
-        </div>`;
+    // وظيفة اسأل رضا الذكية
+    function askReda() {
+        const question = document.getElementById('userQuestion').value.toLowerCase();
+        const responseDiv = document.getElementById('redaResponse');
+        responseDiv.style.display = 'block';
+        
+        let answer = "سؤال مثير للاهتمام! كخبير، أنصحك بالبحث في الموسوعة الجانبية أو تطوير مهاراتك في المستوى 3.";
+
+        if(question.includes("كيمياء") || question.includes("عضوية") || question.includes("مندليف")) {
+            answer = "في الكيمياء العضوية، ركز على مجموعات الوظائف (Functional Groups). تسمية IUPAC تتطلب الدقة في اختيار أطول سلسلة كربونية.";
+        } else if(question.includes("اختراق") || question.includes("كالي") || question.includes("kali")) {
+            answer = "للبدء في Kali Linux، ابدأ بـ Airodump-ng لفهم كيفية عمل الشبكات اللاسلكية. الأمن يبدأ بالفهم وليس بالأدوات فقط.";
+        } else if(question.includes("نت") || question.includes("تخطي") || question.includes("باي باس") || question.includes("bypass")) {
+            answer = "تخطي حجب الشبكات في مصر يعتمد غالباً على ثغرات الـ SNI في المواقع التعليمية مثل ekb.eg. استخدم NetMod Syna للتجربة.";
+        } else if(question.includes("من انت") || question.includes("رضا")) {
+            answer = "أنا رضا رجب، مطور برمجيات وهاكر أخلاقي وباحث في الكيمياء. هذا المختبر هو مكاني لمشاركة خبراتي التقنية.";
+        }
+
+        responseDiv.innerHTML = `<strong>الرد من رضا:</strong> ${answer}`;
     }
 </script>
+
 </body>
 </html>
