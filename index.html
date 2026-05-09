@@ -13,6 +13,7 @@
             --gold: #f2cc60;
             --text: #c9d1d9;
             --code-bg: #000000;
+            --whatsapp: #25d366;
         }
 
         body { 
@@ -41,6 +42,35 @@
             background-color: var(--kali); color: white; cursor: pointer;
             padding: 15px; border-radius: 50%; font-size: 20px;
             box-shadow: 0 0 20px var(--kali); transition: 0.3s;
+        }
+
+        /* WhatsApp Floating Button */
+        #whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 3000;
+            background-color: var(--whatsapp);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.5);
+            text-decoration: none;
+            transition: 0.3s;
+            animation: whatsapp-pulse 2s infinite;
+        }
+        #whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px var(--whatsapp);
+        }
+        @keyframes whatsapp-pulse {
+            0% { box-shadow: 0 0 0 0px rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0px rgba(37, 211, 102, 0); }
         }
 
         .sidebar {
@@ -137,6 +167,14 @@
     <div id="system-logs"></div>
 
     <button onclick="topFunction()" id="scrollTopBtn">▲</button>
+    
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/201152424287" target="_blank" id="whatsapp-btn" title="تواصل معي عبر واتساب">
+        <svg viewBox="0 0 32 32" style="width:35px; height:35px; fill:white;">
+            <path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.733 5.48 2.01 7.79l-2.01 7.21 7.385-1.935c2.192 1.192 4.695 1.868 7.358 1.868 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.358c-2.408 0-4.675-0.62-6.653-1.71l-0.478-0.265-4.385 1.15 1.17-4.195-0.29-0.463c-1.205-1.923-1.91-4.2-1.91-6.638 0-7.030 5.715-12.745 12.745-12.745s12.745 5.715 12.745 12.745-5.715 12.745-12.745 12.745zM22.183 18.735c-0.34-0.17-2.010-0.99-2.323-1.105s-0.543-0.17-0.77 0.17c-0.228 0.34-0.883 1.105-1.083 1.333s-0.4 0.255-0.74 0.085c-0.34-0.17-1.433-0.528-2.73-1.685-1.010-0.9-1.69-2.013-1.89-2.353s-0.023-0.525 0.148-0.693c0.153-0.15 0.34-0.4 0.51-0.6s0.228-0.34 0.34-0.568c0.115-0.228 0.058-0.425-0.028-0.595s-0.77-1.855-1.055-2.543c-0.278-0.67-0.56-0.578-0.77-0.588s-0.428-0.01-0.655-0.01c-0.228 0-0.598 0.085-0.91 0.425s-1.193 1.165-1.193 2.838c0 1.673 1.218 3.295 1.388 3.523s2.398 3.66 5.808 5.133c0.81 0.35 1.443 0.56 1.935 0.718 0.813 0.258 1.553 0.223 2.138 0.135 0.653-0.1 2.010-0.823 2.295-1.62s0.285-1.478 0.198-1.62c-0.085-0.143-0.313-0.228-0.653-0.398z"></path>
+        </svg>
+    </a>
+
     <div class="overlay" id="overlay" onclick="closeAll()"></div>
 
     <div class="sidebar sidebar-right" id="sbRight">
@@ -182,7 +220,6 @@
             <button class="btn btn-gold" onclick="toggleTools()">🔙 العودة للرئيسية</button>
         </div>
         <div id="toolsGrid">
-            <!-- الأدوات 1-10 -->
             <div class="card"><div><span class="tag" style="color:var(--danger)">[Exploit]</span><h3>1. Fork Bomb</h3></div><button class="btn btn-gold" onclick="showInfo('Fork Bomb', 'شل النظام عبر استهلاك العمليات بإنتاج لا نهائي من الـ Child Processes.', ':(){ :|:& };:')">تفاصيل</button></div>
             <div class="card"><div><span class="tag" style="color:var(--kali)">[Network]</span><h3>2. SYN Flood</h3></div><button class="btn btn-gold" onclick="showInfo('SYN Flood', 'هجوم DoS عن طريق إرسال سيل من طلبات التزامن SYN دون إكمال المصافحة.', 'sudo hping3 -S --flood -V -p 80 [Target]')">تفاصيل</button></div>
             <div class="card"><div><span class="tag" style="color:var(--gold)">[Database]</span><h3>3. SQL Map</h3></div><button class="btn btn-gold" onclick="showInfo('SQL Map', 'أداة تلقائية لاكتشاف واستغلال ثغرات حقن قواعد البيانات SQL Injection.', 'sqlmap -u [URL] --dbs')">تفاصيل</button></div>
@@ -194,7 +231,6 @@
             <div class="card"><div><span class="tag" style="color:var(--gold)">[Search]</span><h3>9. Searchsploit</h3></div><button class="btn btn-gold" onclick="showInfo('Searchsploit', 'أداة للبحث في قاعدة بيانات Exploit-DB عن الثغرات العامة.', 'searchsploit apache 2.4.49')">تفاصيل</button></div>
             <div class="card"><div><span class="tag" style="color:var(--kali)">[OSINT]</span><h3>10. Sherlock</h3></div><button class="btn btn-gold" onclick="showInfo('Sherlock', 'البحث عن حسابات التواصل الاجتماعي عبر اسم المستخدم.', 'python3 sherlock username')">تفاصيل</button></div>
 
-            <!-- الأدوات المضافة 21-30 -->
             <div class="card"><span class="tag" style="color:var(--kali)">[Scanner]</span><h3>21. Gobuster</h3><button class="btn btn-gold" onclick="showInfo('Gobuster (المستكشف العميق)', 'الوصف: أداة اكتشاف المسارات المخفية بسرعة فائقة.\n\nالآلية: تستخدم تقنية brute-force للبحث عن ملفات backup وصفحات الإدارة.', 'gobuster dir -u https://target.com -w common.txt', 'f2_v58vO49k')">تفاصيل وفيديو</button></div>
             <div class="card"><span class="tag" style="color:var(--danger)">[Sniffing]</span><h3>22. Responder</h3><button class="btn btn-gold" onclick="showInfo('Responder (صائد الهويات)', 'الوصف: أقوى أداة لسحب الـ Hashes في الشبكة المحلية.\n\nالآلية: تقوم بتسميم بروتوكولات LLMNR لإجبار الأجهزة على إرسال كلمات السر.', 'sudo responder -I eth0 -rdwv', 'gS8pLp_f_yA')">تفاصيل وفيديو</button></div>
             <div class="card"><span class="tag" style="color:var(--gold)">[Web]</span><h3>23. Commix</h3><button class="btn btn-gold" onclick="showInfo('Commix (مخترق الخوادم)', 'الوصف: أتمتة كاملة لثغرات الـ Command Injection.', 'python3 commix.py --url=[URL]', 'v_mEisN_BvM')">تفاصيل وفيديو</button></div>
@@ -217,8 +253,6 @@
             </div>
             <h4 style="color:var(--gold)">💻 الأمر البرمجي:</h4>
             <div class="code-box" id="modalCode"></div>
-            
-            <!-- حاوية الفيديو المعدلة -->
             <div id="videoContainer" style="margin-top:20px;"></div>
         </div>
     </div>
@@ -288,7 +322,6 @@
             nav.style.display = isOpen ? 'flex' : 'none';
         }
 
-        // دالة عرض المعلومات المعدلة لحل مشكلة الفيديو
         function showInfo(title, desc, code, vId = null) {
             addLog(`Inspecting: ${title}`);
             document.getElementById('modalTitle').innerText = title;
@@ -297,7 +330,6 @@
             
             const vContainer = document.getElementById('videoContainer');
             if(vId) {
-                // الحل: زر لفتح اليوتيوب بدلاً من الـ iframe لتجنب مشاكل "غير متاح"
                 vContainer.innerHTML = `
                     <h4 style="color:var(--kali)">📺 شرح الأداة:</h4>
                     <a href="https://www.youtube.com/watch?v=${vId}" target="_blank" class="btn btn-gold" 
@@ -317,7 +349,6 @@
 
         function topFunction() { window.scrollTo({top: 0, behavior: 'smooth'}); }
 
-        // Canvas Background
         const canvas = document.getElementById('mapCanvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
