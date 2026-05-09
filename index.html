@@ -194,17 +194,17 @@
             <div class="card"><div><span class="tag" style="color:var(--gold)">[Search]</span><h3>9. Searchsploit</h3></div><button class="btn btn-gold" onclick="showInfo('Searchsploit', 'أداة للبحث في قاعدة بيانات Exploit-DB عن الثغرات العامة.', 'searchsploit apache 2.4.49')">تفاصيل</button></div>
             <div class="card"><div><span class="tag" style="color:var(--kali)">[OSINT]</span><h3>10. Sherlock</h3></div><button class="btn btn-gold" onclick="showInfo('Sherlock', 'البحث عن حسابات التواصل الاجتماعي عبر اسم المستخدم.', 'python3 sherlock username')">تفاصيل</button></div>
 
-            <!-- الأدوات المضافة 21-30 (الدروس الكبيرة) -->
-            <div class="card"><span class="tag" style="color:var(--kali)">[Scanner]</span><h3>21. Gobuster</h3><button class="btn btn-gold" onclick="showInfo('Gobuster (المستكشف العميق)', 'الوصف: أداة اكتشاف المسارات المخفية بسرعة فائقة.\n\nالآلية: تستخدم تقنية brute-force للبحث عن ملفات backup وصفحات الإدارة.\n\nالدرس: الأداة لا غنى عنها في جمع المعلومات الأولية عن أي موقع.', 'gobuster dir -u https://target.com -w common.txt', 'f2_v58vO49k')">تفاصيل وفيديو</button></div>
-            <div class="card"><span class="tag" style="color:var(--danger)">[Sniffing]</span><h3>22. Responder</h3><button class="btn btn-gold" onclick="showInfo('Responder (صائد الهويات)', 'الوصف: أقوى أداة لسحب الـ Hashes في الشبكة المحلية.\n\nالآلية: تقوم بتسميم بروتوكولات LLMNR لإجبار الأجهزة على إرسال كلمات السر.\n\nالدرس: تكشف ضعف بروتوكولات ويندوز القديمة في الشركات.', 'sudo responder -I eth0 -rdwv', 'gS8pLp_f_yA')">تفاصيل وفيديو</button></div>
-            <div class="card"><span class="tag" style="color:var(--gold)">[Web]</span><h3>23. Commix</h3><button class="btn btn-gold" onclick="showInfo('Commix (مخترق الخوادم)', 'الوصف: أتمتة كاملة لثغرات الـ Command Injection.\n\nالآلية: تحاول تنفيذ أوامر النظام مباشرة عبر مدخلات الويب غير المحمية.\n\nالدرس: إذا نجحت، ستحصل على Shell كامل للتحكم في السيرفر.', 'python3 commix.py --url=[URL]', 'v_mEisN_BvM')">تفاصيل وفيديو</button></div>
-            <div class="card"><span class="tag" style="color:var(--kali)">[Recon]</span><h3>24. Recon-ng</h3><button class="btn btn-gold" onclick="showInfo('Recon-ng (مجمع الاستخبارات)', 'الوصف: إطار عمل OSINT شامل لجمع معلومات الأهداف.\n\nالآلية: تستخدم الـ APIs لسحب بيانات الموظفين والنطاقات من الإنترنت.', 'recon-ng', '0L9X6YQ5z_w')">تفاصيل وفيديو</button></div>
-            <div class="card"><span class="tag" style="color:var(--danger)">[Attack]</span><h3>25. Slowloris</h3><button class="btn btn-gold" onclick="showInfo('Slowloris (شلل الحركة)', 'الوصف: هجوم DoS ذكي لا يستهلك مواردك لكنه يسقط الخادم.\n\nالآلية: فتح اتصالات HTTP وإبقائها مفتوحة ببطء شديد لاستنزاف موارد الخصم.', 'python3 slowloris.py target.com', 'a_8W_T-D7m8')">تفاصيل وفيديو</button></div>
-            <div class="card"><span class="tag" style="color:var(--gold)">[Android]</span><h3>26. MobSF</h3><button class="btn btn-gold" onclick="showInfo('MobSF (محلل الموبايل)', 'الوصف: منصة فحص تطبيقات الـ Android و iOS بالكامل.\n\nالآلية: فك التشفير وتحليل الكود المصدري للبحث عن تسريبات البيانات.', './run.sh', 'Yv_2r8j4_Z0')">تفاصيل وفيديو</button></div>
-            <div class="card"><span class="tag" style="color:var(--kali)">[Vuln]</span><h3>27. Lynis</h3><button class="btn btn-gold" onclick="showInfo('Lynis (مدقق النظام)', 'الوصف: خبير فحص أمان لينكس من الداخل.\n\nالآلية: تدقيق شامل لإعدادات النظام والـ Kernel والـ SSH.', 'lynis audit system', 'v6fK89F9S7U')">تفاصيل وفيديو</button></div>
-            <div class="card"><span class="tag" style="color:var(--danger)">[Crack]</span><h3>28. Crunch</h3><button class="btn btn-gold" onclick="showInfo('Crunch (مصنع الاحتمالات)', 'الوصف: مولد قواميس الـ Wordlists المخصصة.\n\nالآلية: إنشاء احتمالات رياضية بناءً على الأنماط.', 'crunch 8 10 -o pass.txt', '0y3-HkU_A7s')">تفاصيل وفيديو</button></div>
-            <div class="card"><span class="tag" style="color:var(--gold)">[Analysis]</span><h3>29. Binwalk</h3><button class="btn btn-gold" onclick="showInfo('Binwalk (جهاز الأشعة)', 'الوصف: أداة الهندسة العكسية لملفات الـ Firmware.\n\nالآلية: البحث عن ملفات مخفية وأنظمة تشغيل داخل ملفات الـ Binary.', 'binwalk -e firmware.bin', '0Yp_X0mS-6A')">تفاصيل وفيديو</button></div>
-            <div class="card"><span class="tag" style="color:var(--kali)">[Proxy]</span><h3>30. Mitmproxy</h3><button class="btn btn-gold" onclick="showInfo('Mitmproxy (المتلاعب)', 'الوصف: وسيط لتعديل طلبات الـ HTTP لحظياً.\n\nالآلية: اعتراض البيانات بين المستخدم والسيرفر وتغيير محتواها.', 'mitmproxy', '86Z_97uL97g')">تفاصيل وفيديو</button></div>
+            <!-- الأدوات المضافة 21-30 -->
+            <div class="card"><span class="tag" style="color:var(--kali)">[Scanner]</span><h3>21. Gobuster</h3><button class="btn btn-gold" onclick="showInfo('Gobuster (المستكشف العميق)', 'الوصف: أداة اكتشاف المسارات المخفية بسرعة فائقة.\n\nالآلية: تستخدم تقنية brute-force للبحث عن ملفات backup وصفحات الإدارة.', 'gobuster dir -u https://target.com -w common.txt', 'f2_v58vO49k')">تفاصيل وفيديو</button></div>
+            <div class="card"><span class="tag" style="color:var(--danger)">[Sniffing]</span><h3>22. Responder</h3><button class="btn btn-gold" onclick="showInfo('Responder (صائد الهويات)', 'الوصف: أقوى أداة لسحب الـ Hashes في الشبكة المحلية.\n\nالآلية: تقوم بتسميم بروتوكولات LLMNR لإجبار الأجهزة على إرسال كلمات السر.', 'sudo responder -I eth0 -rdwv', 'gS8pLp_f_yA')">تفاصيل وفيديو</button></div>
+            <div class="card"><span class="tag" style="color:var(--gold)">[Web]</span><h3>23. Commix</h3><button class="btn btn-gold" onclick="showInfo('Commix (مخترق الخوادم)', 'الوصف: أتمتة كاملة لثغرات الـ Command Injection.', 'python3 commix.py --url=[URL]', 'v_mEisN_BvM')">تفاصيل وفيديو</button></div>
+            <div class="card"><span class="tag" style="color:var(--kali)">[Recon]</span><h3>24. Recon-ng</h3><button class="btn btn-gold" onclick="showInfo('Recon-ng (مجمع الاستخبارات)', 'الوصف: إطار عمل OSINT شامل لجمع معلومات الأهداف.', 'recon-ng', '0L9X6YQ5z_w')">تفاصيل وفيديو</button></div>
+            <div class="card"><span class="tag" style="color:var(--danger)">[Attack]</span><h3>25. Slowloris</h3><button class="btn btn-gold" onclick="showInfo('Slowloris (شلل الحركة)', 'الوصف: هجوم DoS ذكي لا يستهلك مواردك لكنه يسقط الخادم.', 'python3 slowloris.py target.com', 'a_8W_T-D7m8')">تفاصيل وفيديو</button></div>
+            <div class="card"><span class="tag" style="color:var(--gold)">[Android]</span><h3>26. MobSF</h3><button class="btn btn-gold" onclick="showInfo('MobSF (محلل الموبايل)', 'الوصف: منصة فحص تطبيقات الـ Android و iOS بالكامل.', './run.sh', 'Yv_2r8j4_Z0')">تفاصيل وفيديو</button></div>
+            <div class="card"><span class="tag" style="color:var(--kali)">[Vuln]</span><h3>27. Lynis</h3><button class="btn btn-gold" onclick="showInfo('Lynis (مدقق النظام)', 'الوصف: خبير فحص أمان لينكس من الداخل.', 'lynis audit system', 'v6fK89F9S7U')">تفاصيل وفيديو</button></div>
+            <div class="card"><span class="tag" style="color:var(--danger)">[Crack]</span><h3>28. Crunch</h3><button class="btn btn-gold" onclick="showInfo('Crunch (مصنع الاحتمالات)', 'الوصف: مولد قواميس الـ Wordlists المخصصة.', 'crunch 8 10 -o pass.txt', '0y3-HkU_A7s')">تفاصيل وفيديو</button></div>
+            <div class="card"><span class="tag" style="color:var(--gold)">[Analysis]</span><h3>29. Binwalk</h3><button class="btn btn-gold" onclick="showInfo('Binwalk (جهاز الأشعة)', 'الوصف: أداة الهندسة العكسية لملفات الـ Firmware.', 'binwalk -e firmware.bin', '0Yp_X0mS-6A')">تفاصيل وفيديو</button></div>
+            <div class="card"><span class="tag" style="color:var(--kali)">[Proxy]</span><h3>30. Mitmproxy</h3><button class="btn btn-gold" onclick="showInfo('Mitmproxy (المتلاعب)', 'الوصف: وسيط لتعديل طلبات الـ HTTP لحظياً.', 'mitmproxy', '86Z_97uL97g')">تفاصيل وفيديو</button></div>
         </div>
     </div>
 
@@ -218,7 +218,7 @@
             <h4 style="color:var(--gold)">💻 الأمر البرمجي:</h4>
             <div class="code-box" id="modalCode"></div>
             
-            <!-- حاوية الفيديو -->
+            <!-- حاوية الفيديو المعدلة -->
             <div id="videoContainer" style="margin-top:20px;"></div>
         </div>
     </div>
@@ -288,7 +288,7 @@
             nav.style.display = isOpen ? 'flex' : 'none';
         }
 
-        // دالة عرض المعلومات المحدثة مع الفيديو
+        // دالة عرض المعلومات المعدلة لحل مشكلة الفيديو
         function showInfo(title, desc, code, vId = null) {
             addLog(`Inspecting: ${title}`);
             document.getElementById('modalTitle').innerText = title;
@@ -297,11 +297,13 @@
             
             const vContainer = document.getElementById('videoContainer');
             if(vId) {
+                // الحل: زر لفتح اليوتيوب بدلاً من الـ iframe لتجنب مشاكل "غير متاح"
                 vContainer.innerHTML = `
-                    <h4 style="color:var(--kali)">📺 فيديو شرح الأداة:</h4>
-                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/${vId}" 
-                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen style="border-radius:10px; border:1px solid #333;"></iframe>`;
+                    <h4 style="color:var(--kali)">📺 شرح الأداة:</h4>
+                    <a href="https://www.youtube.com/watch?v=${vId}" target="_blank" class="btn btn-gold" 
+                       style="display: block; text-align: center; text-decoration: none; margin-top: 10px; background: rgba(248, 81, 73, 0.1); border-color: var(--danger); color: var(--danger);">
+                       ▶ مشاهدة الفيديو على يوتيوب
+                    </a>`;
             } else {
                 vContainer.innerHTML = "";
             }
@@ -311,7 +313,6 @@
 
         function closeModal() { 
             document.getElementById('infoModal').style.display = "none"; 
-            document.getElementById('videoContainer').innerHTML = ""; // إيقاف الفيديو عند الإغلاق
         }
 
         function topFunction() { window.scrollTo({top: 0, behavior: 'smooth'}); }
