@@ -22,6 +22,11 @@
             scroll-behavior: smooth; overflow-x: hidden;
         }
 
+        #cyber-map {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; background: var(--bg);
+        }
+
         #scrollTopBtn {
             display: none; position: fixed; bottom: 30px; left: 30px;
             z-index: 3000; border: none; outline: none;
@@ -48,8 +53,9 @@
 
         .header-box {
             text-align: center; margin: 40px 0; padding: 30px;
-            background: #161b22; border-radius: 20px; border: 1px solid #30363d;
+            background: rgba(22, 27, 34, 0.9); border-radius: 20px; border: 1px solid #30363d;
             width: 90%; max-width: 900px; border-bottom: 4px solid var(--gold);
+            backdrop-filter: blur(10px);
         }
         .profile-img { 
             width: 150px; height: 150px; border-radius: 50%; 
@@ -59,28 +65,21 @@
         .nav-wrap { display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; justify-content: center; }
         .btn {
             padding: 12px 25px; border-radius: 8px; border: 1px solid var(--kali);
-            background: transparent; color: var(--kali); cursor: pointer; font-weight: bold; transition: 0.3s;
+            background: rgba(13, 17, 23, 0.6); color: var(--kali); cursor: pointer; font-weight: bold; transition: 0.3s;
         }
         .btn-gold { border-color: var(--gold); color: var(--gold); }
         .btn:hover { background: var(--kali); color: white; }
         .btn-gold:hover { background: var(--gold); color: black; }
 
-        /* ستايل الفلسفة والتحذيرات */
         .philosophy-card {
             background: rgba(13, 17, 23, 0.8);
             border: 1px solid #30363d;
             border-right: 4px solid var(--gold);
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 8px;
+            padding: 15px; margin-bottom: 15px; border-radius: 8px;
         }
         .warning-item {
-            color: var(--danger);
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            color: var(--danger); font-weight: bold; margin-bottom: 10px;
+            display: flex; align-items: center; gap: 10px;
         }
 
         #toolsSection { display: none; width: 100%; flex-direction: column; align-items: center; }
@@ -90,19 +89,31 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; 
             padding: 20px; margin-bottom: 100px;
         }
-        .card { background: var(--panel); border-radius: 12px; padding: 25px; border: 1px solid #30363d; border-right: 5px solid var(--kali); }
+        .card { background: rgba(13, 17, 23, 0.9); border-radius: 12px; padding: 25px; border: 1px solid #30363d; border-right: 5px solid var(--kali); }
         
         .modal { display: none; position: fixed; z-index: 4000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); }
         .modal-content { background: var(--panel); margin: 10% auto; padding: 30px; border: 1px solid var(--gold); width: 85%; max-width: 600px; border-radius: 15px; }
         .code-box { background: var(--code-bg); color: #4ade80; padding: 15px; border-radius: 8px; font-family: monospace; direction: ltr; text-align: left; overflow-x: auto; }
+
+        #voice-indicator {
+            display: none; position: fixed; top: 20px; right: 20px; 
+            background: rgba(33, 139, 255, 0.2); padding: 10px 20px; 
+            border-radius: 30px; border: 1px solid var(--kali); z-index: 9999;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; }
+        }
     </style>
 </head>
 <body>
 
+    <div id="cyber-map"><canvas id="mapCanvas"></canvas></div>
+    <div id="voice-indicator">🔊 System: Greeting User...</div>
+
     <button onclick="topFunction()" id="scrollTopBtn">▲</button>
     <div class="overlay" id="overlay" onclick="closeAll()"></div>
 
-    <!-- السايد بار الأيمن -->
     <div class="sidebar sidebar-right" id="sbRight">
         <div style="padding:25px;">
             <h2 style="color:var(--kali)">📚 الموسوعة الأمنية</h2>
@@ -112,30 +123,19 @@
         </div>
     </div>
 
-    <!-- السايد بار الأيسر: ماذا لو كنت رضا (التحديث الجديد) -->
     <div class="sidebar sidebar-left" id="sbLeft">
         <div style="padding:25px;">
             <h2 style="color:var(--gold); text-shadow: 0 0 10px var(--gold);">👑 فلسفة المطور رضا</h2>
             <p style="font-style: italic; color: #8b949e; font-size: 0.9rem;">"القوة لا تكمن في كسر الأنظمة، بل في القدرة على بنائها وحمايتها."</p>
-            
             <div class="philosophy-card">
                 <h4 style="margin:0 0 10px 0; color:var(--kali);">🛡️ المبدأ الأول: الأمان</h4>
                 <p style="font-size: 0.85rem; margin:0;">الوصول ليس غاية، بل مسؤولية. تذكر أن كل ثغرة تكتشفها هي أمان لشخص آخر إذا أصلحتها.</p>
             </div>
-
-            <div class="philosophy-card">
-                <h4 style="margin:0 0 10px 0; color:var(--kali);">👁️ المبدأ الثاني: الشبح</h4>
-                <p style="font-size: 0.85rem; margin:0;">المطور الحقيقي هو من يترك النظام أفضل مما وجده، دون أن يشعر أحد بوجوده (Zero Trace).</p>
-            </div>
-
             <div style="margin-top:30px;">
                 <h3 style="color:var(--danger);">🛑 تحذيرات المنطقة الحمراء:</h3>
                 <div class="warning-item">⚠️ لا اختراق بدون مختبر معزول.</div>
                 <div class="warning-item">⚠️ البيانات الشخصية خط أحمر مقدس.</div>
-                <div class="warning-item">⚠️ الغرور هو أول ثغرة في جدار حمايتك.</div>
-                <div class="warning-item">⚠️ أدواتك سلاح، لا توجهه لصدر الضعفاء.</div>
             </div>
-
             <button class="btn btn-gold" onclick="closeAll()" style="width:100%; margin-top:40px;">إغلاق البروتوكول</button>
         </div>
     </div>
@@ -152,33 +152,25 @@
         <button class="btn" onclick="toggleSide('Left')">👑 ماذا لو كنت رضا؟</button>
     </div>
 
-    <!-- قسم الأدوات -->
     <div id="toolsSection">
         <div class="back-nav">
             <button class="btn btn-gold" onclick="toggleTools()">🔙 العودة للرئيسية</button>
         </div>
         <div id="toolsGrid">
-            <!-- الأدوات مكررة بتنسيق الأزرار -->
             <div class="card"><div><span class="tag">System</span><h3>1. Fork Bomb</h3></div><button class="btn btn-gold" onclick="showInfo('Fork Bomb', 'شل النظام عبر استهلاك العمليات.', ':(){ :|:& };:')">تفاصيل</button></div>
             <div class="card"><div><span class="tag">Network</span><h3>2. SYN Flood</h3></div><button class="btn btn-gold" onclick="showInfo('SYN Flood', 'هجوم تعطيل الخدمة SYN.', 'sudo hping3 -S --flood -p 80 [IP]')">تفاصيل</button></div>
-            <div class="card"><div><span class="tag">MITM</span><h3>3. ARP Poisoning</h3></div><button class="btn btn-gold" onclick="showInfo('ARP Poisoning', 'اعتراض البيانات في الشبكة.', 'bettercap -eval \"set arp.spoof on\"')">تفاصيل</button></div>
-            <div class="card"><div><span class="tag">WiFi</span><h3>4. Deauth</h3></div><button class="btn btn-gold" onclick="showInfo('Deauth', 'فصل الأجهزة عن الواي فاي.', 'aireplay-ng --deauth 0 -a [BSSID] wlan0mon')">تفاصيل</button></div>
             <div class="card"><div><span class="tag">Payload</span><h3>5. Msfvenom</h3></div><button class="btn btn-gold" onclick="showInfo('Msfvenom', 'صناعة منافذ خلفية.', 'msfvenom -p windows/x64/meterpreter')">تفاصيل</button></div>
             <div class="card"><div><span class="tag">Web</span><h3>6. SQL Map</h3></div><button class="btn btn-gold" onclick="showInfo('SQL Map', 'حقن قواعد البيانات.', 'sqlmap -u [URL]')">تفاصيل</button></div>
-            <div class="card"><div><span class="tag">Spoof</span><h3>7. DNS Spoof</h3></div><button class="btn btn-gold" onclick="showInfo('DNS Spoof', 'تزييف نطاقات المواقع.', 'dns.spoof on')">تفاصيل</button></div>
             <div class="card"><div><span class="tag">Crack</span><h3>8. Hydra</h3></div><button class="btn btn-gold" onclick="showInfo('Hydra', 'تخمين كلمات السر.', 'hydra -l user -P pass.txt')">تفاصيل</button></div>
             <div class="card"><div><span class="tag">Search</span><h3>9. Searchsploit</h3></div><button class="btn btn-gold" onclick="showInfo('Searchsploit', 'البحث عن ثغرات.', 'searchsploit apache')">تفاصيل</button></div>
-            <div class="card"><div><span class="tag">Isolation</span><h3>10. Chroot</h3></div><button class="btn btn-gold" onclick="showInfo('Chroot', 'تغيير جذر النظام.', 'sudo chroot /mnt')">تفاصيل</button></div>
         </div>
     </div>
 
-    <!-- Modal -->
     <div id="infoModal" class="modal">
         <div class="modal-content">
             <span style="color:var(--text); float:left; cursor:pointer; font-size:25px;" onclick="closeModal()">×</span>
             <h2 id="modalTitle" style="color:var(--kali)"></h2>
             <div style="background:rgba(33,139,255,0.1); padding:15px; border-radius:8px; margin:15px 0;">
-                <b>🔬 الوصف التقني:</b>
                 <p id="modalDesc"></p>
             </div>
             <div class="code-box" id="modalCode"></div>
@@ -186,6 +178,64 @@
     </div>
 
     <script>
+        // التنبيه المسبق للأصوات
+        window.speechSynthesis.getVoices();
+
+        // منطق الخلفية
+        const canvas = document.getElementById('mapCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let points = [];
+        for (let i = 0; i < 70; i++) {
+            points.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, vx: (Math.random() - 0.5) * 1.2, vy: (Math.random() - 0.5) * 1.2 });
+        }
+        function drawMap() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = '#218bff22'; ctx.fillStyle = '#f2cc6088';
+            points.forEach(p => {
+                p.x += p.vx; p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                ctx.beginPath(); ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2); ctx.fill();
+                points.forEach(p2 => {
+                    let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 120) { ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke(); }
+                });
+            });
+            requestAnimationFrame(drawMap);
+        }
+        drawMap();
+
+        // منطق الترحيب المحدث
+        function welcomeVoice() {
+            const indicator = document.getElementById('voice-indicator');
+            if(indicator) indicator.style.display = 'block';
+
+            // تصفية أي أوامر سابقة لضمان الاستجابة
+            window.speechSynthesis.cancel();
+
+            const msg = new SpeechSynthesisUtterance();
+            msg.text = "أهلاً بك في موقع المطور رضا.. بروتوكولات الحماية نشطة الآن";
+            msg.lang = 'ar-SA';
+            msg.rate = 0.85;
+
+            msg.onend = () => { 
+                if(indicator) setTimeout(() => { indicator.style.display = 'none'; }, 1000); 
+            };
+
+            window.speechSynthesis.speak(msg);
+        }
+
+        // استخدام mousedown لسرعة التقاط التفاعل الأول
+        document.addEventListener('mousedown', () => {
+            if (!window.hasWelcomed) { 
+                welcomeVoice(); 
+                window.hasWelcomed = true; 
+            }
+        }, { once: true });
+
+        // الوظائف الأساسية
         function toggleSide(side) {
             closeAll();
             document.getElementById('sb' + side).classList.add('active');
@@ -196,15 +246,9 @@
             document.getElementById('overlay').classList.remove('active');
         }
         function toggleTools() {
-            const section = document.getElementById('toolsSection');
-            const nav = document.getElementById('mainNav');
-            if (section.style.display === 'flex') {
-                section.style.display = 'none';
-                nav.style.display = 'flex';
-            } else {
-                section.style.display = 'flex';
-                nav.style.display = 'none';
-            }
+            const section = document.getElementById('toolsSection'), nav = document.getElementById('mainNav');
+            if (section.style.display === 'flex') { section.style.display = 'none'; nav.style.display = 'flex'; }
+            else { section.style.display = 'flex'; nav.style.display = 'none'; }
         }
         function showInfo(title, desc, code) {
             document.getElementById('modalTitle').innerText = title;
@@ -216,7 +260,7 @@
         function topFunction() { window.scrollTo({top: 0, behavior: 'smooth'}); }
         window.onscroll = function() {
             let btn = document.getElementById("scrollTopBtn");
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) btn.style.display = "block";
+            if (document.documentElement.scrollTop > 300) btn.style.display = "block";
             else btn.style.display = "none";
         };
     </script>
